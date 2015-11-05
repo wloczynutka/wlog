@@ -1,6 +1,13 @@
 Wlog
 ========================
 
+
+nowy user:
+http://wlog.loc/register
+
+log-in
+http://wlog.loc/login
+
 Welcome to the Wlog on Symfony Standard Edition
 
 What's inside?
