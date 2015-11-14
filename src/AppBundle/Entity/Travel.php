@@ -23,21 +23,18 @@ class Travel
 
     /**
      * @var \DateTime
-     *
      * @ORM\Column(name="startDateTime", type="datetime")
      */
     private $startDateTime;
 
     /**
      * @var \DateTime
-     *
      * @ORM\Column(name="endDateTime", type="datetime")
      */
     private $endDateTime;
 
     /**
      * @var string
-     *
      * @ORM\Column(name="name", type="string", length=255)
      */
     private $name;

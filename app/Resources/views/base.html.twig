@@ -2,11 +2,42 @@
 <html>
     <head>
         <meta charset="UTF-8" />
-        <title>{% block title %}Welcome!{% endblock %}</title>
+        <title>{% block title %}Włóczynutka{% endblock %}</title>
         {% block stylesheets %}{% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+        <style>
+            body { background: #014201; font: 18px/1.5 sans-serif; color: #F5F5F5}
+            #userMenu {
+                width: 50%;
+                float: right;
+                display: inline
+            }
+            #mainMenu{
+               display: inline;
+               float: left;
+            }
+            #menuWrapper {
+                display: block;
+                background: #73AD21;
+                padding: 20px;
+                height: 30px;
+            }
+        </style>
     </head>
     <body>
+        <div id="menuWrapper">
+            <div id="mainMenu">
+                Menu: <a href="newplace">new travel</a>
+            </div>
+            <div id="userMenu">
+                {% if user %} 
+                    {{user.username}}: <a href="logout">logout</a>
+                {% else %}
+                    <a href="login">log-in</a> <a href="http://wlog.loc/register">new user</a>
+                {% endif %}
+            </div>
+        </div>
+        
         {% block body %}{% endblock %}
         {% block javascripts %}{% endblock %}
     </body>
