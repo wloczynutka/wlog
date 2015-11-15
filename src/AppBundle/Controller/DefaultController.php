@@ -6,7 +6,9 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use \AppBundle\Entity\Travel;
+use \AppBundle\Entity\Place;
 use \AppBundle\Form\TravelType;
+use \AppBundle\Form\PlaceType;
 
 class DefaultController extends Controller
 {
@@ -46,7 +48,9 @@ class DefaultController extends Controller
             ->find($travelId);
 
 
-        d($travel);
+        $places = $travel->getPlaces();
+
+        d($travel, $places);
 
 
         // replace this example code with whatever you need
@@ -57,9 +61,72 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("/newplace", name="newplace")
+     * @Route("/addplace/{travelId}", name="addplace")
      */
-    public function newplaceAction(Request $request)
+    public function addplaceAction(Request $request, $travelId)
+    {
+        
+
+
+        $this->checkLoggedUser();
+        $travel = $this->getDoctrine()
+            ->getRepository('AppBundle:Travel')
+            ->find($travelId);
+        $place = $this->loadOrCreatePlace($request, $travel);
+
+
+
+
+
+        d($travel);
+
+
+
+
+
+
+        $form = $this->createForm(new PlaceType(), $place);
+        $form->handleRequest($request);
+
+        if ($form->isValid()) {
+            $travel->addPlace($place);
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($travel);
+            $em->persist($place);
+            $em->flush();
+//            return $this->redirectToRoute('task_success');
+        } else {
+            d('form not validated');
+        }
+
+        return $this->render('default/addplace.html.twig', array(
+            'user' => $this->user,
+            'travel' => $travel,
+            'form' => $form->createView(),
+        ));
+    }
+
+
+    private function loadOrCreatePlace($request, $travel)
+    {
+        $placeId = $request->query->get('placeId');
+        if($placeId !== null){
+            foreach ($travel->getPlaces() as $travelPlace) {
+                if($travelPlace->getId() == $placeId){
+                    $place = $travelPlace;
+                    break;
+                }
+            }
+        } else {
+            $place = new Place();
+        }
+        return $place->setTravelId($travel);
+    }
+
+    /**
+     * @Route("/newtravel", name="newtravel")
+     */
+    public function newtravelAction(Request $request)
     {
         $this->checkLoggedUser();
         $travel = new Travel();
@@ -68,13 +135,7 @@ class DefaultController extends Controller
         $travel->setEndDateTime(new \DateTime());
 
         $form = $this->createForm(new TravelType(), $travel);
-
-
-//        var_dump($form, $request);
         $form->handleRequest($request);
-
-
-
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
@@ -91,10 +152,6 @@ class DefaultController extends Controller
             'form' => $form->createView(),
         ));
 
-        // replace this example code with whatever you need
-//        return $this->render('default/index.html.twig', array(
-//            'base_dir' => realpath($this->container->getParameter('kernel.root_dir').'/..'),
-//        ));
     }
 
     private function checkLoggedUser()

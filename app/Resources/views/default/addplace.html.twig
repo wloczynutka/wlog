@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block javascripts %}
+    <script src="{{ asset('js/dropzone.js') }}"></script>
+{% endblock %}
+
+{% block body %}
+
+
+
+<form action="/uploadphoto" class="dropzone" id="my-awesome-dropzone"></form>
+
+{{ form_start(form) }}
+{{ form_widget(form) }}
+{{ form_end(form) }}
+
+{% endblock %}

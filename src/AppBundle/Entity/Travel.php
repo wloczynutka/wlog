@@ -39,6 +39,16 @@ class Travel
      */
     private $name;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Place", mappedBy="travelId")
+     */
+	private $places;
+
+    public function __construct()
+    {
+        $this->places = new ArrayCollection();
+
+    }
 
     /**
      * Get id
@@ -121,5 +131,37 @@ class Travel
     {
         return $this->name;
     }
+
+   /**
+     * Add descriptions
+     *
+     * @param Place $place
+     * @return Travel
+     */
+    public function addPlace(Place $place)
+    {
+        $this->places[] = $place;
+        return $this;
+    }
+
+    /**
+     * Remove place
+     * @param Place $place
+     */
+    public function removePlace(Place $place)
+    {
+        $this->descriptions->removeElement($place);
+    }
+
+    /**
+     * Get descriptions
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getPlaces()
+    {
+        return $this->places;
+    }
+
 }
 
