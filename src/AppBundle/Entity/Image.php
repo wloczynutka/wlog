@@ -22,6 +22,18 @@ class Image
     private $id;
 
     /**
+     * @var string
+     * @ORM\Column(name="storeFolder", type="string", length=100, nullable=true)
+     */
+    private $storeFolder;
+
+    /**
+     * @var string
+     * @ORM\Column(name="fileExtension", type="string", length=4, nullable=true)
+     */
+    private $fileExtension;
+
+    /**
      * @var integer
      * @ORM\ManyToOne(targetEntity="Place", inversedBy="images")
      * @ORM\JoinColumn(name="placeId", referencedColumnName="id")
@@ -30,7 +42,6 @@ class Image
 
     /**
      * @var string
-     *
      * @ORM\Column(name="name", type="string", length=100, nullable=true)
      */
     private $name;
@@ -174,12 +185,36 @@ class Image
 
     /**
      * Get uploadDateTime
-     *
      * @return \DateTime
      */
     public function getUploadDateTime()
     {
         return $this->uploadDateTime;
     }
+
+    public function getStoreFolder()
+    {
+        return $this->storeFolder;
+    }
+
+    public function setStoreFolder($storeFolder)
+    {
+        $this->storeFolder = $storeFolder;
+        return $this;
+    }
+    
+    public function getFileExtension()
+    {
+        return $this->fileExtension;
+    }
+
+    public function setFileExtension($fileExtension)
+    {
+        $this->fileExtension = $fileExtension;
+        return $this;
+    }
+
+
+
 }
 

@@ -6,9 +6,9 @@
 {% block title %}{{ parent() }}: {{place.name}} - edit{% endblock %}
 {% block body %}
 
-
-
-<form action="{{ url('uploadphoto', { 'placeId': place.id, 'travelId': travel.id }) }}" class="dropzone" id="my-awesome-dropzone"></form>
+{% if place.id != null %}
+    <form action="{{ url('uploadphoto', { 'placeId': place.id, 'travelId': travel.id }) }}" class="dropzone" id="my-awesome-dropzone"></form>
+{% endif %}
 
 {{ form_start(form) }}
 {{ form_widget(form) }}

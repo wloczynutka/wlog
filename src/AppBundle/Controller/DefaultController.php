@@ -68,12 +68,12 @@ class DefaultController extends Controller
         $form = $this->createForm(new PlaceType(), $place);
         $form->handleRequest($request);
         if ($form->isValid()) {
-            $travel->addPlace($place);
             $em = $this->getDoctrine()->getManager();
             $em->persist($travel);
             $em->persist($place);
+            $travel->addPlace($place);
             $em->flush();
-//            return $this->redirectToRoute('task_success');
+//            return $this->redirectToRoute('viewtravel/2');
         } else {
             d('form not validated');
         }
@@ -150,7 +150,8 @@ class DefaultController extends Controller
     {
         $travel = $this->loadTravelById($request->query->get('travelId'));
         $place = $this->loadOrCreatePlace($request, $travel);
-        $storeFolder = __DIR__. '/../../../web/uploaded_images/';
+        $storeFolder = 'uploaded_images';
+        $destinationPath = __DIR__. '/../../../web/'.$storeFolder.'/';
         if (!empty($_FILES)) {
             $image = new Image();
             $image->setPlaceId($place);
@@ -158,11 +159,14 @@ class DefaultController extends Controller
             $em->persist($image);
 
             $tempFile = $_FILES['file']['tmp_name'];
-            $targetFile =  $storeFolder. $image->getId();
-
-            $exifData = exif_read_data ($tempFile);
+            $pathParts = pathinfo($_FILES["file"]["name"]);
+            $fileExtension = strtolower($pathParts['extension']);
+            $targetFile =  $destinationPath. $image->getId().'.'.$fileExtension;
+            $exifData = exif_read_data($tempFile);
             $image->setTakenDateTime(new \DateTime($exifData['DateTimeOriginal']))
                 ->setUploadDateTime(new \DateTime())
+                ->setStoreFolder($storeFolder)
+                ->setFileExtension($fileExtension)
                 ->setName($place->getName());
             move_uploaded_file($tempFile,$targetFile);
             $em->flush();
