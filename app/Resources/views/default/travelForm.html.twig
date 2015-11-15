@@ -1,7 +1,5 @@
-{# app/Resources/views/default/travelForm.html.twig #}
-
 {% extends 'base.html.twig' %}
-
+{% block title %}{{ parent() }}: {{travel.name}} - edit{% endblock %}
 {% block body %}
 
 {{ form_start(form) }}

@@ -27,7 +27,7 @@
     <body>
         <div id="menuWrapper">
             <div id="mainMenu">
-                Menu: <a href="newtravel">new travel</a>
+                Menu: <a href="{{ url('homepage') }}">Centrum wszechświata</a> | <a href="{{ url('newtravel') }}">new travel</a>
             </div>
             <div id="userMenu">
                 {% if user %} 

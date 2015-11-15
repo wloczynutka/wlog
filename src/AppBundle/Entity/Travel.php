@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Travel
@@ -150,7 +151,7 @@ class Travel
      */
     public function removePlace(Place $place)
     {
-        $this->descriptions->removeElement($place);
+        $this->places->removeElement($place);
     }
 
     /**

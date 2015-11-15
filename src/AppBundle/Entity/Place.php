@@ -76,6 +76,11 @@ class Place
      */
     private $description;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Image", mappedBy="placeId")
+     */
+    private $images;
+
 
     /**
      * Get id
@@ -276,6 +281,36 @@ class Place
         return $this;
     }
 
+   /**
+     * Add images
+     *
+     * @param Image $image
+     * @return Place
+     */
+    public function addImage(Image $image)
+    {
+        $this->images[] = $image;
+        return $this;
+    }
+
+    /**
+     * Remove place
+     * @param Image $image
+     */
+    public function removePlace(Image $image)
+    {
+        $this->images->removeElement($image);
+    }
+
+    /**
+     * Get images
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getImages()
+    {
+        return $this->images;
+    }
 
 }
 

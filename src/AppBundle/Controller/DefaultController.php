@@ -9,6 +9,7 @@ use \AppBundle\Entity\Travel;
 use \AppBundle\Entity\Place;
 use \AppBundle\Form\TravelType;
 use \AppBundle\Form\PlaceType;
+use \AppBundle\Entity\Image;
 
 class DefaultController extends Controller
 {
@@ -43,11 +44,7 @@ class DefaultController extends Controller
     public function viewtravelAction($travelId)
     {
         $this->checkLoggedUser();
-        $travel = $this->getDoctrine()
-            ->getRepository('AppBundle:Travel')
-            ->find($travelId);
-
-
+        $travel = $this->loadTravelById($travelId);
         $places = $travel->getPlaces();
 
         d($travel, $places);
@@ -65,29 +62,11 @@ class DefaultController extends Controller
      */
     public function addplaceAction(Request $request, $travelId)
     {
-        
-
-
         $this->checkLoggedUser();
-        $travel = $this->getDoctrine()
-            ->getRepository('AppBundle:Travel')
-            ->find($travelId);
+        $travel = $this->loadTravelById($travelId);
         $place = $this->loadOrCreatePlace($request, $travel);
-
-
-
-
-
-        d($travel);
-
-
-
-
-
-
         $form = $this->createForm(new PlaceType(), $place);
         $form->handleRequest($request);
-
         if ($form->isValid()) {
             $travel->addPlace($place);
             $em = $this->getDoctrine()->getManager();
@@ -102,10 +81,19 @@ class DefaultController extends Controller
         return $this->render('default/addplace.html.twig', array(
             'user' => $this->user,
             'travel' => $travel,
+            'place' => $place,
             'form' => $form->createView(),
         ));
     }
 
+    private function loadTravelById($travelId)
+    {
+        $travel = $this->getDoctrine()
+            ->getRepository('AppBundle:Travel')
+            ->find($travelId)
+        ;
+        return $travel;
+    }
 
     private function loadOrCreatePlace($request, $travel)
     {
@@ -141,19 +129,60 @@ class DefaultController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($travel);
             $em->flush();
-//            return $this->redirectToRoute('task_success');
+            return $this->redirectToRoute('/viewtravel/'.$travel->getId());
         } else {
-            d('form not validated');
+//            d('form not validated');
         }
 
 
         return $this->render('default/travelForm.html.twig', array(
             'user' => $this->user,
             'form' => $form->createView(),
+            'travel' => $travel,
         ));
 
     }
+    
+    /**
+     * @Route("/uploadphoto", name="uploadphoto")
+     */
+    public function uploadphotoAction(Request $request)
+    {
+        $travel = $this->loadTravelById($request->query->get('travelId'));
+        $place = $this->loadOrCreatePlace($request, $travel);
+        $storeFolder = __DIR__. '/../../../web/uploaded_images/';
+        if (!empty($_FILES)) {
+            $image = new Image();
+            $image->setPlaceId($place);
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($image);
 
+            $tempFile = $_FILES['file']['tmp_name'];
+            $targetFile =  $storeFolder. $image->getId();
+
+            $exifData = exif_read_data ($tempFile);
+            $image->setTakenDateTime(new \DateTime($exifData['DateTimeOriginal']))
+                ->setUploadDateTime(new \DateTime())
+                ->setName($place->getName());
+            move_uploaded_file($tempFile,$targetFile);
+            $em->flush();
+        } else {
+            $targetFile = 'error';
+        }
+        return $this->render('default/dropzone.html.twig', array(
+            'result' => $targetFile,
+        ));
+    }    
+   
+    /**
+     * @Route("/test", name="test")
+     */
+    public function testAction()
+    {
+        $ud = $this->getUploadRootDir();
+        ddd($ud);
+    }
+    
     private function checkLoggedUser()
     {
         if ( $this->get('security.context')->isGranted('ROLE_USER')) {

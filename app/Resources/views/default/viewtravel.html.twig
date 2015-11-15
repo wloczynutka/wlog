@@ -1,5 +1,5 @@
 {% extends 'base.html.twig' %}
-
+{% block title %}{{ parent() }}: {{travel.name}}{% endblock %}
 {% block body %}
 
     <p><a href="{{ url('addplace', { 'travelId': travel.id }) }}">Add Place</a>
