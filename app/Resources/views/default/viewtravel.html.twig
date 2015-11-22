@@ -14,49 +14,4 @@ return: {{travel.endDateTime.date}}<br/>
       <a href="{{ url('addplace', { 'travelId': travel.id, 'placeId': place.id }) }}">edit</a>{{ place.visitDateTime.date }}:  {{ place.name }} <br />
 {% endfor %}
 
- <div id="map" style="height: 350px; width: 350px;"></div>
-
-
-<script>
-var map;
-function initMap() {
-  var myLatLng = {lat: {{travel.places.0.latitude}}, lng: {{travel.places.0.longitude}} };
-  map = new google.maps.Map(document.getElementById('map'), {
-    center: myLatLng,
-    zoom: 5
-  });
-
-var bounds = new google.maps.LatLngBounds();
-
-{% for place in travel.places %}
-var marker = new google.maps.Marker({
-    position: {lat: {{ place.latitude }}, lng: {{ place.longitude }}},
-    map: map,
-    title: '{{ place.name }}'
-});
-
-//extend the bounds to include each marker's position
-bounds.extend(marker.position);
-  
-
-
-{% endfor %}
-
-map.fitBounds(bounds);
-
-var listener = google.maps.event.addListener(map, "idle", function () {
-    map.setZoom(5);
-    google.maps.event.removeListener(listener);
-});
-
-}
-
-
-</script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyATSGENsC-upPYiCoAJkDepgzO6SxmNM6Q&callback=initMap" async defer></script>
-
-
-
-
-
 {% endblock %}

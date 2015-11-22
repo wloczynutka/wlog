@@ -27,13 +27,18 @@
     <body>
         <div id="menuWrapper">
             <div id="mainMenu">
-                Menu: <a href="{{ url('homepage') }}">Centrum wszechświata</a> | <a href="{{ url('newtravel') }}">new travel</a>
+                Menu: <a href="{{ url('homepage') }}">Centrum wszechświata</a> | 
+				
+				{% if user != null %}
+					<a href="{{ url('newtravel') }}">new travel</a>
+				{% endif %}
+
             </div>
             <div id="userMenu">
                 {% if user %} 
-                    {{user.username}}: <a href="logout">logout</a>
+                    {{user.username}}: <a href="{{ url('fos_user_security_logout') }}">logout</a>
                 {% else %}
-                    <a href="login">log-in</a> <a href="http://wlog.loc/register">new user</a>
+                    <a href="{{ url('fos_user_security_login') }}">log-in</a> <a href="{{ url('fos_user_registration_register') }}">new user</a>
                 {% endif %}
             </div>
         </div>

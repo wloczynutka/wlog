@@ -117,29 +117,34 @@ class DefaultController extends Controller
     public function newtravelAction(Request $request)
     {
         $this->checkLoggedUser();
-        $travel = new Travel();
-        $travel->setName('temp travel name');
-        $travel->setStartDateTime(new \DateTime());
-        $travel->setEndDateTime(new \DateTime());
 
-        $form = $this->createForm(new TravelType(), $travel);
-        $form->handleRequest($request);
+		if(!$this->isUserLoggedIn){
+			return $this->returnErrorPage('you must be logged in');
+		}
 
-        if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($travel);
-            $em->flush();
-            return $this->redirectToRoute('/viewtravel/'.$travel->getId());
-        } else {
+		$travel = new Travel();
+		$travel->setName('temp travel name');
+		$travel->setStartDateTime(new \DateTime());
+		$travel->setEndDateTime(new \DateTime());
+
+		$form = $this->createForm(new TravelType(), $travel);
+		$form->handleRequest($request);
+
+		if ($form->isValid()) {
+			$em = $this->getDoctrine()->getManager();
+			$em->persist($travel);
+			$em->flush();
+			return $this->redirectToRoute('/viewtravel/'.$travel->getId());
+		} else {
 //            d('form not validated');
-        }
+		}
+		return $this->render('default/travelForm.html.twig', array(
+			'user' => $this->user,
+			'form' => $form->createView(),
+			'travel' => $travel,
+		));
 
 
-        return $this->render('default/travelForm.html.twig', array(
-            'user' => $this->user,
-            'form' => $form->createView(),
-            'travel' => $travel,
-        ));
 
     }
     
@@ -194,5 +199,13 @@ class DefaultController extends Controller
             $this->user = $this->get('security.context')->getToken()->getUser();
         }
     }
+
+	private function returnErrorPage($errorMessage)
+	{
+		return $this->render('default/error.html.twig', array(
+			'user' => $this->user,
+			'error' => $errorMessage,
+		));
+	}
 
 }
