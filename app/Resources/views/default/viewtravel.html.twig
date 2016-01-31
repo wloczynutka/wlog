@@ -2,7 +2,9 @@
 {% block title %}{{ parent() }}: {{travel.name}}{% endblock %}
 {% block body %}
 
+{% if user != null %}
     <p><a href="{{ url('addplace', { 'travelId': travel.id }) }}">Add Place</a>
+{% endif %}
 
     </p>
 
@@ -11,7 +13,10 @@ depart: {{travel.startDateTime.date}} <br/>
 return: {{travel.endDateTime.date}}<br/>
 
 {% for place in travel.places %}
-      <a href="{{ url('addplace', { 'travelId': travel.id, 'placeId': place.id }) }}">edit</a>{{ place.visitDateTime.date }}:  {{ place.name }} <br />
+        {% if user != null %}
+            <a href="{{ url('addplace', { 'travelId': travel.id, 'placeId': place.id }) }}">edit</a>
+        {% endif %}
+      {{ place.visitDateTime.date }}:  {{ place.name }} <br />
 {% endfor %}
 
 {% endblock %}

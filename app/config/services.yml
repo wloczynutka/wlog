@@ -4,6 +4,13 @@ parameters:
 #    parameter_name: value
 
 services:
+    fos_user.doctrine_registry:
+        alias: doctrine
+
+#    image_engine:
+#        class: AppBundle\Engines\ImageEngine
+#        arguments: [ @doctrine.orm.entity_manager ]
+
 #    service_name:
 #        class: AppBundle\Directory\ClassName
 #        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]

@@ -9,7 +9,10 @@ use \AppBundle\Entity\Travel;
 use \AppBundle\Entity\Place;
 use \AppBundle\Form\TravelType;
 use \AppBundle\Form\PlaceType;
-use \AppBundle\Entity\Image;
+use \AppBundle\Engines\ImageEngine;
+
+use Symfony\Component\Stopwatch\Stopwatch;
+
 
 class DefaultController extends Controller
 {
@@ -43,12 +46,25 @@ class DefaultController extends Controller
      */
     public function viewtravelAction($travelId)
     {
+
+
+
+
+$stopwatch = new Stopwatch();
+
+// Start event named 'eventName'
+$stopwatch->start('user');
         $this->checkLoggedUser();
+$event = $stopwatch->stop('user');
+
+$stopwatch->start('travel');
         $travel = $this->loadTravelById($travelId);
+$event = $stopwatch->stop('travel');
+
         $places = $travel->getPlaces();
 
-        d($travel, $places);
-
+        // d($travel, $places);
+      d($event->getPeriods());
 
         // replace this example code with whatever you need
         return $this->render('default/viewtravel.html.twig', array(
@@ -155,29 +171,12 @@ class DefaultController extends Controller
     {
         $travel = $this->loadTravelById($request->query->get('travelId'));
         $place = $this->loadOrCreatePlace($request, $travel);
-        $storeFolder = 'uploaded_images';
-        $destinationPath = __DIR__. '/../../../web/'.$storeFolder.'/';
-        if (!empty($_FILES)) {
-            $image = new Image();
-            $image->setPlaceId($place);
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($image);
 
-            $tempFile = $_FILES['file']['tmp_name'];
-            $pathParts = pathinfo($_FILES["file"]["name"]);
-            $fileExtension = strtolower($pathParts['extension']);
-            $targetFile =  $destinationPath. $image->getId().'.'.$fileExtension;
-            $exifData = exif_read_data($tempFile);
-            $image->setTakenDateTime(new \DateTime($exifData['DateTimeOriginal']))
-                ->setUploadDateTime(new \DateTime())
-                ->setStoreFolder($storeFolder)
-                ->setFileExtension($fileExtension)
-                ->setName($place->getName());
-            move_uploaded_file($tempFile,$targetFile);
-            $em->flush();
-        } else {
-            $targetFile = 'error';
-        }
+
+
+        $imageEngine = new ImageEngine($this->getDoctrine()->getManager());
+        $targetFile = $imageEngine->uploadImage($place);
+
         return $this->render('default/dropzone.html.twig', array(
             'result' => $targetFile,
         ));
