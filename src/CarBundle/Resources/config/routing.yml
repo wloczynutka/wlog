@@ -1,3 +1,6 @@
 car_homepage:
-    path:     /show/{carId}
+    path:     /car/show/{carId}
     defaults: { _controller: CarBundle:Default:index }
+car_add_fuelling:
+    path:     /car/fueling/{carId}
+    defaults: { _controller: CarBundle:Default:addFueling }

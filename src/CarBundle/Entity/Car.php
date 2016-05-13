@@ -4,6 +4,7 @@ namespace CarBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
+use CarBundle\Entity\CarDictionaryMake;
 
 /**
  * Car
@@ -23,11 +24,17 @@ class Car
     private $id;
 
     /**
-     * @var integer
+     * var integer
      *
+     * @ORM\ManyToOne(targetEntity="CarDictionaryMake")
      * @ORM\Column(name="make", type="integer")
      */
     private $make;
+
+    /**
+     * ORM\JoinColumn(name="make_id", referencedColumnName="id")
+     */
+//    private $carDictionaryMake;
 
     /**
      * @var integer
@@ -69,9 +76,18 @@ class Car
      */
     private $costs;
 
+	/**
+     * @ORM\OneToMany(targetEntity="CarFueling", mappedBy="car")
+
+     */
+    private $fueling;
+
+	private $allCostAmount = 0;
+
     public function __construct()
     {
         $this->costs = new ArrayCollection();
+        $this->fueling = new ArrayCollection();
     }
 
     /**
@@ -229,7 +245,7 @@ class Car
     }
 
    /**
-     * Add descriptions
+     * Add Costs
      *
      * @param CarCost $cost
      * @return Car
@@ -241,7 +257,7 @@ class Car
     }
 
     /**
-     * Remove place
+     * Remove Costs
      * @param CarCost $cost
      */
     public function removeCost(CarCost $cost)
@@ -250,13 +266,63 @@ class Car
     }
 
     /**
-     * Get descriptions
+     * Get Costs
      *
      * @return \Doctrine\Common\Collections\Collection
      */
     public function getCosts()
     {
         return $this->costs;
+    }
+
+
+   /**
+     * Add Fueling
+     *
+     * @param CarFueling $fueling
+     * @return Car
+     */
+    public function addFueling(CarFueling $fueling)
+    {
+        $this->fueling[] = $fueling;
+        return $this;
+    }
+
+    /**
+     * Remove Fueling
+     * @param CarFueling $fueling
+     */
+    public function removeFueling(CarFueling $fueling)
+    {
+        $this->fueling->removeElement($fueling);
+    }
+
+    /**
+     * Get Fueling
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getFuelings()
+    {
+        return $this->fueling;
+    }
+
+	public function calculateAllCosts()
+	{
+		$allCostAmount = 0;
+		/* @var $carCost CarBundle\Entity\CarCost */
+		foreach ($this->costs as $carCost) {
+			$allCostAmount += $carCost->getAmount();
+		}
+		foreach ($this->fueling as $carFueling) {
+			$allCostAmount += $carFueling->getAmount();
+		}
+		$this->allCostAmount = $allCostAmount;
+	}
+
+    public function getMakeName($param)
+    {
+
     }
 
 }

@@ -50,21 +50,13 @@ class DefaultController extends Controller
 
 
 
-$stopwatch = new Stopwatch();
-
-// Start event named 'eventName'
-$stopwatch->start('user');
         $this->checkLoggedUser();
-$event = $stopwatch->stop('user');
 
-$stopwatch->start('travel');
         $travel = $this->loadTravelById($travelId);
-$event = $stopwatch->stop('travel');
 
         $places = $travel->getPlaces();
 
-        // d($travel, $places);
-      d($event->getPeriods());
+        d($travel, $places);
 
         // replace this example code with whatever you need
         return $this->render('default/viewtravel.html.twig', array(

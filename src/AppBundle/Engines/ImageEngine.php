@@ -52,12 +52,15 @@ class ImageEngine
             $targetFileTmp = $this->destinationPath. $image->getId().'-tmp.'.$fileExtension;
             $miniatureFile = $this->destinationPath. $image->getId().'-min.'.$fileExtension;
             $exifData = exif_read_data($tempFile);
-            $image->setTakenDateTime(new \DateTime($exifData['DateTimeOriginal']))
+            $image
                 ->setUploadDateTime(new \DateTime())
                 ->setStoreFolder($this->storeFolder)
                 ->setFileExtension($fileExtension)
                 ->setName($place->getName());
 
+            if(isset($exifData['DateTimeOriginal'])){
+               $image->setTakenDateTime(new \DateTime($exifData['DateTimeOriginal']));
+            }
             /* miniature */
             move_uploaded_file($tempFile,$targetFileTmp);
             $imageResizer = new ImageResize($targetFileTmp);

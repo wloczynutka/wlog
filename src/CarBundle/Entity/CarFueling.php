@@ -22,6 +22,12 @@ class CarFueling
     private $id;
 
     /**
+     * @ORM\ManyToOne(targetEntity="Car", inversedBy="fueling")
+     * @ORM\JoinColumn(name="car_id", referencedColumnName="id")
+     */
+    private $car;
+
+    /**
      * @var \DateTime
      *
      * @ORM\Column(name="dateTime", type="datetime")
@@ -68,7 +74,7 @@ class CarFueling
      *
      * @ORM\Column(name="computerAerageConsumption", type="float")
      */
-    private $computerAerageConsumption;
+    private $averageConsumptionByComputer;
 
 
     /**
@@ -227,26 +233,43 @@ class CarFueling
 
     /**
      * Set computerAerageConsumption
-     *
-     * @param float $computerAerageConsumption
-     *
+     * @param float $averageConsumptionByComputer
      * @return CarFueling
      */
-    public function setComputerAerageConsumption($computerAerageConsumption)
+    public function setAverageConsumptionByComputer($averageConsumptionByComputer)
     {
-        $this->computerAerageConsumption = $computerAerageConsumption;
-
+		$this->averageConsumptionByComputer = $averageConsumptionByComputer;
         return $this;
     }
 
     /**
-     * Get computerAerageConsumption
-     *
+     * Get averageConsumptionByComputer
      * @return float
      */
-    public function getComputerAerageConsumption()
+    public function getAverageConsumptionByComputer()
     {
-        return $this->computerAerageConsumption;
+        return $this->averageConsumptionByComputer;
     }
+
+    /**
+     * Get Car
+     * @return CarBundle\Entity\Car
+     */
+    function getCar()
+    {
+        return $this->car;
+    }
+
+    /**
+     * Set Car
+     * @param CarBundle\Entity\Car $car
+     * @return CarCost
+     */
+    function setCar(Car $car = null)
+    {
+        $this->car = $car;
+        return $this;
+	}
+
 }
 

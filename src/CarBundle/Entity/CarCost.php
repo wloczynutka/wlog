@@ -217,13 +217,12 @@ class CarCost
 
     /**
      * Set Car
-     *
      * @param CarBundle\Entity\Car $car
-     * @return Car
+     * @return CarCost
      */
-    function setTravelId(Car $car = null)
+    function setCar(Car $car = null)
     {
-        $this->travelId = $car;
+        $this->car = $car;
         return $this;
 	}
 
