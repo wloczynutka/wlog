@@ -24,8 +24,6 @@ class Car
     private $id;
 
     /**
-     * var integer
-     *
      * @ORM\ManyToOne(targetEntity="CarDictionaryMake")
      * @ORM\Column(name="make", type="integer")
      */

@@ -10,6 +10,20 @@ use Symfony\Component\HttpFoundation\Request;
 
 class DefaultController extends Controller
 {
+    public function listAllCarsAction(Request $request)
+    {
+         $carList = $this->getDoctrine()
+            ->getRepository('CarBundle:Car')
+            ->findAll()
+        ;
+
+
+        d($carList);
+
+
+        return $this->render('CarBundle:Default:list.html.twig', ['carList' => $carList]);
+    }
+
     public function addFuelingAction(Request $request, $carId)
 	{
 		d($carId);
