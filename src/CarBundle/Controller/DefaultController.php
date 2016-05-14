@@ -6,10 +6,27 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use \CarBundle\Entity\Car;
 use CarBundle\Entity\CarFueling;
 use \CarBundle\Form\CarFuelingType;
+use \CarBundle\Form\CarType;
 use Symfony\Component\HttpFoundation\Request;
 
 class DefaultController extends Controller
 {
+    public function addCarAction(Request $request)
+    {
+		$car = new Car();
+		$form = $this->createForm(new CarType(), $car);
+		$form->handleRequest($request);
+		if ($form->isValid()) {
+			$em = $this->getDoctrine()->getManager();
+			$em->persist($car);
+			$em->flush();
+            return $this->redirectToRoute('car_show_car', ['carId' => $car->getId()]);
+		} else {
+            d('form not validated');
+		}
+		return $this->render('CarBundle:Default:addCar.html.twig', array('form' => $form->createView()));
+    }
+
     public function listAllCarsAction(Request $request)
     {
          $carList = $this->getDoctrine()
@@ -26,37 +43,33 @@ class DefaultController extends Controller
 
     public function addFuelingAction(Request $request, $carId)
 	{
-		d($carId);
-
-
+        $car = $this->loadCarById($carId);
 		$carFueling = new CarFueling();
-		$carFueling->setDateTime(new \DateTime);
-//		$carFueling->setStartDateTime(new \DateTime());
-//		$carFueling->setEndDateTime(new \DateTime());
-
-
-
+		$carFueling
+                ->setDateTime(new \DateTime)
+                ->setCar($car)
+                ->setFuelType($car->getFuel());
 		$form = $this->createForm(new CarFuelingType(), $carFueling);
 		$form->handleRequest($request);
 		if ($form->isValid()) {
 			$em = $this->getDoctrine()->getManager();
 			$em->persist($carFueling);
 			$em->flush();
-			return $this->redirectToRoute('/car/show/'.$carId);
+			return $this->redirectToRoute('car_show_car', ['carId' => $carId]);
 		} else {
-            d('form not validated');
+//            d('form not validated');
 		}
-
-
+        
 		return $this->render('CarBundle:Default:fueling.html.twig', array('form' => $form->createView()));
 	}
 
-    public function indexAction($carId)
+    public function showCarAction($carId)
     {
 		$car = $this->loadCarById($carId);
-		$costs = $car->calculateAllCosts();
+//		$costs = $car->getAllCostAmount();
+        $car->getFuelings();
 
-		d($carId, $car, $costs);
+		d($car);
         return $this->render('CarBundle:Default:car.html.twig', array('car' => $car));
     }
 

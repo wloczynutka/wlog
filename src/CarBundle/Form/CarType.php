@@ -6,7 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class CarFuelingType extends AbstractType
+class CarType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -15,13 +15,12 @@ class CarFuelingType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('dateTime')
-            ->add('litresTanked')
-            ->add('amount')
-            ->add('currency')
-            ->add('mileage')
-            ->add('fuelType')
-            ->add('averageConsumptionByComputer',  'text', array('required' => false))
+            ->add('make')
+            ->add('model')
+            ->add('user')
+            ->add('manufactureDate')
+            ->add('color')
+            ->add('fuel')
             ->add('save', 'submit', array('label' => 'Save'))
         ;
     }
@@ -32,7 +31,7 @@ class CarFuelingType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'CarBundle\Entity\CarFueling'
+            'data_class' => 'CarBundle\Entity\Car'
         ));
     }
 
@@ -41,6 +40,6 @@ class CarFuelingType extends AbstractType
      */
     public function getName()
     {
-        return 'carbundle_carfueling';
+        return 'carbundle_car';
     }
 }

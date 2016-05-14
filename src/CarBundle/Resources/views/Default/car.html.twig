@@ -1,2 +1,23 @@
-Hello {{ car.id }}!
+
+zatankowanych litrów: {{car.calculateTankedLitresVolume()}}<br/>
+
+suma kosztów paliwa: {{car.totalFuelCosts}} <br/>
+suma kosztów: {{car.allCostAmount}} <br/>
+
+<table border="1">
+    <tr>
+        <th>id.</th>
+        <th>data</th>
+        <th>licznik</th>
+        <th>litry</th>
+    </tr>
+{% for fueling in car.fuelings %}
+    <tr>
+        <td>{{ fueling.id }}</td>
+        <td>{{ fueling.dateTime.format('Y-m-d') }}</td>
+        <td>{{ fueling.Mileage }}</td>
+        <td>{{ fueling.litresTanked }}</td>
+    </tr>
+{% endfor %}
+</table>
 

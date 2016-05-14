@@ -76,16 +76,17 @@ class Car
 
 	/**
      * @ORM\OneToMany(targetEntity="CarFueling", mappedBy="car")
-
      */
-    private $fueling;
+    private $fuelings;
 
 	private $allCostAmount = 0;
+
+    private $totalFuelCosts = 0;
 
     public function __construct()
     {
         $this->costs = new ArrayCollection();
-        $this->fueling = new ArrayCollection();
+        $this->fuelings = new ArrayCollection();
     }
 
     /**
@@ -282,7 +283,7 @@ class Car
      */
     public function addFueling(CarFueling $fueling)
     {
-        $this->fueling[] = $fueling;
+        $this->fuelings[] = $fueling;
         return $this;
     }
 
@@ -292,35 +293,66 @@ class Car
      */
     public function removeFueling(CarFueling $fueling)
     {
-        $this->fueling->removeElement($fueling);
+        $this->fuelings->removeElement($fueling);
     }
 
     /**
-     * Get Fueling
+     * Get Fuelings
      *
      * @return \Doctrine\Common\Collections\Collection
      */
     public function getFuelings()
     {
-        return $this->fueling;
+        return $this->fuelings;
     }
 
-	public function calculateAllCosts()
+	private function calculateAllCosts()
 	{
 		$allCostAmount = 0;
+        
 		/* @var $carCost CarBundle\Entity\CarCost */
 		foreach ($this->costs as $carCost) {
 			$allCostAmount += $carCost->getAmount();
 		}
-		foreach ($this->fueling as $carFueling) {
-			$allCostAmount += $carFueling->getAmount();
+		foreach ($this->fuelings as $carFueling) {
+            $this->totalFuelCosts += $carFueling->getAmount();
 		}
-		$this->allCostAmount = $allCostAmount;
+		$this->allCostAmount = $allCostAmount + $this->totalFuelCosts;
 	}
 
     public function getMakeName($param)
     {
 
+    }
+
+    /**
+     *
+     * @return float
+     */
+    public function getAllCostAmount()
+    {
+        if($this->allCostAmount === 0){
+            $this->calculateAllCosts();
+        }
+        return $this->allCostAmount;
+    }
+
+    public function getTotalFuelCosts()
+    {
+        if($this->totalFuelCosts === 0){
+           $this->calculateAllCosts();
+        }
+        return $this->totalFuelCosts;
+    }
+
+    public function calculateTankedLitresVolume()
+    {
+        $totalLitres = 0;
+        /* @var $carFueling CarBundle\Entity\CarFueling */
+ 		foreach ($this->fuelings as $carFueling) {
+            $totalLitres += $carFueling->getLitresTanked();
+		}
+        return $totalLitres;
     }
 
 }
