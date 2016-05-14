@@ -5,6 +5,8 @@ namespace CarBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 class CarType extends AbstractType
 {
@@ -14,13 +16,32 @@ class CarType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+
+        $fuelChoices = [];
+        foreach (\CarBundle\Entity\Car::$fuelTypes as $fuelId => $details) {
+            $fuelChoices[$details['name']] = $fuelId;
+        }
+
         $builder
-            ->add('make')
-            ->add('model')
+            ->add('make', EntityType::class, [
+                'class' => 'CarBundle:CarDictionaryMake',
+                'choice_label' => function ($make) {
+                    return $make->getName();
+                }
+            ])
+            ->add('model', EntityType::class, array(
+                'class' => 'CarBundle:CarDictionaryModel',
+                'choice_label' => function ($model) {
+                    return $model->getName();
+                }
+            ))
             ->add('user')
             ->add('manufactureDate')
             ->add('color')
-            ->add('fuel')
+            ->add('fuel', ChoiceType::class, [
+                'choices'  => $fuelChoices,
+                'choices_as_values' => true,
+            ])
             ->add('save', 'submit', array('label' => 'Save'))
         ;
     }

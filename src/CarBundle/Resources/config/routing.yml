@@ -1,3 +1,6 @@
+car_home:
+    path:     /car/home
+    defaults: { _controller: CarBundle:Default:home }
 car_show_car:
     path:     /car/show/{carId}
     defaults: { _controller: CarBundle:Default:showCar }
@@ -7,9 +10,15 @@ car_add_fuelling:
 car_add_cost:
     path:     /car/addcost/{carId}
     defaults: { _controller: CarBundle:Default:addCost }
+car_edit_cost:
+    path:     /car/edit/cost/{costId}
+    defaults: { _controller: CarBundle:Edit:editCost }
 car_list_of_cars:
     path:     /car/list
     defaults: { _controller: CarBundle:Default:listAllCars }
 car_add_car:
     path:     /car/add
     defaults: { _controller: CarBundle:Default:addCar }
+car_edit_car:
+    path:     /car/edit/car/{carId}
+    defaults: { _controller: CarBundle:Edit:editCar }

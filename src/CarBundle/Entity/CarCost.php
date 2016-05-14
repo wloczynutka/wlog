@@ -84,6 +84,9 @@ class CarCost
         6 => [
            'name' => 'tax',
         ],
+        7 => [
+           'name' => 'other',
+        ],
     ];
 
     /**

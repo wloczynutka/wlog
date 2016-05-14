@@ -79,6 +79,18 @@ class Car
 
     private $totalFuelCosts = 0;
 
+    public static $fuelTypes = [
+        1 => [
+            'name' => 'petrol'
+        ],
+        2 => [
+            'name' => 'diesel'
+        ],
+        3 => [
+            'name' => 'LPG'
+        ],
+    ];
+
     public function __construct()
     {
         $this->costs = new ArrayCollection();

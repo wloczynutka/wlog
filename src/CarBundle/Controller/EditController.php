@@ -11,17 +11,16 @@ use \CarBundle\Form\CarCostType;
 use \CarBundle\Form\CarType;
 use Symfony\Component\HttpFoundation\Request;
 
-class DefaultController extends Controller
+class EditController extends Controller
 {
 
-    public function homeAction()
-    {
-        return $this->render('CarBundle:Default:home.html.twig');
-    }
 
-    public function addCarAction(Request $request)
+    public function editCarAction(Request $request, $carId)
     {
-		$car = new Car();
+		$car = $this->getDoctrine()
+            ->getRepository('CarBundle:Car')
+            ->find($carId)
+        ;
 		$form = $this->createForm(new CarType(), $car);
 		$form->handleRequest($request);
 		if ($form->isValid()) {
@@ -29,36 +28,21 @@ class DefaultController extends Controller
 			$em->persist($car);
 			$em->flush();
             return $this->redirectToRoute('car_show_car', ['carId' => $car->getId()]);
-		} else {
-            d('form not validated');
-		}
+		} 
 		return $this->render('CarBundle:Default:addCar.html.twig', array('form' => $form->createView()));
     }
 
-    public function listAllCarsAction(Request $request)
+    public function editCostAction(Request $request, $costId)
     {
-         $carList = $this->getDoctrine()
-            ->getRepository('CarBundle:Car')
-            ->findAll()
-        ;
-        return $this->render('CarBundle:Default:list.html.twig', ['carList' => $carList]);
-    }
-
-    public function addCostAction(Request $request, $carId)
-    {
-        $car = $this->loadCarById($carId);
-        $carCost = new CarCost();
-        $carCost
-                ->setDateTime(new \DateTime)
-                ->setCar($car)
-                ->setCurrency('PLN');
+        $carCost = $this->loadCostById($costId);
+        d($carCost);
 		$form = $this->createForm(new CarCostType(), $carCost);
 		$form->handleRequest($request);
 		if ($form->isValid()) {
 			$em = $this->getDoctrine()->getManager();
 			$em->persist($carCost);
 			$em->flush();
-			return $this->redirectToRoute('car_show_car', ['carId' => $carId]);
+			return $this->redirectToRoute('car_show_car', ['carId' => $carCost->getCar()->getId()]);
 		} else {
 //            d('form not validated');
 		}
@@ -104,14 +88,14 @@ class DefaultController extends Controller
 
 	/**
 	 *
-	 * @param type $carId
-	 * @return Car
+	 * @param integer $costId
+	 * @return CarCost
 	 */
-	private function loadCarById($carId)
+	private function loadCostById($costId)
     {
         $car = $this->getDoctrine()
-            ->getRepository('CarBundle:Car')
-            ->find($carId)
+            ->getRepository('CarBundle:CarCost')
+            ->find($costId)
         ;
         return $car;
     }
