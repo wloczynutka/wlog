@@ -29,9 +29,8 @@ class DefaultController extends Controller
 			$em->persist($car);
 			$em->flush();
             return $this->redirectToRoute('car_show_car', ['carId' => $car->getId()]);
-		} else {
-            d('form not validated');
 		}
+        
 		return $this->render('CarBundle:Default:addCar.html.twig', array('form' => $form->createView()));
     }
 
@@ -59,8 +58,6 @@ class DefaultController extends Controller
 			$em->persist($carCost);
 			$em->flush();
 			return $this->redirectToRoute('car_show_car', ['carId' => $carId]);
-		} else {
-//            d('form not validated');
 		}
 
 		return $this->render('CarBundle:Default:fueling.html.twig', array('form' => $form->createView()));
@@ -86,9 +83,7 @@ class DefaultController extends Controller
 			$em->persist($carFueling);
 			$em->flush();
 			return $this->redirectToRoute('car_show_car', ['carId' => $carId]);
-		} else {
-//            d('form not validated');
-		}
+		} 
         
 		return $this->render('CarBundle:Default:fueling.html.twig', array('form' => $form->createView()));
 	}
@@ -96,9 +91,6 @@ class DefaultController extends Controller
     public function showCarAction($carId)
     {
 		$car = $this->loadCarById($carId);
-//		$costs = $car->getAllCostAmount();
-		d($car);
-
         return $this->render('CarBundle:Default:car.html.twig', array('car' => $car));
     }
 
