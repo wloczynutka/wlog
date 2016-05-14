@@ -32,6 +32,7 @@ class CarDictionaryModel
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=255)
+     * @ORM\OneToMany(targetEntity="Car", mappedBy="model")
      */
     private $name;
 

@@ -24,20 +24,14 @@ class Car
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="CarDictionaryMake")
-     * @ORM\Column(name="make", type="integer")
+     * @ORM\ManyToOne(targetEntity="CarDictionaryMake", inversedBy="name")
+     * @ORM\JoinColumn(name="make", referencedColumnName="id")
      */
     private $make;
 
     /**
-     * ORM\JoinColumn(name="make_id", referencedColumnName="id")
-     */
-//    private $carDictionaryMake;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="model", type="integer")
+     * @ORM\ManyToOne(targetEntity="CarDictionaryModel", inversedBy="name")
+     * @ORM\JoinColumn(name="model", referencedColumnName="id")
      */
     private $model;
 

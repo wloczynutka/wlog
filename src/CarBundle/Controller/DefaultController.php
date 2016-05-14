@@ -67,9 +67,8 @@ class DefaultController extends Controller
     {
 		$car = $this->loadCarById($carId);
 //		$costs = $car->getAllCostAmount();
-        $car->getFuelings();
-
 		d($car);
+
         return $this->render('CarBundle:Default:car.html.twig', array('car' => $car));
     }
 

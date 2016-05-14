@@ -23,8 +23,8 @@ class CarDictionaryMake
 
     /**
      * @var string
-     *
      * @ORM\Column(name="name", type="string", length=75)
+     * @ORM\OneToMany(targetEntity="Car", mappedBy="make")
      */
     private $name;
 
