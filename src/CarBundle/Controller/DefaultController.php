@@ -47,11 +47,16 @@ class DefaultController extends Controller
 		$carFueling = new CarFueling();
 		$carFueling
                 ->setDateTime(new \DateTime)
+                ->setCurrency('PLN')
                 ->setCar($car)
                 ->setFuelType($car->getFuel());
 		$form = $this->createForm(new CarFuelingType(), $carFueling);
 		$form->handleRequest($request);
 		if ($form->isValid()) {
+            if($carFueling->getAmount() === null && $carFueling->getPricePerLiter() != null){
+                $carFueling->setAmount($carFueling->getPricePerLiter() * $carFueling->getLitresTanked());
+            }
+
 			$em = $this->getDoctrine()->getManager();
 			$em->persist($carFueling);
 			$em->flush();

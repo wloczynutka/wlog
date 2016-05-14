@@ -1,16 +1,20 @@
 
+MENU: <a href="{{ path('car_add_fuelling', {'carId': car.id}) }}">Tankowanie</a> <br><br>
+
 samochód: {{car.make.name}} {{car.model.name}} <br/>
 zatankowanych litrów: {{car.calculateTankedLitresVolume()}}<br/>
 
 suma kosztów paliwa: {{car.totalFuelCosts}} <br/>
 suma kosztów: {{car.allCostAmount}} <br/>
-
+<hr>
 <table border="1">
     <tr>
         <th>id.</th>
         <th>data</th>
         <th>licznik</th>
         <th>litry</th>
+        <th>cena/litr</th>
+        <th>cena tankowania</th>
     </tr>
 {% for fueling in car.fuelings %}
     <tr>
@@ -18,6 +22,8 @@ suma kosztów: {{car.allCostAmount}} <br/>
         <td>{{ fueling.dateTime.format('Y-m-d') }}</td>
         <td>{{ fueling.Mileage }}</td>
         <td>{{ fueling.litresTanked }}</td>
+        <td>{{ fueling.pricePerLiter }}</td>
+        <td>{{ fueling.amount }}</td>
     </tr>
 {% endfor %}
 </table>

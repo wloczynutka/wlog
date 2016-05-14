@@ -43,35 +43,36 @@ class CarFueling
 
     /**
      * @var float
-     *
-     * @ORM\Column(name="amount", type="float")
+     * @ORM\Column(name="liter_price", type="float", nullable=true)
+     */
+    private $pricePerLiter;
+
+    /**
+     * @var float
+     * @ORM\Column(name="amount", type="float", nullable=true)
      */
     private $amount;
 
     /**
      * @var string
-     *
      * @ORM\Column(name="currency", type="string", length=3)
      */
     private $currency;
 
     /**
      * @var integer
-     *
      * @ORM\Column(name="mileage", type="integer")
      */
     private $mileage;
 
     /**
      * @var integer
-     *
      * @ORM\Column(name="fuelType", type="integer")
      */
     private $fuelType;
 
     /**
      * @var float
-     *
      * @ORM\Column(name="computerAerageConsumption", type="float", nullable=true)
      */
     private $averageConsumptionByComputer;
@@ -91,7 +92,6 @@ class CarFueling
      * Set dateTime
      *
      * @param \DateTime $dateTime
-     *
      * @return CarFueling
      */
     public function setDateTime($dateTime)
@@ -270,6 +270,17 @@ class CarFueling
         $this->car = $car;
         return $this;
 	}
+
+    public function getPricePerLiter()
+    {
+        return $this->pricePerLiter;
+    }
+
+    public function setPricePerLiter($pricePerLiter)
+    {
+        $this->pricePerLiter = $pricePerLiter;
+        return $this;
+    }
 
 }
 

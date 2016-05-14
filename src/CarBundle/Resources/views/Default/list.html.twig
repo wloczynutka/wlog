@@ -5,8 +5,8 @@ list of cars!!!
 {% for car in carList %}
     <tr>
         <td>{{ car.id }}</td>
-        <td><a href="show/{{ car.id }}">{{ car.make.name }}</a></td>
-        <td>{{ car.model }}</td>
+        <td><a href="show/{{ car.id }}">{{ car.make.name }} {{ car.model.name }}</a></td>
+        <td></td>
     </tr>
 {% endfor %}
 </table>

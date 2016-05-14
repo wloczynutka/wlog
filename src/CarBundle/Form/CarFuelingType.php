@@ -17,6 +17,7 @@ class CarFuelingType extends AbstractType
         $builder
             ->add('dateTime')
             ->add('litresTanked')
+            ->add('pricePerLiter')
             ->add('amount')
             ->add('currency')
             ->add('mileage')
