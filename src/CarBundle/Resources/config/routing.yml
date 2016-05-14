@@ -4,6 +4,9 @@ car_show_car:
 car_add_fuelling:
     path:     /car/fueling/{carId}
     defaults: { _controller: CarBundle:Default:addFueling }
+car_add_cost:
+    path:     /car/addcost/{carId}
+    defaults: { _controller: CarBundle:Default:addCost }
 car_list_of_cars:
     path:     /car/list
     defaults: { _controller: CarBundle:Default:listAllCars }

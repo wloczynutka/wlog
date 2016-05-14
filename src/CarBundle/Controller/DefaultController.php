@@ -4,8 +4,10 @@ namespace CarBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use \CarBundle\Entity\Car;
-use CarBundle\Entity\CarFueling;
+use \CarBundle\Entity\CarFueling;
+use \CarBundle\Entity\CarCost;
 use \CarBundle\Form\CarFuelingType;
+use \CarBundle\Form\CarCostType;
 use \CarBundle\Form\CarType;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -39,6 +41,28 @@ class DefaultController extends Controller
 
 
         return $this->render('CarBundle:Default:list.html.twig', ['carList' => $carList]);
+    }
+
+    public function addCostAction(Request $request, $carId)
+    {
+        $car = $this->loadCarById($carId);
+        $carCost = new CarCost();
+        $carCost
+                ->setDateTime(new \DateTime)
+                ->setCar($car)
+                ->setCurrency('PLN');
+		$form = $this->createForm(new CarCostType(), $carCost);
+		$form->handleRequest($request);
+		if ($form->isValid()) {
+			$em = $this->getDoctrine()->getManager();
+			$em->persist($carCost);
+			$em->flush();
+			return $this->redirectToRoute('car_show_car', ['carId' => $carId]);
+		} else {
+//            d('form not validated');
+		}
+
+		return $this->render('CarBundle:Default:fueling.html.twig', array('form' => $form->createView()));
     }
 
     public function addFuelingAction(Request $request, $carId)

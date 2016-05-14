@@ -65,6 +65,26 @@ class CarCost
      */
     private $description;
 
+    public static $typesArray = [
+        1 => [
+            'name' => 'reperair',
+        ],
+        2 => [
+            'name' => 'period service',
+        ],
+        3 => [
+            'name' => 'accesory',
+        ],
+        4 => [
+             'name' => 'parts',
+        ],
+        5 => [
+            'name' => 'insurance',
+        ],
+        6 => [
+           'name' => 'tax',
+        ],
+    ];
 
     /**
      * Get id
@@ -210,7 +230,7 @@ class CarCost
      * Get Car
      * @return CarBundle\Entity\Car
      */
-    function getCar()
+    public function getCar()
     {
         return $this->car;
     }
@@ -220,11 +240,15 @@ class CarCost
      * @param CarBundle\Entity\Car $car
      * @return CarCost
      */
-    function setCar(Car $car = null)
+    public function setCar(Car $car = null)
     {
         $this->car = $car;
         return $this;
 	}
 
+    public function getTypeName()
+    {
+        return self::$typesArray[$this->type]['name'];
+    }
 }
 
