@@ -72,7 +72,7 @@ class CarFueling
     /**
      * @var float
      *
-     * @ORM\Column(name="computerAerageConsumption", type="float")
+     * @ORM\Column(name="computerAerageConsumption", type="float", nullable=true)
      */
     private $averageConsumptionByComputer;
 
@@ -168,7 +168,7 @@ class CarFueling
      */
     public function setCurrency($currency)
     {
-        $this->currency = $currency;
+        $this->currency = strtoupper($currency);
 
         return $this;
     }
