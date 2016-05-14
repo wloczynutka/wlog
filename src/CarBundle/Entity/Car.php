@@ -79,6 +79,10 @@ class Car
 
     private $totalFuelCosts = 0;
 
+    private $averageFuelConsumption = 0;
+
+    private $totalDistance = 0;
+
     public static $fuelTypes = [
         1 => [
             'name' => 'petrol'
@@ -322,16 +326,18 @@ class Car
 		foreach ($this->costs as $carCost) {
 			$allCostAmount += $carCost->getAmount();
 		}
+        
+        /* @var $carFueling \CarBundle\Entity\CarFueling */
+        $prievousFueling = false;
 		foreach ($this->fuelings as $carFueling) {
+            if($prievousFueling instanceof CarFueling){
+                $carFueling->caclulateFuelConsumption($prievousFueling);
+            }
+            $prievousFueling = $carFueling;
             $this->totalFuelCosts += $carFueling->getAmount();
 		}
 		$this->allCostAmount = $allCostAmount + $this->totalFuelCosts;
 	}
-
-    public function getMakeName($param)
-    {
-
-    }
 
     /**
      *

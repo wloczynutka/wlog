@@ -20,6 +20,8 @@ suma kosztów: {{car.allCostAmount}} <br/>
         <th>litry</th>
         <th>cena/litr</th>
         <th>cena tankowania</th>
+        <th>dystans</th>
+        <th>spalanie</th>
     </tr>
 {% for fueling in car.fuelings %}
     <tr>
@@ -29,6 +31,8 @@ suma kosztów: {{car.allCostAmount}} <br/>
         <td>{{ fueling.litresTanked }}</td>
         <td>{{ fueling.pricePerLiter }}</td>
         <td>{{ fueling.amount }}</td>
+        <td>{{ fueling.getDistanceFromPrievous() }}</td>
+        <td>{{ fueling.getFuelConsumptionFromPrievous() }}</td>
     </tr>
 {% endfor %}
 </table>

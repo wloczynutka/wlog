@@ -77,6 +77,21 @@ class CarFueling
      */
     private $averageConsumptionByComputer;
 
+    private $distanceFromPrievous;
+
+    /**
+     * fuel consumption calculated in litres per 100 km.
+     * @var float
+     */
+    private $fuelConsumptionFromPrievous;
+
+    public function caclulateFuelConsumption(CarFueling $prievousFueling)
+    {
+        $this->distanceFromPrievous = $this->getMileage() - $prievousFueling->getMileage();
+        if($this->distanceFromPrievous != 0){
+            $this->fuelConsumptionFromPrievous = $this->getLitresTanked() * 100 / $this->distanceFromPrievous;
+        }
+    }
 
     /**
      * Get id
@@ -282,5 +297,14 @@ class CarFueling
         return $this;
     }
 
-}
+    public function getDistanceFromPrievous()
+    {
+        return $this->distanceFromPrievous;
+    }
 
+    public function getFuelConsumptionFromPrievous()
+    {
+        return $this->fuelConsumptionFromPrievous;
+    }
+
+}
