@@ -71,11 +71,13 @@ class Car
 
 	/**
      * @ORM\OneToMany(targetEntity="CarCost", mappedBy="car")
+     * @ORM\OrderBy({"dateTime" = "ASC"})
      */
     private $costs;
 
 	/**
      * @ORM\OneToMany(targetEntity="CarFueling", mappedBy="car")
+     * @ORM\OrderBy({"dateTime" = "ASC"})
      */
     private $fuelings;
 
