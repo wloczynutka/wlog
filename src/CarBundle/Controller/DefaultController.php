@@ -91,6 +91,7 @@ class DefaultController extends Controller
     public function showCarAction($carId)
     {
 		$car = $this->loadCarById($carId);
+//        return $this->render('CarBundle:Default:main.html.twig', array('car' => $car));
         return $this->render('CarBundle:Default:car.html.twig', array('car' => $car));
     }
 

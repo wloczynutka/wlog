@@ -1,4 +1,8 @@
-{# app/Resources/views/default/new.html.twig #}
+{% extends 'CarBundle:Default:main.html.twig' %}
+{% block content %}
+
 {{ form_start(form) }}
 {{ form_widget(form) }}
 {{ form_end(form) }}
+
+{% endblock %}

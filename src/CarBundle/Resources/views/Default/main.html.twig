@@ -1,0 +1,20 @@
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title></title>
+    </head>
+    <body>
+        <div id="header">
+        {% include('CarBundle:Default:header.html.twig') %}
+        </div>
+
+        <div id="wrapper">
+        {% block content %}{% endblock %}
+        </div>
+
+
+        <div id="footer">
+{#        {% include('@CarBundle/footer.html.twig') %}#}
+        </div>
+    </body>
+</html>

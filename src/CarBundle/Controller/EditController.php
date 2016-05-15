@@ -13,8 +13,6 @@ use Symfony\Component\HttpFoundation\Request;
 
 class EditController extends Controller
 {
-
-
     public function editCarAction(Request $request, $carId)
     {
 		$car = $this->getDoctrine()
@@ -43,22 +41,18 @@ class EditController extends Controller
 			$em->persist($carCost);
 			$em->flush();
 			return $this->redirectToRoute('car_show_car', ['carId' => $carCost->getCar()->getId()]);
-		} else {
-//            d('form not validated');
 		}
-
+        
 		return $this->render('CarBundle:Default:fueling.html.twig', array('form' => $form->createView()));
     }
 
-    public function addFuelingAction(Request $request, $carId)
+    public function editFuelingAction(Request $request, $fuelingId)
 	{
-        $car = $this->loadCarById($carId);
-		$carFueling = new CarFueling();
-		$carFueling
-                ->setDateTime(new \DateTime)
-                ->setCurrency('PLN')
-                ->setCar($car)
-                ->setFuelType($car->getFuel());
+
+        $carFueling = $this->getDoctrine()
+            ->getRepository('CarBundle:CarFueling')
+            ->find($fuelingId)
+        ;
 		$form = $this->createForm(new CarFuelingType(), $carFueling);
 		$form->handleRequest($request);
 		if ($form->isValid()) {
@@ -69,22 +63,11 @@ class EditController extends Controller
 			$em = $this->getDoctrine()->getManager();
 			$em->persist($carFueling);
 			$em->flush();
-			return $this->redirectToRoute('car_show_car', ['carId' => $carId]);
-		} else {
-//            d('form not validated');
+			return $this->redirectToRoute('car_show_car', ['carId' => $carFueling->getCar()->getId()]);
 		}
         
 		return $this->render('CarBundle:Default:fueling.html.twig', array('form' => $form->createView()));
 	}
-
-    public function showCarAction($carId)
-    {
-		$car = $this->loadCarById($carId);
-//		$costs = $car->getAllCostAmount();
-		d($car);
-
-        return $this->render('CarBundle:Default:car.html.twig', array('car' => $car));
-    }
 
 	/**
 	 *
@@ -93,10 +76,10 @@ class EditController extends Controller
 	 */
 	private function loadCostById($costId)
     {
-        $car = $this->getDoctrine()
+        $carCost = $this->getDoctrine()
             ->getRepository('CarBundle:CarCost')
             ->find($costId)
         ;
-        return $car;
+        return $carCost;
     }
 }

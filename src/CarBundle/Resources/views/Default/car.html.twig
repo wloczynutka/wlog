@@ -1,3 +1,5 @@
+{% extends 'CarBundle:Default:main.html.twig' %}
+{% block content %}
 
 MENU: 
     [<a href="{{ path('car_add_fuelling', {'carId': car.id}) }}">Dodaj tankowanie</a> ]
@@ -14,7 +16,7 @@ suma kosztów: {{car.allCostAmount}} <br/>
 <hr>
 <table border="1">
     <tr>
-        <th>id.</th>
+        <th>.</th>
         <th>data</th>
         <th>licznik</th>
         <th>litry</th>
@@ -25,7 +27,7 @@ suma kosztów: {{car.allCostAmount}} <br/>
     </tr>
 {% for fueling in car.fuelings %}
     <tr>
-        <td>{{ fueling.id }}</td>
+        <td><a href="{{ path('car_edit_fueling', {'fuelingId': fueling.id}) }}"> edit </a></td>
         <td>{{ fueling.dateTime.format('Y-m-d') }}</td>
         <td>{{ fueling.Mileage }}</td>
         <td>{{ fueling.litresTanked }}</td>
@@ -41,6 +43,7 @@ suma kosztów: {{car.allCostAmount}} <br/>
 
 <table border="1">
     <tr>
+        <th>.</th>
         <th>typ</th>
         <th>data</th>
         <th>licznik</th>
@@ -48,12 +51,13 @@ suma kosztów: {{car.allCostAmount}} <br/>
     </tr>
 {% for cost in car.costs %}
     <tr>
+        <td> <a href="{{ path('car_edit_cost', {'costId': cost.id}) }}"> edit </a></td>
         <td>{{ cost.getTypeName() }}</td>
         <td>{{ cost.dateTime.format('Y-m-d') }}</td>
         <td>{{ cost.Mileage }}</td>
         <td>{{ cost.amount }}</td>
-        <td> <a href="{{ path('car_edit_cost', {'costId': cost.id}) }}"> edit </a></td>
     </tr>
 {% endfor %}
 </table>
 
+{% endblock %}
