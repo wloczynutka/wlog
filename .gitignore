@@ -10,6 +10,6 @@
 /vendor/
 /bin/
 /composer.phar
-/src/CarBundle/Resources/public/images/carstats/*
+/src/CarBundle/Resources/public/images/carstats/*.jpg
 /nbproject
 
