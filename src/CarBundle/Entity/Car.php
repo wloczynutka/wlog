@@ -128,7 +128,7 @@ class Car
     /**
      * Get make
      *
-     * @return integer
+     * @return CarDictionaryMake
      */
     public function getMake()
     {
@@ -152,7 +152,7 @@ class Car
     /**
      * Get model
      *
-     * @return integer
+     * @return CarDictionaryModel
      */
     public function getModel()
     {

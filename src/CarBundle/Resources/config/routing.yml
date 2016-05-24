@@ -25,3 +25,6 @@ car_add_car:
 car_edit_car:
     path:     /car/edit/car/{carId}
     defaults: { _controller: CarBundle:Edit:editCar }
+car_get_stat_image:
+    path:     /car/getstatimage/{carId}
+    defaults: { _controller: CarBundle:Default:getStatImage }
