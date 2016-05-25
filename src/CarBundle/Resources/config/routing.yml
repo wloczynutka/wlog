@@ -19,6 +19,9 @@ car_edit_cost:
 car_list_of_cars:
     path:     /car/list
     defaults: { _controller: CarBundle:Default:listAllCars }
+car_list_of_cars2:
+    path:     /car/
+    defaults: { _controller: CarBundle:Default:listAllCars }
 car_add_car:
     path:     /car/add
     defaults: { _controller: CarBundle:Default:addCar }
