@@ -323,6 +323,8 @@ class Car
 	private function calculateAllCosts()
 	{
 		$allCostAmount = 0;
+        $this->totalFuelCosts = 0;
+        $this->totalTankedLitres = 0;
         
 		/* @var $carCost CarBundle\Entity\CarCost */
 		foreach ($this->costs as $carCost) {
