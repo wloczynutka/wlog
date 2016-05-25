@@ -75,6 +75,13 @@ class Car
      */
     private $fuelings;
 
+    /**
+     * @var float
+     * @ORM\Column(name="purchase_price", type="float", nullable=true)
+     *
+     */
+    private $purchasePrice;
+
 	private $allCostAmount = 0;
 
     private $totalFuelCosts = 0;
@@ -187,9 +194,7 @@ class Car
 
     /**
      * Set manufactureDate
-     *
      * @param \DateTime $manufactureDate
-     *
      * @return Car
      */
     public function setManufactureDate($manufactureDate)
@@ -201,7 +206,6 @@ class Car
 
     /**
      * Get manufactureDate
-     *
      * @return \DateTime
      */
     public function getManufactureDate()
@@ -400,6 +404,17 @@ class Car
         }
         return $this->averageFuelConsumption;
     }
+    public function getPurchasePrice()
+    {
+        return $this->purchasePrice;
+    }
+
+    public function setPurchasePrice($purchasePrice)
+    {
+        $this->purchasePrice = $purchasePrice;
+        return $this;
+    }
+
 
 }
 

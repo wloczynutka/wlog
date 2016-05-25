@@ -42,6 +42,7 @@ class CarType extends AbstractType
                 'choices'  => $fuelChoices,
                 'choices_as_values' => true,
             ])
+            ->add('purchasePrice')
             ->add('save', 'submit', array('label' => 'Save'))
         ;
     }

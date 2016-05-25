@@ -106,23 +106,28 @@ class DefaultController extends Controller
 
         $im = imagecreatefromjpeg($tplpath);
         $clrBorder = ImageColorAllocate($im, 70, 70, 70);
-        $clrBlack = ImageColorAllocate($im, 0, 0, 0);
-        $clrWhite = ImageColorAllocate($im, 500, 500, 500);
+        $black = ImageColorAllocate($im, 0, 0, 0);
+        $white = ImageColorAllocate($im, 255, 255, 255);
+        $darkGreen = ImageColorAllocate($im, 100, 255, 100);
 
         $fontfile = __DIR__ . "/../Resources/imagestats/verdana.ttf";
         $fontsize = 8;
 
-        $text = 'Consumption: ' . $car->getAverageFuelConsumption() . ' L/100km';
-        ImageTTFText($im, $fontsize, 0, 5, 12, $clrBlack, $fontfile, $text);
+        $text = 'Spalanie: ' . $car->getAverageFuelConsumption() . ' l/100km';
+        ImageTTFText($im, $fontsize, 0, 5, 12, $black, $fontfile, $text);
 
-        $text2 = 'Mileage: ' . $car->getMileage();
-        ImageTTFText($im, $fontsize, 0, 185, 12, $clrBlack, $fontfile, $text2);
+        $text2 = 'Przebieg: ' . $car->getMileage() . ' km';
+        ImageTTFText($im, $fontsize, 0, 185, 12, $black, $fontfile, $text2);
 
-        $totLitresTxt = 'Total litres tanked: ' . $car->getTotalTankedLitres();
-        ImageTTFText($im, $fontsize, 0, 5, 30, $clrBlack, $fontfile, $totLitresTxt);
+        $totLitresTxt = 'Zatankowanych litrów: ' . $car->getTotalTankedLitres();
+        ImageTTFText($im, $fontsize, 0, 5, 30, $black, $fontfile, $totLitresTxt);
 
         $CarNameText = $car->getMake()->getName() . ' ' . $car->getModel()->getName();
-        ImageTTFText($im, $fontsize, 0, 5, 46, $clrWhite, $fontfile, $CarNameText);
+
+        $dimensions = imagettfbbox(7, 0, $fontfile, $CarNameText);
+        $textWidth = abs($dimensions[4] - $dimensions[0]);
+        $x = imagesx($im) - $textWidth-5;
+        ImageTTFText($im, 7, 0, $x, 46, $darkGreen, $fontfile, $CarNameText);
 
         // draw border
         ImageRectangle($im, 0, 0, imagesx($im) - 1, imagesy($im) - 1, $clrBorder);

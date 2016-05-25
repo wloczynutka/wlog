@@ -25,7 +25,7 @@ class CarCostType extends AbstractType
                 'choices'  => $choices,
                 'choices_as_values' => true,
             ])
-            ->add('dateTime')
+            ->add('dateTime', 'date', ['widget' => 'single_text', 'format' => 'yyyy-MM-dd'])
             ->add('mileage')
             ->add('amount')
             ->add('currency')
