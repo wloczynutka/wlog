@@ -81,7 +81,9 @@ class Car
 
     private $averageFuelConsumption = 0;
 
-    private $totalDistance = 0;
+    private $mileage = 0;
+
+    private $totalTankedLitres = 0;
 
     public static $fuelTypes = [
         1 => [
@@ -325,19 +327,32 @@ class Car
 		/* @var $carCost CarBundle\Entity\CarCost */
 		foreach ($this->costs as $carCost) {
 			$allCostAmount += $carCost->getAmount();
+            $this->checkAndSetMileage($carCost->getMileage());
 		}
         
         /* @var $carFueling \CarBundle\Entity\CarFueling */
         $prievousFueling = false;
+        $fuelingCount = 0;
 		foreach ($this->fuelings as $carFueling) {
             if($prievousFueling instanceof CarFueling){
                 $carFueling->caclulateFuelConsumption($prievousFueling);
+                $fuelingCount++;
             }
             $prievousFueling = $carFueling;
             $this->totalFuelCosts += $carFueling->getAmount();
+            $this->totalTankedLitres += $carFueling->getLitresTanked();
+            $this->checkAndSetMileage($carFueling->getMileage());
 		}
+        $fuelingCount !== 0 ? $this->averageFuelConsumption = $this->totalTankedLitres/$fuelingCount : 0;
 		$this->allCostAmount = $allCostAmount + $this->totalFuelCosts;
 	}
+
+    private function checkAndSetMileage($newMileage)
+    {
+        if($newMileage > $this->mileage){
+            $this->mileage = $newMileage;
+        }
+    }
 
     /**
      *
@@ -359,14 +374,29 @@ class Car
         return $this->totalFuelCosts;
     }
 
-    public function calculateTankedLitresVolume()
+    public function getTotalTankedLitres()
     {
-        $totalLitres = 0;
-        /* @var $carFueling CarBundle\Entity\CarFueling */
- 		foreach ($this->fuelings as $carFueling) {
-            $totalLitres += $carFueling->getLitresTanked();
-		}
-        return $totalLitres;
+        if($this->totalTankedLitres === 0){
+            $this->calculateAllCosts();
+        }
+
+        return $this->totalTankedLitres;
+    }
+
+    public function getMileage()
+    {
+        if($this->mileage === 0){
+           $this->calculateAllCosts();
+        }
+        return $this->mileage;
+    }
+
+    public function getAverageFuelConsumption()
+    {
+        if($this->averageFuelConsumption === 0){
+           $this->calculateAllCosts();
+        }
+        return $this->averageFuelConsumption;
     }
 
 }

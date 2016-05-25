@@ -112,13 +112,13 @@ class DefaultController extends Controller
         $fontfile = __DIR__ . "/../Resources/imagestats/verdana.ttf";
         $fontsize = 8;
 
-        $text = 'Diesel: 25 L/100km';
+        $text = 'Consumption: ' . $car->getAverageFuelConsumption() . ' L/100km';
         ImageTTFText($im, $fontsize, 0, 5, 12, $clrBlack, $fontfile, $text);
 
-        $text2 = 'Total mileage: 307547';
-        ImageTTFText($im, $fontsize, 0, 150, 12, $clrBlack, $fontfile, $text2);
+        $text2 = 'Mileage: ' . $car->getMileage();
+        ImageTTFText($im, $fontsize, 0, 185, 12, $clrBlack, $fontfile, $text2);
 
-        $totLitresTxt = 'Total litres tanked: ' . $car->calculateTankedLitresVolume();
+        $totLitresTxt = 'Total litres tanked: ' . $car->getTotalTankedLitres();
         ImageTTFText($im, $fontsize, 0, 5, 30, $clrBlack, $fontfile, $totLitresTxt);
 
         $CarNameText = $car->getMake()->getName() . ' ' . $car->getModel()->getName();
