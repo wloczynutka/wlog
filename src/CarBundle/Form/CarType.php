@@ -36,7 +36,7 @@ class CarType extends AbstractType
                 }
             ))
             ->add('user')
-            ->add('manufactureDate')
+            ->add('manufactureDate', 'date', ['widget' => 'single_text', 'format' => 'yyyy-MM-dd'])
             ->add('color')
             ->add('fuel', ChoiceType::class, [
                 'choices'  => $fuelChoices,

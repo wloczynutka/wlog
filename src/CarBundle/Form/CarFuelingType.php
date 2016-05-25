@@ -15,7 +15,7 @@ class CarFuelingType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('dateTime')
+            ->add('dateTime', 'date', ['widget' => 'single_text', 'format' => 'yyyy-MM-dd'])
             ->add('litresTanked')
             ->add('pricePerLiter')
             ->add('amount')
