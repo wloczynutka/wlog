@@ -1,11 +1,14 @@
 {% extends 'CarBundle:Default:main.html.twig' %}
 {% block content %}
 
-MENU: 
+{% if app.user %}
+MENU:
     [<a href="{{ path('car_add_fuelling', {'carId': car.id}) }}">Dodaj tankowanie</a> ]
     [<a href="{{ path('car_add_cost', {'carId': car.id}) }}">Dodaj koszt</a> ]
     [<a href="{{ path('car_edit_car', {'carId': car.id}) }}">Edytuj auto</a> ]
-
+ {% else %}
+    user is not logged in
+ {% endif %}
 <br><br>
 
 samochód: {{car.make.name}} {{car.model.name}} <br/>
@@ -29,7 +32,7 @@ suma kosztów: {{car.allCostAmount}} <br/>
     </tr>
 {% for fueling in car.fuelings %}
     <tr>
-        <td><a href="{{ path('car_edit_fueling', {'fuelingId': fueling.id}) }}"> edit </a></td>
+        <td>{% if app.user.id == car.user %}<a href="{{ path('car_edit_fueling', {'fuelingId': fueling.id}) }}"> edit </a>{% endif %}</td>
         <td>{{ fueling.dateTime.format('Y-m-d') }}</td>
         <td>{{ fueling.Mileage }}</td>
         <td>{{ fueling.litresTanked }}</td>
@@ -54,7 +57,7 @@ suma kosztów: {{car.allCostAmount}} <br/>
     </tr>
 {% for cost in car.costs %}
     <tr>
-        <td> <a href="{{ path('car_edit_cost', {'costId': cost.id}) }}"> edit </a></td>
+        <td> {% if app.user.id == car.user %} <a href="{{ path('car_edit_cost', {'costId': cost.id}) }}"> edit </a>{% endif %}</td>
         <td>{{ cost.getTypeName() }}</td>
         <td>{{ cost.description }}</td>
         <td>{{ cost.dateTime.format('Y-m-d') }}</td>
