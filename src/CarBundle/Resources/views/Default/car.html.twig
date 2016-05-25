@@ -47,6 +47,7 @@ suma kosztów: {{car.allCostAmount}} <br/>
     <tr>
         <th>.</th>
         <th>typ</th>
+        <th>opis</th>
         <th>data</th>
         <th>licznik</th>
         <th>cena</th>
@@ -55,6 +56,7 @@ suma kosztów: {{car.allCostAmount}} <br/>
     <tr>
         <td> <a href="{{ path('car_edit_cost', {'costId': cost.id}) }}"> edit </a></td>
         <td>{{ cost.getTypeName() }}</td>
+        <td>{{ cost.description }}</td>
         <td>{{ cost.dateTime.format('Y-m-d') }}</td>
         <td>{{ cost.Mileage }}</td>
         <td>{{ cost.amount }}</td>
