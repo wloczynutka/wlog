@@ -87,6 +87,9 @@ class CarCost
         7 => [
            'name' => 'other',
         ],
+        8 => [
+           'name' => 'camper conversion',
+        ],
     ];
 
     /**
