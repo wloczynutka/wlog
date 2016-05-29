@@ -7,7 +7,7 @@ MENU:
     [<a href="{{ path('car_add_cost', {'carId': car.id}) }}">Dodaj koszt</a> ]
     [<a href="{{ path('car_edit_car', {'carId': car.id}) }}">Edytuj auto</a> ]
  {% else %}
-    user is not logged in
+    User is not logged in. Some features are disabled. <a href="{{ url('fos_user_security_login') }}">Please log-in</a>
  {% endif %}
 <br><br>
 
@@ -34,7 +34,7 @@ suma kosztów: {{car.allCostAmount}} <br/>
     </tr>
 {% for fueling in car.fuelings %}
     <tr>
-        <td class="tg-yw4l">{% if app.user.id == car.user %}<a href="{{ path('car_edit_fueling', {'fuelingId': fueling.id}) }}"><img src="{{ asset('pencil-icon.png') }}" width="16" alt="edit"/></a>{% endif %}</td>
+        <td class="tg-yw4l">{% if app.user and app.user.id == car.user %}<a href="{{ path('car_edit_fueling', {'fuelingId': fueling.id}) }}"><img src="{{ asset('pencil-icon.png') }}" width="16" alt="edit"/></a>{% endif %}</td>
         <td class="tg-yw4l">{{ fueling.dateTime.format('Y-m-d') }}</td>
         <td class="tg-yw4l">{{ fueling.Mileage }}</td>
         <td class="tg-yw4l">{{ fueling.litresTanked }}</td>
@@ -59,7 +59,7 @@ suma kosztów: {{car.allCostAmount}} <br/>
     </tr>
 {% for cost in car.costs %}
     <tr>
-        <td class="tg-yw4l" align="center"> {% if app.user.id == car.user %} <a href="{{ path('car_edit_cost', {'costId': cost.id}) }}"><img src="{{ asset('pencil-icon.png') }}" width="16" alt="edit"/></a>{% endif %}</td>
+        <td class="tg-yw4l" align="center"> {% if app.user and app.user.id == car.user %} <a href="{{ path('car_edit_cost', {'costId': cost.id}) }}"><img src="{{ asset('pencil-icon.png') }}" width="16" alt="edit"/></a>{% endif %}</td>
         <td class="tg-yw4l">{{ cost.getTypeName() }}</td>
         <td class="tg-yw4l">{{ cost.description }}</td>
         <td class="tg-yw4l">{{ cost.dateTime.format('Y-m-d') }}</td>
