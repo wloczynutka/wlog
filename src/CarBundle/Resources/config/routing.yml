@@ -2,8 +2,10 @@ car_home:
     path:     /car/home
     defaults: { _controller: CarBundle:Default:home }
 car_show_car:
-    path:     /car/show/{carId}
+    path:     /{_locale}/car/show/{carId}
     defaults: { _controller: CarBundle:Default:showCar }
+    requirements:
+        _locale: '%app.locales%'
 car_add_fuelling:
     path:     /car/fueling/{carId}
     defaults: { _controller: CarBundle:Default:addFueling }
@@ -17,11 +19,15 @@ car_edit_cost:
     path:     /car/edit/cost/{costId}
     defaults: { _controller: CarBundle:Edit:editCost }
 car_list_of_cars:
-    path:     /car/list
+    path:     /{_locale}/car/list
     defaults: { _controller: CarBundle:Default:listAllCars }
+    requirements: 
+        _locale: '%app.locales%'
 car_list_of_cars2:
-    path:     /car/
+    path:     /{_locale}/car/
     defaults: { _controller: CarBundle:Default:listAllCars }
+    requirements: 
+        _locale: '%app.locales%'
 car_add_car:
     path:     /car/add
     defaults: { _controller: CarBundle:Default:addCar }

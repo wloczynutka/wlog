@@ -1,7 +1,7 @@
-<p align="center">Auto budżet</p>
+<p align="center">{% trans %}Auto budget{% endtrans %}</p>
 <p align="center">
-    <a href="{{ path('car_list_of_cars') }}"> Lista samochodów</a>
+    <a href="{{ path('car_list_of_cars') }}">{% trans %}List of cars{% endtrans %}</a>
     {% if app.user %}
-        <a href="{{ path('car_add_car') }}"> Dodaj samochód</a>
+        <a href="{{ path('car_add_car') }}">{% trans %}Add new car{% endtrans %}</a> 
     {% endif %}
 </p>

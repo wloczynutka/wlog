@@ -3,38 +3,45 @@
 
 {% if app.user %}
 MENU:
-    [<a href="{{ path('car_add_fuelling', {'carId': car.id}) }}">Dodaj tankowanie</a> ]
-    [<a href="{{ path('car_add_cost', {'carId': car.id}) }}">Dodaj koszt</a> ]
-    [<a href="{{ path('car_edit_car', {'carId': car.id}) }}">Edytuj auto</a> ]
+    [<a href="{{ path('car_add_fuelling', {'carId': car.id}) }}">{% trans %}Add fueling{% endtrans %}</a>]
+    [<a href="{{ path('car_add_cost', {'carId': car.id}) }}">{% trans %}Add cost{% endtrans %}</a>]
+    [<a href="{{ path('car_edit_car', {'carId': car.id}) }}">{% trans %}Edit vehicle{% endtrans %}</a>]
  {% else %}
-    User is not logged in. Some features are disabled. <a href="{{ url('fos_user_security_login') }}">Please log-in</a>
+    {% trans %}User is not logged in. Some features are disabled{% endtrans %}. <a href="{{ url('fos_user_security_login') }}">{% trans %}Please log-in{% endtrans %}</a>
  {% endif %}
 <br><br>
 
-samochód: {{car.make.name}} {{car.model.name}} <br/>
-przebieg: {{car.mileage}} <br/>
-zatankowanych litrów: {{car.totalTankedLitres}}<br/>
-średnie spalanie: {{car.averageFuelConsumption}}<br/>
+{% trans %}Car{% endtrans %}: {{car.make.name}} {{car.model.name}} <br/>
+{% trans %}Mileage{% endtrans %}: {{car.mileage}} <br/>
+{% trans %}Tanked litres volume{% endtrans %}: {{car.totalTankedLitres}}<br/>
+{% trans %}Average fuel consumption{% endtrans %} {{car.averageFuelConsumption}}<br/>
 
-suma kosztów paliwa: {{car.totalFuelCosts}} <br/>
-suma kosztów: {{car.allCostAmount}} <br/>
+{% trans %}Total fuel cost{% endtrans %}: {{car.totalFuelCosts}} <br/>
+{% trans %}Total tax costs{% endtrans %}: --TODO-- <br/>
+{% trans %}Total reperair costs{% endtrans %}: --TODO-- <br/>
+{% trans %}Total service costs{% endtrans %}: --TODO-- <br/>
+{% trans %}Total accesory costs{% endtrans %}: --TODO-- <br/>
+{% trans %}Total insurance costs{% endtrans %}: --TODO-- <br/>
+{% trans %}Total other costs{% endtrans %}: --TODO-- <br/>
+{% trans %}Total camper costs{% endtrans %}: --TODO-- <br/>
+{% trans %}All cost total{% endtrans %}: {{car.allCostAmount}} <br/>
 <hr>
 
 
 <table class="tg">
     <tr>
         <th class="tg-yw4l">.</th>
-        <th class="tg-yw4l">data</th>
-        <th class="tg-yw4l">licznik</th>
-        <th class="tg-yw4l">litry</th>
-        <th class="tg-yw4l">cena/litr</th>
-        <th class="tg-yw4l">cena tankowania</th>
-        <th class="tg-yw4l">dystans</th>
-        <th class="tg-yw4l">spalanie</th>
+        <th class="tg-yw4l">{% trans %}Date{% endtrans %}</th>
+        <th class="tg-yw4l">{% trans %}Odometer{% endtrans %}</th>
+        <th class="tg-yw4l">{% trans %}Litres{% endtrans %}</th>
+        <th class="tg-yw4l">{% trans %}Price/liter{% endtrans %}</th>
+        <th class="tg-yw4l">{% trans %}Paid amount{% endtrans %}a</th>
+        <th class="tg-yw4l">{% trans %}Trip odometer{% endtrans %}</th>
+        <th class="tg-yw4l">{% trans %}Fuel consumption{% endtrans %}</th>
     </tr>
 {% for fueling in car.fuelings %}
     <tr>
-        <td class="tg-yw4l">{% if app.user and app.user.id == car.user %}<a href="{{ path('car_edit_fueling', {'fuelingId': fueling.id}) }}"><img src="{{ asset('pencil-icon.png') }}" width="16" alt="edit"/></a>{% endif %}</td>
+        <td class="tg-yw4l">{% if app.user and app.user.id == car.user %}<a href="{{ path('car_edit_fueling', {'fuelingId': fueling.id}) }}"><img src="{{ asset('pencil-icon.png') }}" width="16" alt="{% trans %}Edit{% endtrans %}"/></a>{% endif %}</td>
         <td class="tg-yw4l">{{ fueling.dateTime.format('Y-m-d') }}</td>
         <td class="tg-yw4l">{{ fueling.Mileage }}</td>
         <td class="tg-yw4l">{{ fueling.litresTanked }}</td>
@@ -51,15 +58,15 @@ suma kosztów: {{car.allCostAmount}} <br/>
 <table class="tg">
     <tr>
         <th class="tg-yw4l">.</th>
-        <th class="tg-yw4l">typ</th>
-        <th class="tg-yw4l">opis</th>
-        <th class="tg-yw4l">data</th>
-        <th class="tg-yw4l">licznik</th>
-        <th class="tg-yw4l">cena</th>
+        <th class="tg-yw4l">{% trans %}Type{% endtrans %}</th>
+        <th class="tg-yw4l">{% trans %}Description{% endtrans %}</th>
+        <th class="tg-yw4l">{% trans %}Date{% endtrans %}</th>
+        <th class="tg-yw4l">{% trans %}Odometer{% endtrans %}</th>
+        <th class="tg-yw4l">{% trans %}Amount{% endtrans %}</th>
     </tr>
 {% for cost in car.costs %}
     <tr>
-        <td class="tg-yw4l" align="center"> {% if app.user and app.user.id == car.user %} <a href="{{ path('car_edit_cost', {'costId': cost.id}) }}"><img src="{{ asset('pencil-icon.png') }}" width="16" alt="edit"/></a>{% endif %}</td>
+        <td class="tg-yw4l" align="center"> {% if app.user and app.user.id == car.user %} <a href="{{ path('car_edit_cost', {'costId': cost.id}) }}"><img src="{{ asset('pencil-icon.png') }}" width="16" alt="{% trans %}Edit{% endtrans %}"/></a>{% endif %}</td>
         <td class="tg-yw4l">{{ cost.getTypeName() }}</td>
         <td class="tg-yw4l">{{ cost.description }}</td>
         <td class="tg-yw4l">{{ cost.dateTime.format('Y-m-d') }}</td>
