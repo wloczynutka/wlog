@@ -65,32 +65,13 @@ class CarCost
      */
     private $description;
 
-    public static $typesArray = [
-        1 => [
-            'name' => 'reperair',
-        ],
-        2 => [
-            'name' => 'period service',
-        ],
-        3 => [
-            'name' => 'accesory',
-        ],
-        4 => [
-             'name' => 'parts',
-        ],
-        5 => [
-            'name' => 'insurance',
-        ],
-        6 => [
-           'name' => 'tax',
-        ],
-        7 => [
-           'name' => 'other',
-        ],
-        8 => [
-           'name' => 'camper conversion',
-        ],
-    ];
+    public $typesArray = null;
+
+
+    public function __construct()
+    {
+        $this->typesArray = TranslationContainer::Instance()->carCostTypes;
+    }
 
     /**
      * Get id
@@ -254,7 +235,10 @@ class CarCost
 
     public function getTypeName()
     {
-        return self::$typesArray[$this->type]['name'];
+        if($this->typesArray === null){
+            $this->typesArray = TranslationContainer::Instance()->carCostTypes;
+        }
+        return $this->typesArray[$this->type]['name'];
     }
 }
 

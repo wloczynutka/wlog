@@ -16,7 +16,7 @@ MENU:
 {% trans %}Tanked litres volume{% endtrans %}: {{car.totalTankedLitres}}<br/>
 {% trans %}Average fuel consumption{% endtrans %} {{car.averageFuelConsumption}}<br/>
 
-{% trans %}Total fuel cost{% endtrans %}: {{car.totalFuelCosts}} <br/>
+{% trans %}Total fuel cost{% endtrans %}: {{car.totalFuelCosts|number_format(2,'.', '')}} <br/>
 {% trans %}Total tax costs{% endtrans %}: --TODO-- <br/>
 {% trans %}Total reperair costs{% endtrans %}: --TODO-- <br/>
 {% trans %}Total service costs{% endtrans %}: --TODO-- <br/>
@@ -24,7 +24,7 @@ MENU:
 {% trans %}Total insurance costs{% endtrans %}: --TODO-- <br/>
 {% trans %}Total other costs{% endtrans %}: --TODO-- <br/>
 {% trans %}Total camper costs{% endtrans %}: --TODO-- <br/>
-{% trans %}All cost total{% endtrans %}: {{car.allCostAmount}} <br/>
+{% trans %}All cost total{% endtrans %}: {{car.allCostAmount|number_format(2,'.', '') }} <br/>
 <hr>
 
 
@@ -45,8 +45,8 @@ MENU:
         <td class="tg-yw4l">{{ fueling.dateTime.format('Y-m-d') }}</td>
         <td class="tg-yw4l">{{ fueling.Mileage }}</td>
         <td class="tg-yw4l">{{ fueling.litresTanked }}</td>
-        <td class="tg-yw4l">{{ fueling.pricePerLiter }}</td>
-        <td class="tg-yw4l">{{ fueling.amount }}</td>
+        <td class="tg-yw4l">{{ fueling.pricePerLiter|number_format(2,'.', '') }}</td>
+        <td class="tg-yw4l">{{ fueling.amount|number_format(2,'.', '') }}</td>
         <td class="tg-yw4l">{{ fueling.getDistanceFromPrievous() }}</td>
         <td class="tg-yw4l">{{ fueling.getFuelConsumptionFromPrievous() }}</td>
     </tr>
@@ -71,7 +71,7 @@ MENU:
         <td class="tg-yw4l">{{ cost.description }}</td>
         <td class="tg-yw4l">{{ cost.dateTime.format('Y-m-d') }}</td>
         <td class="tg-yw4l">{{ cost.Mileage }}</td>
-        <td class="tg-yw4l">{{ cost.amount }}</td>
+        <td class="tg-yw4l">{{ cost.amount|number_format(2,'.', '') }}</td>
     </tr>
 {% endfor %}
 </table>

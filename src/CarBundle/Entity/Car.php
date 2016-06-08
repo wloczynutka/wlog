@@ -338,18 +338,17 @@ class Car
         
         /* @var $carFueling \CarBundle\Entity\CarFueling */
         $prievousFueling = false;
-        $fuelingCount = 0;
 		foreach ($this->fuelings as $carFueling) {
             if($prievousFueling instanceof CarFueling){
                 $carFueling->caclulateFuelConsumption($prievousFueling);
-                $fuelingCount++;
             }
             $prievousFueling = $carFueling;
             $this->totalFuelCosts += $carFueling->getAmount();
             $this->totalTankedLitres += $carFueling->getLitresTanked();
             $this->checkAndSetMileage($carFueling->getMileage());
+            $fuelConsumptionSum = $carFueling->getFuelConsumptionFromPrievous();
 		}
-        $fuelingCount !== 0 ? $this->averageFuelConsumption = $this->totalTankedLitres/$fuelingCount : 0;
+        count($this->fuelings) > 1 ? $this->averageFuelConsumption = round($fuelConsumptionSum/(count($this->fuelings)-1),2) : 0;
 		$this->allCostAmount = $allCostAmount + $this->totalFuelCosts;
 	}
 
