@@ -16,6 +16,9 @@ namespace CarBundle\Entity;
 final class TranslationContainer
 {
     public $carCostTypes;
+    public $fuelTypes;
+
+    private $translator;
 
     /**
      * Call this method to get singleton
@@ -37,7 +40,9 @@ final class TranslationContainer
      */
     private function __construct()
     {
+        $this->loadTranslatorService();
         $this->prepareCostTypeTranslations();
+        $this->prepareFuelTypeTranslations();
     }
 
     private function loadTranslatorService()
@@ -46,41 +51,56 @@ final class TranslationContainer
         if ('AppCache' == get_class($kernel)) {
             $kernel = $kernel->getKernel();
         }
-        return $kernel->getContainer()->get('translator');
+        $this->translator = $kernel->getContainer()->get('translator');
     }
 
     private function prepareCostTypeTranslations()
     {
-        $translator = $this->loadTranslatorService();
         $this->carCostTypes = [
             1 => [
-                'name' => $translator->trans('reperair'),
+                'name' => $this->translator->trans('reperair'),
             ],
             2 => [
-                'name' => $translator->trans('period service'),
+                'name' => $this->translator->trans('period service'),
             ],
             3 => [
-                'name' => $translator->trans('accesory'),
+                'name' => $this->translator->trans('accesory'),
             ],
             4 => [
-                 'name' => $translator->trans('parts'),
+                 'name' => $this->translator->trans('parts'),
             ],
             5 => [
-                'name' => $translator->trans('insurance'),
+                'name' => $this->translator->trans('insurance'),
             ],
             6 => [
-               'name' => $translator->trans('tax'),
+               'name' => $this->translator->trans('tax'),
             ],
             7 => [
-               'name' => $translator->trans('other'),
+               'name' => $this->translator->trans('other'),
             ],
             8 => [
-               'name' => $translator->trans('camper conversion'),
+               'name' => $this->translator->trans('camper conversion'),
             ],
             9 => [
-               'name' => $translator->trans('technical examination'),
+               'name' => $this->translator->trans('technical examination'),
             ],
         ];
     }
+
+     private function prepareFuelTypeTranslations()
+     {
+         $this->translator->trans('Fuel type');
+         $this->fuelTypes = [
+            1 => [
+                'name' => $this->translator->trans('petrol'),
+            ],
+            2 => [
+                'name' => $this->translator->trans('diesel'),
+            ],
+            3 => [
+                'name' => $this->translator->trans('LPG'),
+            ],
+         ];
+     }
 
 }

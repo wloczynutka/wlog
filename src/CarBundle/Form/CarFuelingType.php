@@ -5,6 +5,8 @@ namespace CarBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use CarBundle\Entity\TranslationContainer;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 class CarFuelingType extends AbstractType
 {
@@ -14,15 +16,25 @@ class CarFuelingType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        foreach (TranslationContainer::Instance()->fuelTypes as $typeId => $typeDetails) {
+            $fuelTypes[$typeDetails['name']] = $typeId;
+        }
+
         $builder
             ->add('dateTime', 'date', ['widget' => 'single_text', 'format' => 'yyyy-MM-dd'])
             ->add('litresTanked')
             ->add('pricePerLiter')
             ->add('amount')
-            ->add('currency')
+            ->add('currency',ChoiceType::class, [
+                'choices'  => ['PLN', /*'EUR', 'CHF'*/],
+                'choices_as_values' => false,
+            ])
             ->add('mileage')
-            ->add('fuelType')
-            ->add('averageConsumptionByComputer',  'text', array('required' => false))
+            ->add('fuelType', ChoiceType::class, [
+                'choices'  => $fuelTypes,
+                'choices_as_values' => true,
+            ])
+            ->add('averageConsumptionByComputer', 'text', array('required' => false))
             ->add('averageSpeed',  'text', array('required' => false))
             ->add('driveTime',  'text', array('required' => false))
             ->add('save', 'submit', array('label' => 'Save'))

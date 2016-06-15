@@ -35,9 +35,13 @@ MENU:
         <th class="tg-yw4l">{% trans %}Odometer{% endtrans %}</th>
         <th class="tg-yw4l">{% trans %}Litres{% endtrans %}</th>
         <th class="tg-yw4l">{% trans %}Price/liter{% endtrans %}</th>
-        <th class="tg-yw4l">{% trans %}Paid amount{% endtrans %}a</th>
+        <th class="tg-yw4l">{% trans %}Paid amount{% endtrans %}</th>
+        <th class="tg-yw4l">{% trans %}Currency{% endtrans %}</th>
         <th class="tg-yw4l">{% trans %}Trip odometer{% endtrans %}</th>
         <th class="tg-yw4l">{% trans %}Fuel consumption{% endtrans %}</th>
+        <th class="tg-yw4l">{% trans %}Average consumption by computer{% endtrans %}</th>
+        <th class="tg-yw4l">{% trans %}Average speed{% endtrans %}</th>
+        <th class="tg-yw4l">{% trans %}Driving time{% endtrans %}</th>
     </tr>
 {% for fueling in car.fuelings %}
     <tr>
@@ -47,8 +51,12 @@ MENU:
         <td class="tg-yw4l">{{ fueling.litresTanked }}</td>
         <td class="tg-yw4l">{{ fueling.pricePerLiter|number_format(2,'.', '') }}</td>
         <td class="tg-yw4l">{{ fueling.amount|number_format(2,'.', '') }}</td>
+        <td class="tg-yw4l">{{ fueling.currency }}</td>
         <td class="tg-yw4l">{{ fueling.getDistanceFromPrievous() }}</td>
-        <td class="tg-yw4l">{{ fueling.getFuelConsumptionFromPrievous() }}</td>
+        <td class="tg-yw4l">{{ fueling.getFuelConsumptionFromPrievous()|number_format(2,'.', '') }}</td>
+        <td class="tg-yw4l">{{ fueling.averageConsumptionByComputer }}</td>
+        <td class="tg-yw4l">{{ fueling.averageSpeed }}</td>
+        <td class="tg-yw4l">{{ fueling.driveTime }}</td>
     </tr>
 {% endfor %}
 </table>
