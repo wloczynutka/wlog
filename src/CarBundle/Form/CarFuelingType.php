@@ -23,6 +23,8 @@ class CarFuelingType extends AbstractType
             ->add('mileage')
             ->add('fuelType')
             ->add('averageConsumptionByComputer',  'text', array('required' => false))
+            ->add('averageSpeed',  'text', array('required' => false))
+            ->add('driveTime',  'text', array('required' => false))
             ->add('save', 'submit', array('label' => 'Save'))
         ;
     }

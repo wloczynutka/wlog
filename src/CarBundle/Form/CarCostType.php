@@ -2,6 +2,7 @@
 
 namespace CarBundle\Form;
 
+use CarBundle\Entity\TranslationContainer;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -15,8 +16,7 @@ class CarCostType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-
-        foreach (\CarBundle\Entity\CarCost::$typesArray as $typeId => $typeDetails) {
+        foreach (TranslationContainer::Instance()->carCostTypes as $typeId => $typeDetails) {
             $choices[$typeDetails['name']] = $typeId;
         }
 

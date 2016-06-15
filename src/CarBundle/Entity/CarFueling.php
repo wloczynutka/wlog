@@ -77,6 +77,18 @@ class CarFueling
      */
     private $averageConsumptionByComputer;
 
+    /**
+     * @var float
+     * @ORM\Column(name="averageSpeed", type="float", nullable=true)
+     */
+    private $averageSpeed;
+
+    /**
+     * @var float
+     * @ORM\Column(name="driveTime", type="string", nullable=true)
+     */
+    private $driveTime;
+
     private $distanceFromPrievous;
 
     /**
@@ -306,5 +318,29 @@ class CarFueling
     {
         return $this->fuelConsumptionFromPrievous;
     }
+
+    public function getAverageSpeed()
+    {
+        return $this->averageSpeed;
+    }
+
+    public function getDriveTime()
+    {
+        return $this->driveTime;
+    }
+
+    public function setAverageSpeed($averageSpeed)
+    {
+        $this->averageSpeed = $averageSpeed;
+        return $this;
+    }
+
+    public function setDriveTime($driveTime)
+    {
+        $this->driveTime = $driveTime;
+        return $this;
+    }
+
+
 
 }
