@@ -40,35 +40,45 @@ final class TranslationContainer
         $this->prepareCostTypeTranslations();
     }
 
+    private function loadTranslatorService()
+    {
+        global $kernel;
+        if ('AppCache' == get_class($kernel)) {
+            $kernel = $kernel->getKernel();
+        }
+        return $kernel->getContainer()->get('translator');
+    }
+
     private function prepareCostTypeTranslations()
     {
+        $translator = $this->loadTranslatorService();
         $this->carCostTypes = [
             1 => [
-                'name' => _('reperair'),
+                'name' => $translator->trans('reperair'),
             ],
             2 => [
-                'name' => _('period service'),
+                'name' => $translator->trans('period service'),
             ],
             3 => [
-                'name' => _('accesory'),
+                'name' => $translator->trans('accesory'),
             ],
             4 => [
-                 'name' => _('parts'),
+                 'name' => $translator->trans('parts'),
             ],
             5 => [
-                'name' => _('insurance'),
+                'name' => $translator->trans('insurance'),
             ],
             6 => [
-               'name' => _('tax'),
+               'name' => $translator->trans('tax'),
             ],
             7 => [
-               'name' => _('other'),
+               'name' => $translator->trans('other'),
             ],
             8 => [
-               'name' => _('camper conversion'),
+               'name' => $translator->trans('camper conversion'),
             ],
             9 => [
-               'name' => _('technical examination'),
+               'name' => $translator->trans('technical examination'),
             ],
         ];
     }
