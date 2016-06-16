@@ -91,7 +91,7 @@ class Car
     private $mileage = 0;
 
     private $totalTankedLitres = 0;
-
+/*
     public static $fuelTypes = [
         1 => [
             'name' => 'petrol'
@@ -103,7 +103,7 @@ class Car
             'name' => 'LPG'
         ],
     ];
-
+*/
     public function __construct()
     {
         $this->costs = new ArrayCollection();
@@ -338,6 +338,7 @@ class Car
         
         /* @var $carFueling \CarBundle\Entity\CarFueling */
         $prievousFueling = false;
+        $fuelConsumptionSum = 0;
 		foreach ($this->fuelings as $carFueling) {
             if($prievousFueling instanceof CarFueling){
                 $carFueling->caclulateFuelConsumption($prievousFueling);
@@ -346,7 +347,7 @@ class Car
             $this->totalFuelCosts += $carFueling->getAmount();
             $this->totalTankedLitres += $carFueling->getLitresTanked();
             $this->checkAndSetMileage($carFueling->getMileage());
-            $fuelConsumptionSum = $carFueling->getFuelConsumptionFromPrievous();
+            $fuelConsumptionSum += $carFueling->getFuelConsumptionFromPrievous();
 		}
         count($this->fuelings) > 1 ? $this->averageFuelConsumption = round($fuelConsumptionSum/(count($this->fuelings)-1),2) : 0;
 		$this->allCostAmount = $allCostAmount + $this->totalFuelCosts;
