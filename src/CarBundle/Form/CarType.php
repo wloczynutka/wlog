@@ -7,6 +7,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use CarBundle\Entity\TranslationContainer;
 
 class CarType extends AbstractType
 {
@@ -17,9 +18,9 @@ class CarType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
 
-        $fuelChoices = [];
-        foreach (\CarBundle\Entity\Car::$fuelTypes as $fuelId => $details) {
-            $fuelChoices[$details['name']] = $fuelId;
+        $fuelTypes = [];
+        foreach (TranslationContainer::Instance()->fuelTypes as $typeId => $typeDetails) {
+            $fuelTypes[$typeDetails['name']] = $typeId;
         }
 
         $builder
@@ -39,10 +40,11 @@ class CarType extends AbstractType
             ->add('manufactureDate', 'date', ['widget' => 'single_text', 'format' => 'yyyy-MM-dd'])
             ->add('color')
             ->add('fuel', ChoiceType::class, [
-                'choices'  => $fuelChoices,
+                'choices'  => $fuelTypes,
                 'choices_as_values' => true,
             ])
             ->add('purchasePrice')
+            ->add('ownName')
             ->add('save', 'submit', array('label' => 'Save'))
         ;
     }

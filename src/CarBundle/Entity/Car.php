@@ -82,11 +82,19 @@ class Car
      */
     private $purchasePrice;
 
-	private $allCostAmount = 0;
+    /**
+     * @var string
+     * @ORM\Column(name="ownName", type="string", length=33)
+     */
+    private $ownName;
+
+    private $allCostAmount = 0;
 
     private $totalFuelCosts = 0;
 
     private $averageFuelConsumption = 0;
+    
+    private $averageFuelConsumptionByObd = 0;
 
     private $mileage = 0;
 
@@ -338,7 +346,8 @@ class Car
         
         /* @var $carFueling \CarBundle\Entity\CarFueling */
         $prievousFueling = false;
-        $fuelConsumptionSum = 0;
+        $fuelConsumptionSum = $fuelConsumptionObdSum = $fuelConsumptionObdSumCount = 0;
+
 		foreach ($this->fuelings as $carFueling) {
             if($prievousFueling instanceof CarFueling){
                 $carFueling->caclulateFuelConsumption($prievousFueling);
@@ -347,10 +356,15 @@ class Car
             $this->totalFuelCosts += $carFueling->getAmount();
             $this->totalTankedLitres += $carFueling->getLitresTanked();
             $this->checkAndSetMileage($carFueling->getMileage());
+            if($carFueling->getAverageConsumptionByComputer() != 0){
+                $fuelConsumptionObdSum += $carFueling->getAverageConsumptionByComputer();
+                $fuelConsumptionObdSumCount++;
+            }
             $fuelConsumptionSum += $carFueling->getFuelConsumptionFromPrievous();
 		}
         count($this->fuelings) > 1 ? $this->averageFuelConsumption = round($fuelConsumptionSum/(count($this->fuelings)-1),2) : 0;
 		$this->allCostAmount = $allCostAmount + $this->totalFuelCosts;
+        $this->averageFuelConsumptionByObd = $fuelConsumptionObdSum / $fuelConsumptionObdSumCount;
 	}
 
     private function checkAndSetMileage($newMileage)
@@ -414,7 +428,22 @@ class Car
         $this->purchasePrice = $purchasePrice;
         return $this;
     }
+    
+    public function getAverageFuelConsumptionByObd()
+    {
+        return $this->averageFuelConsumptionByObd;
+    }
 
+    public function getOwnName()
+    {
+        return $this->ownName;
+    }
+
+    public function setOwnName($ownName)
+    {
+        $this->ownName = $ownName;
+        return $this;
+    }
 
 }
 

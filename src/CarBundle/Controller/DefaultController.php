@@ -10,6 +10,7 @@ use \CarBundle\Form\CarFuelingType;
 use \CarBundle\Form\CarCostType;
 use \CarBundle\Form\CarType;
 use Symfony\Component\HttpFoundation\Request;
+use CarBundle\Entity\TranslationContainer;
 
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
@@ -113,14 +114,18 @@ class DefaultController extends Controller
         $fontfile = __DIR__ . "/../Resources/imagestats/verdana.ttf";
         $fontsize = 8;
 
-        $text = 'Spalanie: ' . $car->getAverageFuelConsumption() . ' l/100km';
+        $text = $this->get('translator')->trans('Avg Consumption: ') . $car->getAverageFuelConsumption();
+        $text .= ' (' . $this->get('translator')->trans('comp: ').$car->getAverageFuelConsumptionByObd().')' . ' [L/100km]' ;
         ImageTTFText($im, $fontsize, 0, 5, 12, $black, $fontfile, $text);
 
-        $text2 = 'Przebieg: ' . $car->getMileage() . ' km';
-        ImageTTFText($im, $fontsize, 0, 185, 12, $black, $fontfile, $text2);
+        $text2 = $this->get('translator')->trans('Mileage: ') . $car->getMileage() . ' [km]';
+        ImageTTFText($im, $fontsize, 0, 5, 24, $black, $fontfile, $text2);
 
-        $totLitresTxt = 'Zatankowanych litrów: ' . $car->getTotalTankedLitres();
-        ImageTTFText($im, $fontsize, 0, 5, 30, $black, $fontfile, $totLitresTxt);
+        $totLitresTxt = $this->get('translator')->trans('Tanked volume: ') . $car->getTotalTankedLitres() . ' [L]';
+        $totLitresTxt .= ' (' . TranslationContainer::Instance()->fuelTypes[$car->getFuel()]['name'] . ')';
+        ImageTTFText($im, $fontsize, 0, 5, 36, $black, $fontfile, $totLitresTxt);
+
+        ImageTTFText($im, $fontsize, 0, 5, 48, $black, $fontfile, $car->getOwnName());
 
         $CarNameText = $car->getMake()->getName() . ' ' . $car->getModel()->getName();
 

@@ -32,8 +32,8 @@ car_add_car:
     path:     /car/add
     defaults: { _controller: CarBundle:Default:addCar }
 car_edit_car:
-    path:     /car/edit/car/{carId}
+    path:     /{_locale}/car/edit/car/{carId}
     defaults: { _controller: CarBundle:Edit:editCar }
 car_get_stat_image:
-    path:     /car/getstatimage/{carId}
+    path:     /{_locale}/car/getstatimage/{carId}
     defaults: { _controller: CarBundle:Default:getStatImage }
