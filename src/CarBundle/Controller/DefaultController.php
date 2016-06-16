@@ -100,49 +100,43 @@ class DefaultController extends Controller
     public function getStatImageAction($carId)
     {
         $car = $this->loadCarById($carId);
-
-
         $tplpath = __DIR__ . '/../Resources/imagestats/tourneo4wlog.jpg';
-        $maxtextwidth = 60;
-
         $im = imagecreatefromjpeg($tplpath);
         $clrBorder = ImageColorAllocate($im, 70, 70, 70);
         $black = ImageColorAllocate($im, 0, 0, 0);
-        $white = ImageColorAllocate($im, 255, 255, 255);
         $darkGreen = ImageColorAllocate($im, 100, 255, 100);
-
         $fontfile = __DIR__ . "/../Resources/imagestats/verdana.ttf";
         $fontsize = 8;
-
-        $text = $this->get('translator')->trans('Avg Consumption: ') . $car->getAverageFuelConsumption();
-        $text .= ' (' . $this->get('translator')->trans('comp: ').$car->getAverageFuelConsumptionByObd().')' . ' [L/100km]' ;
-        ImageTTFText($im, $fontsize, 0, 5, 12, $black, $fontfile, $text);
-
-        $text2 = $this->get('translator')->trans('Mileage: ') . $car->getMileage() . ' [km]';
-        ImageTTFText($im, $fontsize, 0, 5, 24, $black, $fontfile, $text2);
-
-        $totLitresTxt = $this->get('translator')->trans('Tanked volume: ') . $car->getTotalTankedLitres() . ' [L]';
-        $totLitresTxt .= ' (' . TranslationContainer::Instance()->fuelTypes[$car->getFuel()]['name'] . ')';
-        ImageTTFText($im, $fontsize, 0, 5, 36, $black, $fontfile, $totLitresTxt);
-
+        ImageTTFText($im, $fontsize, 0, 5, 12, $black, $fontfile, $this->generateConsumptionTxt($car));
+        ImageTTFText($im, $fontsize, 0, 5, 24, $black, $fontfile, $this->get('translator')->trans('Mileage: ') . $car->getMileage() . ' [km]');
+        ImageTTFText($im, $fontsize, 0, 5, 36, $black, $fontfile, $this->generateTotLitresTxt($car));
         ImageTTFText($im, $fontsize, 0, 5, 48, $black, $fontfile, $car->getOwnName());
-
         $CarNameText = $car->getMake()->getName() . ' ' . $car->getModel()->getName();
-
         $dimensions = imagettfbbox(7, 0, $fontfile, $CarNameText);
         $textWidth = abs($dimensions[4] - $dimensions[0]);
         $x = imagesx($im) - $textWidth-5;
         ImageTTFText($im, 7, 0, $x, 46, $darkGreen, $fontfile, $CarNameText);
-
-        // draw border
         ImageRectangle($im, 0, 0, imagesx($im) - 1, imagesy($im) - 1, $clrBorder);
-        // write output
         $imageFile = __DIR__ . '/../Resources/public/images/carstats/car'.$car->getId().'.jpg';
         Imagejpeg($im, $imageFile, 90);
         ImageDestroy($im);
-
         $response = new BinaryFileResponse($imageFile);
         return $response;
+    }
+
+    private function generateConsumptionTxt($car)
+    {
+        $text = $this->get('translator')->trans('Avg Consumption: ') . $car->getAverageFuelConsumption();
+        $text .= ' (' . $this->get('translator')->trans('comp: ').$car->getAverageFuelConsumptionByObd().')';
+        $text .= ' [L/100km]' ;
+        return $text;
+    }
+
+    private function generateTotLitresTxt($car)
+    {
+        $totLitresTxt = $this->get('translator')->trans('Tanked volume: ') . $car->getTotalTankedLitres() . ' [L]';
+        $totLitresTxt .= ' (' . TranslationContainer::Instance()->fuelTypes[$car->getFuel()]['name'] . ')';
+        return $totLitresTxt;
     }
 
 	/**
