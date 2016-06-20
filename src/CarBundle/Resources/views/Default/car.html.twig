@@ -17,13 +17,13 @@ MENU:
 {% trans %}Average fuel consumption{% endtrans %} {{car.averageFuelConsumption}}<br/>
 
 {% trans %}Total fuel cost{% endtrans %}: {{car.totalFuelCosts|number_format(2,'.', '')}} <br/>
-{% trans %}Total tax costs{% endtrans %}: --TODO-- <br/>
-{% trans %}Total reperair costs{% endtrans %}: --TODO-- <br/>
-{% trans %}Total service costs{% endtrans %}: --TODO-- <br/>
-{% trans %}Total accesory costs{% endtrans %}: --TODO-- <br/>
-{% trans %}Total insurance costs{% endtrans %}: --TODO-- <br/>
-{% trans %}Total other costs{% endtrans %}: --TODO-- <br/>
-{% trans %}Total camper costs{% endtrans %}: --TODO-- <br/>
+{% trans %}Total tax costs{% endtrans %}: {{car.costSummary.tax}} <br/>
+{% trans %}Total reperair costs{% endtrans %}: {{car.costSummary.reperair}} <br/>
+{% trans %}Total service costs{% endtrans %}: {{car.costSummary.periodService}}  <br/>
+{% trans %}Total accesory costs{% endtrans %}: {{car.costSummary.accesory}} <br/>
+{% trans %}Total insurance costs{% endtrans %}: {{car.costSummary.insurance}}  <br/>
+{% trans %}Total other costs{% endtrans %}: {{car.costSummary.other}}  <br/>
+{% trans %}Total camper costs{% endtrans %}: {{car.costSummary.camperConversion}}  <br/>
 {% trans %}All cost total{% endtrans %}: {{car.allCostAmount|number_format(2,'.', '') }} <br/>
 <hr>
 

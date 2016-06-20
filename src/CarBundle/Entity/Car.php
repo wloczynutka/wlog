@@ -99,6 +99,9 @@ class Car
     private $mileage = 0;
 
     private $totalTankedLitres = 0;
+
+    private $costSummary;
+
 /*
     public static $fuelTypes = [
         1 => [
@@ -116,6 +119,23 @@ class Car
     {
         $this->costs = new ArrayCollection();
         $this->fuelings = new ArrayCollection();
+        $this->initiateCostSummary();
+    }
+
+    private function initiateCostSummary()
+    {
+        $this->costSummary = new CostSummary();
+        $this->costSummary->setCostCollection($this->costs);
+    }
+
+    /**
+     * initiate costSummary object when entity loaded from db. (__construct not called)
+     */
+    public function __postLoad()
+    {
+        if($this->costSummary === null){
+            $this->initiateCostSummary();
+        }
     }
 
     /**
@@ -340,7 +360,6 @@ class Car
         
 		/* @var $carCost CarBundle\Entity\CarCost */
 		foreach ($this->costs as $carCost) {
-			$allCostAmount += $carCost->getAmount();
             $this->checkAndSetMileage($carCost->getMileage());
 		}
         
@@ -363,7 +382,7 @@ class Car
             $fuelConsumptionSum += $carFueling->getFuelConsumptionFromPrievous();
 		}
         count($this->fuelings) > 1 ? $this->averageFuelConsumption = round($fuelConsumptionSum/(count($this->fuelings)-1),2) : 0;
-		$this->allCostAmount = $allCostAmount + $this->totalFuelCosts;
+        $this->allCostAmount = $this->costSummary->getAllCostSum() + $this->totalFuelCosts;
         $this->averageFuelConsumptionByObd = $fuelConsumptionObdSum / $fuelConsumptionObdSumCount;
 	}
 
@@ -444,6 +463,13 @@ class Car
         $this->ownName = $ownName;
         return $this;
     }
+
+    public function getCostSummary()
+    {
+        return $this->costSummary;
+    }
+
+
 
 }
 
