@@ -21,6 +21,7 @@ MENU:
 {% trans %}Total reperair costs{% endtrans %}: {{car.costSummary.reperair}} <br/>
 {% trans %}Total service costs{% endtrans %}: {{car.costSummary.periodService}}  <br/>
 {% trans %}Total accesory costs{% endtrans %}: {{car.costSummary.accesory}} <br/>
+{% trans %}Total parts costs{% endtrans %}: {{car.costSummary.parts}} <br/>
 {% trans %}Total insurance costs{% endtrans %}: {{car.costSummary.insurance}}  <br/>
 {% trans %}Total other costs{% endtrans %}: {{car.costSummary.other}}  <br/>
 {% trans %}Total camper costs{% endtrans %}: {{car.costSummary.camperConversion}}  <br/>
@@ -66,18 +67,18 @@ MENU:
 <table class="tg">
     <tr>
         <th class="tg-yw4l">.</th>
+        <th class="tg-yw4l">{% trans %}Date{% endtrans %}</th>
         <th class="tg-yw4l">{% trans %}Type{% endtrans %}</th>
         <th class="tg-yw4l">{% trans %}Description{% endtrans %}</th>
-        <th class="tg-yw4l">{% trans %}Date{% endtrans %}</th>
         <th class="tg-yw4l">{% trans %}Odometer{% endtrans %}</th>
         <th class="tg-yw4l">{% trans %}Amount{% endtrans %}</th>
     </tr>
 {% for cost in car.costs %}
     <tr>
         <td class="tg-yw4l" align="center"> {% if app.user and app.user.id == car.user %} <a href="{{ path('car_edit_cost', {'costId': cost.id}) }}"><img src="{{ asset('pencil-icon.png') }}" width="16" alt="{% trans %}Edit{% endtrans %}"/></a>{% endif %}</td>
+        <td class="tg-yw4l">{{ cost.dateTime.format('Y-m-d') }}</td>
         <td class="tg-yw4l">{{ cost.getTypeName() }}</td>
         <td class="tg-yw4l">{{ cost.description }}</td>
-        <td class="tg-yw4l">{{ cost.dateTime.format('Y-m-d') }}</td>
         <td class="tg-yw4l">{{ cost.Mileage }}</td>
         <td class="tg-yw4l">{{ cost.amount|number_format(2,'.', '') }}</td>
     </tr>
