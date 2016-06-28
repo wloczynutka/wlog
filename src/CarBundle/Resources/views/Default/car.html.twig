@@ -12,19 +12,19 @@ MENU:
 <br><br>
 <table class="carSummary" >
 <tr><th>{% trans %}Car{% endtrans %} </th><td> {{car.make.name}} {{car.model.name}} </td></tr>
-<tr><th>{% trans %}Mileage{% endtrans %}</th><td> {{car.mileage}} </td></tr>
-<tr><th>{% trans %}Tanked litres volume{% endtrans %}</th><td> {{car.totalTankedLitres}}</td></tr>
-<tr><th>{% trans %}Average fuel consumption{% endtrans %}</th><td> {{car.averageFuelConsumption}}</td></tr>
+<tr><th>{% trans %}Mileage{% endtrans %}</th><td> {{car.mileage}} km</td></tr>
+<tr><th>{% trans %}Tanked litres volume{% endtrans %}</th><td> {{car.totalTankedLitres}} l</td></tr>
+<tr><th>{% trans %}Average fuel consumption{% endtrans %}</th><td> {{car.averageFuelConsumption}} l/100km</td></tr>
 <tr><th>{% trans %}Total fuel cost{% endtrans %}</th><td> {{car.totalFuelCosts|number_format(2,'.', '')}} {{car.defaultCurrency}}</td></tr>
-<tr><th>{% trans %}Total tax costs{% endtrans %}</th><td> {{car.costSummary.tax}}  {{car.defaultCurrency}}</td></tr>
-<tr><th>{% trans %}Total reperair costs{% endtrans %}</th><td> {{car.costSummary.reperair}}  {{car.defaultCurrency}}</td></tr>
-<tr><th>{% trans %}Total service costs{% endtrans %}</th><td> {{car.costSummary.periodService}} {{car.defaultCurrency}}</td></tr>
-<tr><th>{% trans %}Total accesory costs{% endtrans %}</th><td> {{car.costSummary.accesory}} {{car.defaultCurrency}}</td></tr>
-<tr><th>{% trans %}Total parts costs{% endtrans %}</th><td> {{car.costSummary.parts}}  {{car.defaultCurrency}}</td></tr>
-<tr><th>{% trans %}Total insurance costs{% endtrans %}</th><td> {{car.costSummary.insurance}} {{car.defaultCurrency}}</td></tr>
-<tr><th>{% trans %}Total other costs{% endtrans %}</th><td> {{car.costSummary.other}} {{car.defaultCurrency}}</td></tr>
-<tr><th>{% trans %}Total camper costs{% endtrans %}</th><td> {{car.costSummary.camperConversion}} {{car.defaultCurrency}} </td></tr>
-<tr><th>{% trans %}All cost total{% endtrans %}</th><td> {{car.allCostAmount|number_format(2,'.', '') }} {{car.defaultCurrency}}</td></tr>
+<tr><th>{% trans %}Total tax costs{% endtrans %}</th><td> {{car.costSummary.tax|number_format(2,'.', '')}}  {{car.defaultCurrency}}</td></tr>
+<tr><th>{% trans %}Total reperair costs{% endtrans %}</th><td> {{car.costSummary.reperair|number_format(2,'.', '')}}  {{car.defaultCurrency}}</td></tr>
+<tr><th>{% trans %}Total service costs{% endtrans %}</th><td> {{car.costSummary.periodService|number_format(2,'.', '')}} {{car.defaultCurrency}}</td></tr>
+<tr><th>{% trans %}Total accesory costs{% endtrans %}</th><td> {{car.costSummary.accesory|number_format(2,'.', '')}} {{car.defaultCurrency}}</td></tr>
+<tr><th>{% trans %}Total parts costs{% endtrans %}</th><td> {{car.costSummary.parts|number_format(2,'.', '')}}  {{car.defaultCurrency}}</td></tr>
+<tr><th>{% trans %}Total insurance costs{% endtrans %}</th><td> {{car.costSummary.insurance|number_format(2,'.', '')}} {{car.defaultCurrency}}</td></tr>
+<tr><th>{% trans %}Total other costs{% endtrans %}</th><td> {{car.costSummary.other|number_format(2,'.', '')}} {{car.defaultCurrency}}</td></tr>
+<tr><th>{% trans %}Total camper costs{% endtrans %}</th><td> {{car.costSummary.camperConversion|number_format(2,'.', '')}} {{car.defaultCurrency}} </td></tr>
+<tr><th>{% trans %}All cost total{% endtrans %}</th><td> {{car.allCostAmount|number_format(2,'.', '')}} {{car.defaultCurrency}}</td></tr>
 </table>
 <hr>
 
