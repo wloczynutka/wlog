@@ -59,6 +59,12 @@ class CarCost
      */
     private $currency;
 
+     /**
+     * @var float
+     * @ORM\Column(name="exchangeRate", type="float", nullable=false)
+     */
+    private $exchangeRate;
+
     /**
      * @var string
      * @ORM\Column(name="description", type="string", length=255)
@@ -71,6 +77,11 @@ class CarCost
     public function __construct()
     {
         $this->typesArray = TranslationContainer::Instance()->carCostTypes;
+    }
+
+    public function getAmountInDefaultCurrency()
+    {
+        return $this->amount * $this->exchangeRate;
     }
 
     /**
@@ -240,5 +251,17 @@ class CarCost
         }
         return $this->typesArray[$this->type]['name'];
     }
+
+    public function setExchangeRate($exchangeRate)
+    {
+        $this->exchangeRate = $exchangeRate;
+        return $this;
+    }
+
+    public function getExchangeRate()
+    {
+        return $this->exchangeRate;
+    }
+
 }
 

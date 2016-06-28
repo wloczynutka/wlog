@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: wlog\n"
 "POT-Creation-Date: 2016-06-16 16:22+0200\n"
-"PO-Revision-Date: 2016-06-16 16:24+0200\n"
+"PO-Revision-Date: 2016-06-24 13:43+0200\n"
 "Last-Translator: Andrzej  Lza Wozniak <lza@tlen.pl>\n"
 "Language-Team: \n"
 "Language: pl_PL\n"
@@ -231,7 +231,7 @@ msgstr "Typ"
 
 #: /tmp/cache/5762b6344e200/1f/1f6ac3d20df9fc27478cbb19e7ecfa6c88413fd80c5d370208b81999687eff72.php:59
 msgid "User is not logged in. Some features are disabled"
-msgstr "Użytkownik nie jest zalogowany. niektóre funkcje nie będą wyśiwetlane."
+msgstr "Użytkownik nie jest zalogowany. niektóre funkcje nie będą wyświetlane."
 
 #~ msgid "list of cars"
 #~ msgstr "Lista samochodów"

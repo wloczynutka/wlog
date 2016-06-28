@@ -59,6 +59,12 @@ class CarFueling
      */
     private $currency;
 
+     /**
+     * @var float
+     * @ORM\Column(name="exchangeRate", type="float", nullable=false)
+     */
+    private $exchangeRate;
+
     /**
      * @var integer
      * @ORM\Column(name="mileage", type="integer")
@@ -103,6 +109,11 @@ class CarFueling
         if($this->distanceFromPrievous != 0){
             $this->fuelConsumptionFromPrievous = $this->getLitresTanked() * 100 / $this->distanceFromPrievous;
         }
+    }
+
+    public function getAmountInDefaultCurrency()
+    {
+        return $this->amount * $this->exchangeRate;
     }
 
     /**
@@ -172,7 +183,6 @@ class CarFueling
     public function setAmount($amount)
     {
         $this->amount = $amount;
-
         return $this;
     }
 
@@ -196,7 +206,6 @@ class CarFueling
     public function setCurrency($currency)
     {
         $this->currency = strtoupper($currency);
-
         return $this;
     }
 
@@ -282,7 +291,7 @@ class CarFueling
      * Get Car
      * @return CarBundle\Entity\Car
      */
-    function getCar()
+    public function getCar()
     {
         return $this->car;
     }
@@ -292,7 +301,7 @@ class CarFueling
      * @param CarBundle\Entity\Car $car
      * @return CarCost
      */
-    function setCar(Car $car = null)
+    public function setCar(Car $car = null)
     {
         $this->car = $car;
         return $this;
@@ -341,6 +350,15 @@ class CarFueling
         return $this;
     }
 
+    public function setExchangeRate($exchangeRate)
+    {
+        $this->exchangeRate = $exchangeRate;
+        return $this;
+    }
 
+    public function getExchangeRate()
+    {
+        return $this->exchangeRate;
+    }
 
 }

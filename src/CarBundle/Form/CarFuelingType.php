@@ -19,14 +19,15 @@ class CarFuelingType extends AbstractType
         foreach (TranslationContainer::Instance()->fuelTypes as $typeId => $typeDetails) {
             $fuelTypes[$typeDetails['name']] = $typeId;
         }
+        $currency = new \CarBundle\Entity\Currency();
 
         $builder
             ->add('dateTime', 'date', ['widget' => 'single_text', 'format' => 'yyyy-MM-dd'])
             ->add('litresTanked')
             ->add('pricePerLiter')
             ->add('amount')
-            ->add('currency',ChoiceType::class, [
-                'choices'  => ['PLN', /*'EUR', 'CHF'*/],
+            ->add('currency', ChoiceType::class, [
+                'choices'  => $currency->getCurrencies(),
                 'choices_as_values' => false,
             ])
             ->add('mileage')

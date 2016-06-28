@@ -5,6 +5,8 @@ namespace AppBundle\Entity;
 
 use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
+use CarBundle\Entity\Car;
 
 /**
  * @ORM\Entity
@@ -19,9 +21,46 @@ class User extends BaseUser
      */
     protected $id;
 
+    /**
+     * @ORM\OneToMany(targetEntity="User", mappedBy="user")
+     */
+    protected $cars;
+
+
     public function __construct()
     {
+        $this->cars = new ArrayCollection();
         parent::__construct();
-        // your own logic
+    }
+
+   /**
+     * Add Car
+     *
+     * @param Car $car
+     * @return Car
+     */
+    public function addCar(Car $car)
+    {
+        $this->cars[] = $car;
+        return $this;
+    }
+
+    /**
+     * Remove Car
+     * @param Car $car
+     */
+    public function removeCost(Car $car)
+    {
+        $this->car->removeElement($car);
+    }
+
+    /**
+     * Get Cars
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getCosts()
+    {
+        return $this->cars;
     }
 }

@@ -1,5 +1,5 @@
 table {
-    width: 80%;
+    width: 90%;
 }
 
 .tg  {
@@ -30,4 +30,26 @@ table {
     vertical-align:top
 }
 
+.carSummary{
+    border-collapse:collapse;
+    border-spacing:0;
+    width: 35%;
+    background-color: lightyellow;
+    font-family: Arial, sans-serif;
+    font-size:12px;
+    font-weight:normal;
+    padding:5px 5px;
+    border-style:solid;
+    border-width:1px;
+    overflow:hidden;
+    word-break:normal;
+}
 
+.carSummary td {
+    border-top-style: solid;
+    border-top: 1px;
+    border-top-color: greenyellow;
+    border-bottom-style: solid;
+    border-bottom: 1px;
+    border-bottom-color: greenyellow;
+}

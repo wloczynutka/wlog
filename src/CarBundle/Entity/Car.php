@@ -5,6 +5,7 @@ namespace CarBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use CarBundle\Entity\CarDictionaryMake;
+use AppBundle\Entity\User;
 
 /**
  * Car
@@ -34,11 +35,11 @@ class Car
      * @ORM\JoinColumn(name="model", referencedColumnName="id")
      */
     private $model;
-
     /**
      * @var integer
      *
-     * @ORM\Column(name="user", type="integer")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User", inversedBy="cars")
+     * @ORM\JoinColumn(name="user", referencedColumnName="id")
      */
     private $user;
 
@@ -102,19 +103,12 @@ class Car
 
     private $costSummary;
 
-/*
-    public static $fuelTypes = [
-        1 => [
-            'name' => 'petrol'
-        ],
-        2 => [
-            'name' => 'diesel'
-        ],
-        3 => [
-            'name' => 'LPG'
-        ],
-    ];
-*/
+    /**
+     * @var string
+     * @ORM\Column(name="defaultCurrency", type="string", length=3)
+     */
+    private $defaultCurrency;
+
     public function __construct()
     {
         $this->costs = new ArrayCollection();
@@ -174,9 +168,7 @@ class Car
 
     /**
      * Set model
-     *
      * @param integer $model
-     *
      * @return Car
      */
     public function setModel($model)
@@ -188,7 +180,6 @@ class Car
 
     /**
      * Get model
-     *
      * @return CarDictionaryModel
      */
     public function getModel()
@@ -198,21 +189,17 @@ class Car
 
     /**
      * Set user
-     *
-     * @param integer $user
-     *
+     * @param User $user
      * @return Car
      */
-    public function setUser($user)
+    public function setUser(User $user)
     {
         $this->user = $user;
-
         return $this;
     }
 
     /**
      * Get user
-     *
      * @return integer
      */
     public function getUser()
@@ -354,7 +341,6 @@ class Car
 
 	private function calculateAllCosts()
 	{
-		$allCostAmount = 0;
         $this->totalFuelCosts = 0;
         $this->totalTankedLitres = 0;
         
@@ -372,7 +358,7 @@ class Car
                 $carFueling->caclulateFuelConsumption($prievousFueling);
             }
             $prievousFueling = $carFueling;
-            $this->totalFuelCosts += $carFueling->getAmount();
+            $this->totalFuelCosts += $carFueling->getAmountInDefaultCurrency();
             $this->totalTankedLitres += $carFueling->getLitresTanked();
             $this->checkAndSetMileage($carFueling->getMileage());
             if($carFueling->getAverageConsumptionByComputer() != 0){
@@ -383,7 +369,11 @@ class Car
 		}
         count($this->fuelings) > 1 ? $this->averageFuelConsumption = round($fuelConsumptionSum/(count($this->fuelings)-1),2) : 0;
         $this->allCostAmount = $this->costSummary->getAllCostSum() + $this->totalFuelCosts;
-        $this->averageFuelConsumptionByObd = $fuelConsumptionObdSum / $fuelConsumptionObdSumCount;
+        if($fuelConsumptionObdSumCount === 0){
+            $this->averageFuelConsumptionByObd = 0;
+        } else {
+            $this->averageFuelConsumptionByObd = $fuelConsumptionObdSum / $fuelConsumptionObdSumCount;
+        }
 	}
 
     private function checkAndSetMileage($newMileage)
@@ -469,7 +459,16 @@ class Car
         return $this->costSummary;
     }
 
+    public function getDefaultCurrency()
+    {
+        return $this->defaultCurrency;
+    }
 
+    public function setDefaultCurrency($defaultCurrency)
+    {
+        $this->defaultCurrency = $defaultCurrency;
+        return $this;
+    }
 
 }
 

@@ -28,6 +28,8 @@ class DefaultController extends Controller
 		$form = $this->createForm(new CarType(), $car);
 		$form->handleRequest($request);
 		if ($form->isValid()) {
+            $user = $this->get('security.context')->getToken()->getUser();
+            $car->setUser($user);
 			$em = $this->getDoctrine()->getManager();
 			$em->persist($car);
 			$em->flush();
@@ -53,10 +55,11 @@ class DefaultController extends Controller
         $carCost
                 ->setDateTime(new \DateTime)
                 ->setCar($car)
-                ->setCurrency('PLN');
+                ->setCurrency($car->getDefaultCurrency());
 		$form = $this->createForm(new CarCostType(), $carCost);
 		$form->handleRequest($request);
 		if ($form->isValid()) {
+            $carCost->setExchangeRate($this->retreiveExchangeRate($carCost->getCurrency(), $car->getDefaultCurrency()));
 			$em = $this->getDoctrine()->getManager();
 			$em->persist($carCost);
 			$em->flush();
@@ -72,7 +75,7 @@ class DefaultController extends Controller
 		$carFueling = new CarFueling();
 		$carFueling
                 ->setDateTime(new \DateTime)
-                ->setCurrency('PLN')
+                ->setCurrency($car->getDefaultCurrency())
                 ->setCar($car)
                 ->setFuelType($car->getFuel());
 		$form = $this->createForm(new CarFuelingType(), $carFueling);
@@ -81,15 +84,22 @@ class DefaultController extends Controller
             if($carFueling->getAmount() === null && $carFueling->getPricePerLiter() != null){
                 $carFueling->setAmount($carFueling->getPricePerLiter() * $carFueling->getLitresTanked());
             }
-
+            $carFueling->setExchangeRate($this->retreiveExchangeRate($carFueling->getCurrency(), $car->getDefaultCurrency()));
 			$em = $this->getDoctrine()->getManager();
 			$em->persist($carFueling);
 			$em->flush();
 			return $this->redirectToRoute('car_show_car', ['carId' => $carId]);
-		} 
-        
+		}
+
 		return $this->render('CarBundle:Default:fueling.html.twig', array('form' => $form->createView()));
 	}
+
+    private function retreiveExchangeRate($currencyFrom, $currencyTo)
+    {
+        $currencyController = new CurrencyController();
+        $exchangeRate = $currencyController->getExchangeRate($currencyFrom, $currencyTo);
+        return $exchangeRate;
+    }
 
     public function showCarAction($carId)
     {

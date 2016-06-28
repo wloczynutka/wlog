@@ -48,37 +48,37 @@ class CostSummary
 		foreach ($this->costCollection as $carCost) {
             switch ($carCost->getType()) {
                 case 1:
-                    $this->reperair += $carCost->getAmount();
+                    $this->reperair += $carCost->getAmountInDefaultCurrency();
                     break;
                 case 2:
-                    $this->periodService += $carCost->getAmount();
+                    $this->periodService += $carCost->getAmountInDefaultCurrency();
                     break;
                 case 3:
-                    $this->accesory += $carCost->getAmount();
+                    $this->accesory += $carCost->getAmountInDefaultCurrency();
                     break;
                 case 4:
-                    $this->parts += $carCost->getAmount();
+                    $this->parts += $carCost->getAmountInDefaultCurrency();
                     break;
                 case 5:
-                    $this->insurance += $carCost->getAmount();
+                    $this->insurance += $carCost->getAmountInDefaultCurrency();
                     break;
                 case 6:
-                    $this->tax += $carCost->getAmount();
+                    $this->tax += $carCost->getAmountInDefaultCurrency();
                     break;
                 case 7:
-                    $this->other += $carCost->getAmount();
+                    $this->other += $carCost->getAmountInDefaultCurrency();
                     break;
                 case 8:
-                    $this->camperConversion += $carCost->getAmount();
+                    $this->camperConversion += $carCost->getAmountInDefaultCurrency();
                     break;
                 case 9:
-                    $this->technicalExamination += $carCost->getAmount();
+                    $this->technicalExamination += $carCost->getAmountInDefaultCurrency();
                     break;
 
                 default:
                     ddd('type unknown');
             }
-            $this->allCostSum += $carCost->getAmount();
+            $this->allCostSum += $carCost->getAmountInDefaultCurrency();
         }
     }
 

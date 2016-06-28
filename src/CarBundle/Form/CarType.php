@@ -17,7 +17,7 @@ class CarType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-
+        $currency = new \CarBundle\Entity\Currency();
         $fuelTypes = [];
         foreach (TranslationContainer::Instance()->fuelTypes as $typeId => $typeDetails) {
             $fuelTypes[$typeDetails['name']] = $typeId;
@@ -36,7 +36,6 @@ class CarType extends AbstractType
                     return $model->getName();
                 }
             ))
-            ->add('user')
             ->add('manufactureDate', 'date', ['widget' => 'single_text', 'format' => 'yyyy-MM-dd'])
             ->add('color')
             ->add('fuel', ChoiceType::class, [
@@ -45,6 +44,10 @@ class CarType extends AbstractType
             ])
             ->add('purchasePrice')
             ->add('ownName')
+            ->add('defaultCurrency', ChoiceType::class, [
+                'choices'  => $currency->getCurrencies(),
+                'choices_as_values' => false,
+            ])
             ->add('save', 'submit', array('label' => 'Save'))
         ;
     }

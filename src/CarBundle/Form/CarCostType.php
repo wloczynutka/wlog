@@ -19,7 +19,7 @@ class CarCostType extends AbstractType
         foreach (TranslationContainer::Instance()->carCostTypes as $typeId => $typeDetails) {
             $choices[$typeDetails['name']] = $typeId;
         }
-
+        $currency = new \CarBundle\Entity\Currency();
         $builder
             ->add('type', ChoiceType::class, [
                 'choices'  => $choices,
@@ -28,7 +28,10 @@ class CarCostType extends AbstractType
             ->add('dateTime', 'date', ['widget' => 'single_text', 'format' => 'yyyy-MM-dd'])
             ->add('mileage')
             ->add('amount')
-            ->add('currency')
+            ->add('currency', ChoiceType::class, [
+                'choices'  => $currency->getCurrencies(),
+                'choices_as_values' => false,
+            ])
             ->add('description')
             ->add('save', 'submit', array('label' => 'Save'))
         ;

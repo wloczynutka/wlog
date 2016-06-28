@@ -33,7 +33,6 @@ class EditController extends Controller
     public function editCostAction(Request $request, $costId)
     {
         $carCost = $this->loadCostById($costId);
-        d($carCost);
 		$form = $this->createForm(new CarCostType(), $carCost);
 		$form->handleRequest($request);
 		if ($form->isValid()) {
