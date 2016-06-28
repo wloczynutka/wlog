@@ -26,7 +26,13 @@ class CurrencyController
     private function getRateFromNBP($currencyFrom)
     {
         $url = str_replace('{currencyCode}', $currencyFrom, $this->url);
-        $response = json_decode(file_get_contents($url));
-        return $response->rates[0]->ask;
+        try {
+            $response = json_decode(file_get_contents($url));
+            $exchangeRate = $response->rates[0]->ask;
+        } catch (\Exception $e){
+            d($e);
+            $exchangeRate = 0;
+        }
+        return $exchangeRate;
     }
 }

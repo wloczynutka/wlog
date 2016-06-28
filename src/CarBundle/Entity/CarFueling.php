@@ -22,6 +22,7 @@ class CarFueling
     private $id;
 
     /**
+     * @var \CarBundle\Entity\Car
      * @ORM\ManyToOne(targetEntity="Car", inversedBy="fueling")
      * @ORM\JoinColumn(name="car_id", referencedColumnName="id")
      */
@@ -113,6 +114,15 @@ class CarFueling
 
     public function getAmountInDefaultCurrency()
     {
+        if(0 == $this->exchangeRate){
+            $currecnyController = new \CarBundle\Controller\CurrencyController();
+            $exchangeRate = $currecnyController->getExchangeRate($this->currency, $this->car->getDefaultCurrency());
+            if(0 != $exchangeRate){
+                $this->exchangeRate = $exchangeRate;
+            } else {
+                d('ERROR - exchangeRate missing', $this);
+            }
+        }
         return $this->amount * $this->exchangeRate;
     }
 
