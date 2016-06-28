@@ -81,8 +81,11 @@ class DefaultController extends Controller
 		$form = $this->createForm(new CarFuelingType(), $carFueling);
 		$form->handleRequest($request);
 		if ($form->isValid()) {
-            if($carFueling->getAmount() === null && $carFueling->getPricePerLiter() != null){
+            if($carFueling->getAmount() === null && $carFueling->getPricePerLiter() !== null){
                 $carFueling->setAmount($carFueling->getPricePerLiter() * $carFueling->getLitresTanked());
+            }
+            if (null === $carFueling->getPricePerLiter() && null !== $carFueling->getAmount() && 0 != $carFueling->getLitresTanked()){
+                $carFueling->setPricePerLiter($carFueling->getAmount() / $carFueling->getLitresTanked());
             }
             $carFueling->setExchangeRate($this->retreiveExchangeRate($carFueling->getCurrency(), $car->getDefaultCurrency()));
 			$em = $this->getDoctrine()->getManager();
