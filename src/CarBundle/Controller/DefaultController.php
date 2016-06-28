@@ -11,7 +11,6 @@ use \CarBundle\Form\CarCostType;
 use \CarBundle\Form\CarType;
 use Symfony\Component\HttpFoundation\Request;
 use CarBundle\Entity\TranslationContainer;
-
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 class DefaultController extends Controller
