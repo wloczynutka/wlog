@@ -31,9 +31,6 @@ class DefaultController extends Controller
         $query = $em->createQuery('SELECT t FROM AppBundle:Travel t ORDER BY t.id DESC');
         $travels = $query->getResult();
 
-        d($travels, $this->user);
-
-
         // replace this example code with whatever you need
         return $this->render('default/index.html.twig', array(
             'user' => $this->user,
