@@ -30,8 +30,10 @@
                 Menu: <a href="{{ url('homepage') }}">Centrum wszechświata</a> | 
 				
 				{% if user != null %}
-					<a href="{{ url('newtravel') }}">new travel</a>
+					<a href="{{ url('newtravel') }}">new travel</a> |
 				{% endif %}
+
+                <a href="{{ path('car_home') }}">Samchody</a> |
 
             </div>
             <div id="userMenu">
