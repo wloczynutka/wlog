@@ -37,3 +37,6 @@ car_edit_car:
 car_get_stat_image:
     path:     /{_locale}/car/getstatimage/{carId}
     defaults: { _controller: CarBundle:Default:getStatImage }
+car_export_data:
+    path:     /{_locale}/car/export/{carId}
+    defaults: { _controller: CarBundle:Data:export }

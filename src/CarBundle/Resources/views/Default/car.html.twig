@@ -6,6 +6,7 @@ MENU:
     [<a href="{{ path('car_add_fuelling', {'carId': car.id}) }}">{% trans %}Add fueling{% endtrans %}</a>]
     [<a href="{{ path('car_add_cost', {'carId': car.id}) }}">{% trans %}Add cost{% endtrans %}</a>]
     [<a href="{{ path('car_edit_car', {'carId': car.id}) }}">{% trans %}Edit vehicle{% endtrans %}</a>]
+    [<a href="{{ path('car_export_data', {'carId': car.id}) }}">{% trans %}Export data{% endtrans %}</a>]
  {% else %}
     {% trans %}User is not logged in. Some features are disabled{% endtrans %}. <a href="{{ url('fos_user_security_login') }}">{% trans %}Please log-in{% endtrans %}</a>
  {% endif %}
