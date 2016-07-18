@@ -38,6 +38,7 @@ class CarFuelingType extends AbstractType
             ->add('averageConsumptionByComputer', 'text', array('required' => false))
             ->add('averageSpeed',  'text', array('required' => false))
             ->add('driveTime',  'text', array('required' => false))
+            ->add('tripDistance')
             ->add('save', 'submit', array('label' => 'Save'))
         ;
     }

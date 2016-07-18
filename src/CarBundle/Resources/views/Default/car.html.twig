@@ -40,26 +40,73 @@ MENU:
         <th class="tg-yw4l">{% trans %}Paid amount{% endtrans %}</th>
         <th class="tg-yw4l">{% trans %}Currency{% endtrans %}</th>
         <th class="tg-yw4l">{% trans %}Trip odometer{% endtrans %}</th>
+        <th class="tg-yw4l">{% trans %}Calculated trip odometer{% endtrans %}</th>
         <th class="tg-yw4l">{% trans %}Fuel consumption{% endtrans %}</th>
         <th class="tg-yw4l">{% trans %}Average consumption by computer{% endtrans %}</th>
         <th class="tg-yw4l">{% trans %}Average speed{% endtrans %}</th>
         <th class="tg-yw4l">{% trans %}Driving time{% endtrans %}</th>
+        <th class="tg-yw4l"></th>
     </tr>
 {% for fueling in car.fuelings %}
-    <tr>
-        <td class="tg-yw4l">{% if app.user and app.user == car.user %}<a href="{{ path('car_edit_fueling', {'fuelingId': fueling.id}) }}"><img src="{{ asset('pencil-icon.png') }}" width="16" alt="{% trans %}Edit{% endtrans %}"/></a>{% endif %}</td>
-        <td class="tg-yw4l">{{ fueling.dateTime.format('Y-m-d') }}</td>
-        <td class="tg-yw4l">{{ fueling.Mileage }}</td>
-        <td class="tg-yw4l">{{ fueling.litresTanked }}</td>
-        <td class="tg-yw4l">{{ fueling.pricePerLiter|number_format(2,'.', '') }}</td>
-        <td class="tg-yw4l">{{ fueling.amount|number_format(2,'.', '') }}</td>
-        <td class="tg-yw4l">{{ fueling.currency }}</td>
-        <td class="tg-yw4l">{{ fueling.getDistanceFromPrievous() }}</td>
-        <td class="tg-yw4l">{{ fueling.getFuelConsumptionFromPrievous()|number_format(2,'.', '') }}</td>
-        <td class="tg-yw4l">{{ fueling.averageConsumptionByComputer }}</td>
-        <td class="tg-yw4l">{{ fueling.averageSpeed }}</td>
-        <td class="tg-yw4l">{{ fueling.driveTime }}</td>
-    </tr>
+    {% if fueling.partialFuelings.count() > 0%}
+        <tr>
+            <td class="tg-yw4l">{% if app.user and app.user == car.user %}<a href="{{ path('car_edit_fueling', {'fuelingId': fueling.id}) }}"><img src="{{ asset('pencil-icon.png') }}" width="16" alt="{% trans %}Edit{% endtrans %}"/></a>{% endif %}</td>
+            <td class="tg-yw4l" style="width:75px;">
+                {{ fueling.dateTime.format('Y-m-d') }}
+                {% for partialFueling in fueling.partialFuelings %}
+                    <span class="pFu"><br/> &#8618;&nbsp;{{ partialFueling.dateTime.format('Y-m-d') }}</span>
+                {% endfor %}
+            </td>
+            <td class="tg-yw4l">{{ fueling.Mileage }}  </td>
+            <td class="tg-yw4l">
+                {{ fueling.litresTanked }}
+                {% for partialFueling in fueling.partialFuelings %}
+                    <span class="pFu"><br/> &#8618;&nbsp;{{ partialFueling.litresTanked }}</span>
+                {% endfor %}
+            </td>
+            <td class="tg-yw4l"> - 
+                {% for partialFueling in fueling.partialFuelings %}
+                    <span class="pFu"><br/> &#8618;&nbsp;{{ partialFueling.pricePerLiter|number_format(2,'.', '') }}</span>
+                {% endfor %}
+            </td>
+            <td class="tg-yw4l">
+                {{ fueling.amount|number_format(2,'.', '') }}
+                {% for partialFueling in fueling.partialFuelings %}
+                    <span class="pFu"><br/> &#8618;&nbsp;{{ partialFueling.amount|number_format(2,'.', '')  }}</span>
+                {% endfor %}
+            </td>
+            <td class="tg-yw4l">
+                {{ fueling.currency }}
+                {% for partialFueling in fueling.partialFuelings %}
+                    <span class="pFu"><br/> &#8618;&nbsp;{{ partialFueling.currency }}</span>
+                {% endfor %}
+            </td>
+            <td class="tg-yw4l">{{ fueling.tripDistance }}</td>
+            <td class="tg-yw4l">{{ fueling.getDistanceFromPrievous() }}</td>
+            <td class="tg-yw4l">{{ fueling.getFuelConsumptionFromPrievous()|number_format(2,'.', '') }}</td>
+            <td class="tg-yw4l">{{ fueling.averageConsumptionByComputer }}</td>
+            <td class="tg-yw4l">{{ fueling.averageSpeed }}</td>
+            <td class="tg-yw4l">{{ fueling.driveTime }}</td>
+            <td class="tg-yw4l">{% if app.user and app.user == car.user %}<a href="{{ path('car_add_fuelling', {'carId':car.id, 'masterFuelingId': fueling.id}) }}"><img src="{{ asset('plus-icon-16px.png') }}" width="16" alt="{% trans %}Add partial fueling{% endtrans %}"/></a>{% endif %}</td>
+        </tr>
+    {% else %}
+        <tr>
+            <td class="tg-yw4l">{% if app.user and app.user == car.user %}<a href="{{ path('car_edit_fueling', {'fuelingId': fueling.id}) }}"><img src="{{ asset('pencil-icon.png') }}" width="16" alt="{% trans %}Edit{% endtrans %}"/></a>{% endif %}</td>
+            <td class="tg-yw4l" style="width:75px;">{{ fueling.dateTime.format('Y-m-d') }}</td>
+            <td class="tg-yw4l">{{ fueling.Mileage }}</td>
+            <td class="tg-yw4l">{{ fueling.litresTanked }}</td>
+            <td class="tg-yw4l">{{ fueling.pricePerLiter|number_format(2,'.', '') }}</td>
+            <td class="tg-yw4l">{{ fueling.amount|number_format(2,'.', '') }}</td>
+            <td class="tg-yw4l">{{ fueling.currency }}</td>
+            <td class="tg-yw4l">{{ fueling.tripDistance }}</td>
+            <td class="tg-yw4l">{{ fueling.getDistanceFromPrievous() }}</td>
+            <td class="tg-yw4l">{{ fueling.getFuelConsumptionFromPrievous()|number_format(2,'.', '') }}</td>
+            <td class="tg-yw4l">{{ fueling.averageConsumptionByComputer }}</td>
+            <td class="tg-yw4l">{{ fueling.averageSpeed }}</td>
+            <td class="tg-yw4l">{{ fueling.driveTime }}</td>
+            <td class="tg-yw4l">{% if app.user and app.user == car.user %}<a href="{{ path('car_add_fuelling', {'carId':car.id, 'masterFuelingId': fueling.id}) }}"><img src="{{ asset('plus-icon-16px.png') }}" width="16" alt="{% trans %}Add partial fueling{% endtrans %}"/></a>{% endif %}</td>
+        </tr>
+    {% endif %}
 {% endfor %}
 </table>
 

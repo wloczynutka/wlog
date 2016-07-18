@@ -7,16 +7,16 @@ car_show_car:
     requirements:
         _locale: '%app.locales%'
 car_add_fuelling:
-    path:     /car/fueling/{carId}
-    defaults: { _controller: CarBundle:Default:addFueling }
+    path:     /{_locale}/car/fueling/{carId}/{masterFuelingId}
+    defaults: { _controller: CarBundle:Default:addFueling, masterFuelingId:0 }
 car_edit_fueling:
-    path:     /car/edit/fueling/{fuelingId}
+    path:     /{_locale}/car/edit/fueling/{fuelingId}
     defaults: { _controller: CarBundle:Edit:editFueling }
 car_add_cost:
-    path:     /car/addcost/{carId}
+    path:     /{_locale}/car/addcost/{carId}
     defaults: { _controller: CarBundle:Default:addCost }
 car_edit_cost:
-    path:     /car/edit/cost/{costId}
+    path:     /{_locale}/car/edit/cost/{costId}
     defaults: { _controller: CarBundle:Edit:editCost }
 car_list_of_cars:
     path:     /{_locale}/car/list

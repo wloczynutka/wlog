@@ -339,8 +339,57 @@ class Car
         return $this->fuelings;
     }
 
+    private function processPartialFuelings()
+    {
+
+        $masterFuelings = new ArrayCollection();
+         /* @var $carFueling  \CarBundle\Entity\CarFueling */
+         /* @var $masterFueling  \CarBundle\Entity\CarFueling */
+        foreach ($this->fuelings as $carFueling){
+            if($carFueling->getMasterFuelingId() !== 0){
+                $masterFueling = $this->findFuelingById($carFueling->getMasterFuelingId());
+                $masterFueling->addPartialFueling($carFueling);
+                $masterFuelings->add($masterFueling);
+                $this->fuelings->removeElement($carFueling);
+            }
+        }
+        foreach ($masterFuelings as $masterFueling) {
+            $masterFueling
+                ->addPartialFueling(clone $masterFueling)
+                ->setLitresTanked(0)
+                ->setPricePerLiter(0)
+                ->setAmount(0)
+            ;
+        }
+        $this->recalculatePartialFuelings();
+    }
+
+    private function recalculatePartialFuelings()
+    {
+         /* @var $carFueling  \CarBundle\Entity\CarFueling */
+         /* @var $partFueling  \CarBundle\Entity\CarFueling */
+        foreach ($this->fuelings as $carFueling){
+            if(count($carFueling->getPartialFuelings()) > 0){
+                foreach ($carFueling->getPartialFuelings() as $partFueling) {
+                    $carFueling->setLitresTanked($carFueling->getLitresTanked() + $partFueling->getLitresTanked());
+                    $carFueling->setAmount($carFueling->getAmount() + $partFueling->getAmount());
+                }
+            }
+        }
+    }
+
+    private function findFuelingById($fuelingId)
+    {
+        foreach ($this->fuelings as $carFueling){
+            if($carFueling->getId() === $fuelingId){
+                return $carFueling;
+            }
+        }
+    }
+
 	private function calculateAllCosts()
 	{
+        $this->processPartialFuelings();
         $this->totalFuelCosts = 0;
         $this->totalTankedLitres = 0;
         

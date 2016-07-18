@@ -3,6 +3,7 @@
 namespace CarBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * CarFueling
@@ -20,6 +21,15 @@ class CarFueling
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
+
+    /**
+     * @var integer
+     * @ORM\Column(name="masterFuelingId", type="integer")
+     *
+     * if fueling is partial, link it to master fueling
+     *
+     */
+    private $masterFuelingId;
 
     /**
      * @var \CarBundle\Entity\Car
@@ -96,6 +106,12 @@ class CarFueling
      */
     private $driveTime;
 
+    /**
+     * @var float
+     * @ORM\Column(name="tripDistance", type="float", nullable=true)
+     */
+    private $tripDistance;
+
     private $distanceFromPrievous;
 
     /**
@@ -103,6 +119,13 @@ class CarFueling
      * @var float
      */
     private $fuelConsumptionFromPrievous;
+
+    private $partialFuelings;
+
+    public function __construct()
+    {
+        $this->partialFuelings = new ArrayCollection();
+    }
 
     public function caclulateFuelConsumption(CarFueling $prievousFueling)
     {
@@ -239,7 +262,6 @@ class CarFueling
     public function setMileage($mileage)
     {
         $this->mileage = $mileage;
-
         return $this;
     }
 
@@ -284,7 +306,7 @@ class CarFueling
      */
     public function setAverageConsumptionByComputer($averageConsumptionByComputer)
     {
-		$this->averageConsumptionByComputer = $averageConsumptionByComputer;
+		$this->averageConsumptionByComputer = str_replace(',', '.', $averageConsumptionByComputer);
         return $this;
     }
 
@@ -370,5 +392,45 @@ class CarFueling
     {
         return $this->exchangeRate;
     }
+
+    public function getTripDistance()
+    {
+        return $this->tripDistance;
+    }
+
+    public function setTripDistance($tripDistance)
+    {
+        $this->tripDistance = str_replace(',', '.', $tripDistance);
+        return $this;
+    }
+
+    public function getMasterFuelingId()
+    {
+        return $this->masterFuelingId;
+    }
+
+    public function setMasterFuelingId($masterFuelingId)
+    {
+        $this->masterFuelingId = $masterFuelingId;
+        return $this;
+    }
+
+    public function addPartialFueling(CarFueling $partialFueling)
+    {
+        if(! $this->partialFuelings instanceof ArrayCollection){
+            $this->partialFuelings = new ArrayCollection();
+        }
+        $this->partialFuelings->add($partialFueling);
+        return $this;
+    }
+
+    public function getPartialFuelings()
+    {
+        if(! $this->partialFuelings instanceof ArrayCollection){
+            $this->partialFuelings = new ArrayCollection();
+        }
+        return $this->partialFuelings;
+    }
+
 
 }

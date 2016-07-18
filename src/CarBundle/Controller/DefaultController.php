@@ -1,5 +1,7 @@
 <?php
 
+/* ALTER TABLE car_fueling ADD masterFuelingId INT NOT NULL; */
+
 namespace CarBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -68,15 +70,17 @@ class DefaultController extends Controller
 		return $this->render('CarBundle:Default:fueling.html.twig', array('form' => $form->createView()));
     }
 
-    public function addFuelingAction(Request $request, $carId)
+    public function addFuelingAction(Request $request, $carId, $masterFuelingId)
 	{
         $car = $this->loadCarById($carId);
 		$carFueling = new CarFueling();
 		$carFueling
+                ->setMasterFuelingId((int) $masterFuelingId)
                 ->setDateTime(new \DateTime)
                 ->setCurrency($car->getDefaultCurrency())
                 ->setCar($car)
                 ->setFuelType($car->getFuel());
+        $this->updateMileageForPartialFuelings($carFueling);
 		$form = $this->createForm(new CarFuelingType(), $carFueling);
 		$form->handleRequest($request);
 		if ($form->isValid()) {
@@ -95,6 +99,25 @@ class DefaultController extends Controller
 
 		return $this->render('CarBundle:Default:fueling.html.twig', array('form' => $form->createView()));
 	}
+
+
+    private function updateMileageForPartialFuelings(CarFueling $carFueling)
+    {
+        if(0 === $carFueling->getMasterFuelingId()){
+            return;
+        }
+        $carFuelingMaster = $this->getDoctrine()
+            ->getRepository('CarBundle:CarFueling')
+            ->find($carFueling->getMasterFuelingId())
+        ;
+        $carFueling
+                ->setMileage($carFuelingMaster->getMileage())
+                ->setAverageConsumptionByComputer($carFuelingMaster->getAverageConsumptionByComputer())
+                ->setAverageSpeed($carFuelingMaster->getAverageSpeed())
+                ->setDriveTime($carFuelingMaster->getDriveTime())
+                ->setTripDistance($carFuelingMaster->getTripDistance())
+        ;
+    }
 
     private function retreiveExchangeRate($currencyFrom, $currencyTo)
     {

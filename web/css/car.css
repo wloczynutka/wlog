@@ -27,7 +27,7 @@ table {
     word-break:normal;
 }
 .tg .tg-yw4l {
-    vertical-align:top
+    vertical-align:middle
 }
 
 .carSummary{
@@ -52,4 +52,9 @@ table {
     border-bottom-style: solid;
     border-bottom: 1px;
     border-bottom-color: greenyellow;
+}
+
+.pFu {
+    color: #565656;
+    font-size: 10px;
 }
