@@ -474,7 +474,7 @@ class Car
         if($this->averageFuelConsumption === 0){
            $this->calculateAllCosts();
         }
-        return $this->averageFuelConsumption;
+        return round($this->averageFuelConsumption, 2);
     }
     public function getPurchasePrice()
     {
@@ -489,7 +489,7 @@ class Car
     
     public function getAverageFuelConsumptionByObd()
     {
-        return $this->averageFuelConsumptionByObd;
+        return round($this->averageFuelConsumptionByObd, 2);
     }
 
     public function getOwnName()
