@@ -1,7 +1,5 @@
 <?php
 
-/* ALTER TABLE car_fueling ADD masterFuelingId INT NOT NULL; */
-
 namespace CarBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;

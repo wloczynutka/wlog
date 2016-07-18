@@ -84,6 +84,9 @@ final class TranslationContainer
             9 => [
                'name' => $this->translator->trans('technical examination'),
             ],
+            10 => [
+               'name' => $this->translator->trans('tool roads'),
+            ]
         ];
     }
 
