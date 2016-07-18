@@ -26,6 +26,7 @@ class CostSummary
     private $other = 0;
     private $camperConversion = 0;
     private $technicalExamination = 0;
+    private $toolRoads = 0;
 
     private $allCostSum = null;
 
@@ -73,6 +74,9 @@ class CostSummary
                     break;
                 case 9:
                     $this->technicalExamination += $carCost->getAmountInDefaultCurrency();
+                    break;
+                case 10:
+                    $this->toolRoads += $carCost->getAmountInDefaultCurrency();
                     break;
 
                 default:
@@ -148,5 +152,9 @@ class CostSummary
         return $this->accesory;
     }
 
+    public function getToolRoads()
+    {
+        return $this->toolRoads;
+    }
 
 }
