@@ -22,7 +22,7 @@ class User extends BaseUser
     protected $id;
 
     /**
-     * @ORM\OneToMany(targetEntity="User", mappedBy="user")
+     * @ORM\OneToMany(targetEntity="CarBundle\Entity\Car", mappedBy="user")
      */
     protected $cars;
 
