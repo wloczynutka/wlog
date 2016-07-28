@@ -341,7 +341,6 @@ class Car
 
     private function processPartialFuelings()
     {
-
         $masterFuelings = new ArrayCollection();
          /* @var $carFueling  \CarBundle\Entity\CarFueling */
          /* @var $masterFueling  \CarBundle\Entity\CarFueling */
@@ -349,7 +348,7 @@ class Car
             if($carFueling->getMasterFuelingId() !== 0){
                 $masterFueling = $this->findFuelingById($carFueling->getMasterFuelingId());
                 $masterFueling->addPartialFueling($carFueling);
-                $masterFuelings->add($masterFueling);
+                $this->addMasterFuelingToCollectionIfNotExistYet($masterFuelings, $masterFueling);
                 $this->fuelings->removeElement($carFueling);
             }
         }
@@ -362,6 +361,13 @@ class Car
             ;
         }
         $this->recalculatePartialFuelings();
+    }
+
+    private function addMasterFuelingToCollectionIfNotExistYet(ArrayCollection $masterFuelings, \CarBundle\Entity\CarFueling $masterFueling)
+    {
+        if(false === $masterFuelings->indexOf($masterFueling)){
+            $masterFuelings->add($masterFueling);
+        }
     }
 
     private function recalculatePartialFuelings()
