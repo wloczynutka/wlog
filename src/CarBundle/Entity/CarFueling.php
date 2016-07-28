@@ -165,7 +165,7 @@ class CarFueling
      * @param \DateTime $dateTime
      * @return CarFueling
      */
-    public function setDateTime($dateTime)
+    public function setDateTime(\DateTime $dateTime)
     {
         $this->dateTime = $dateTime;
 

@@ -48,7 +48,7 @@ MENU:
         <th class="tg-yw4l"></th>
     </tr>
 {% for fueling in car.fuelings %}
-    {% if fueling.partialFuelings.count() > 0%}
+    {% if fueling.partialFuelings.count() > 0 %}
         <tr>
             <td class="tg-yw4l">{% if app.user and app.user == car.user %}<a href="{{ path('car_edit_fueling', {'fuelingId': fueling.id}) }}"><img src="{{ asset('pencil-icon.png') }}" width="16" alt="{% trans %}Edit{% endtrans %}"/></a>{% endif %}</td>
             <td class="tg-yw4l" style="width:75px;">

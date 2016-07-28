@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: wlog\n"
 "POT-Creation-Date: 2016-07-18 16:32+0200\n"
-"PO-Revision-Date: 2016-07-18 16:33+0200\n"
+"PO-Revision-Date: 2016-07-28 13:24+0200\n"
 "Last-Translator: Andrzej  Lza Wozniak <lza@tlen.pl>\n"
 "Language-Team: \n"
 "Language: pl_PL\n"
@@ -186,7 +186,7 @@ msgstr "Auto budżet"
 
 #: /tmp/cache/578ce84438251/1f/1f6ac3d20df9fc27478cbb19e7ecfa6c88413fd80c5d370208b81999687eff72.php:98
 msgid "Average fuel consumption"
-msgstr "Średnie zużycie paliwa"
+msgstr "Średnie rzeczywiste zużycie paliwa"
 
 #: /tmp/cache/578ce84438251/1f/1f6ac3d20df9fc27478cbb19e7ecfa6c88413fd80c5d370208b81999687eff72.php:219
 msgid "Calculated trip odometer"

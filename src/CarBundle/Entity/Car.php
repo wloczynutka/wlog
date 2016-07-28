@@ -376,12 +376,18 @@ class Car
          /* @var $partFueling  \CarBundle\Entity\CarFueling */
         foreach ($this->fuelings as $carFueling){
             if(count($carFueling->getPartialFuelings()) > 0){
-                foreach ($carFueling->getPartialFuelings() as $partFueling) {
-                    $carFueling->setLitresTanked($carFueling->getLitresTanked() + $partFueling->getLitresTanked());
-                    $carFueling->setAmount($carFueling->getAmount() + $partFueling->getAmount());
-                }
+                $this->recalculateFuelingWithPartials($carFueling);
             }
         }
+    }
+
+    private function recalculateFuelingWithPartials(\CarBundle\Entity\CarFueling $carFueling)
+    {
+        foreach ($carFueling->getPartialFuelings() as $partFueling) {
+            $carFueling->setLitresTanked($carFueling->getLitresTanked() + $partFueling->getLitresTanked());
+            $carFueling->setAmount($carFueling->getAmount() + $partFueling->getAmountInDefaultCurrency());
+        }
+
     }
 
     private function findFuelingById($fuelingId)
