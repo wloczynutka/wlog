@@ -18,7 +18,7 @@ class DefaultController extends Controller
 
     public function homeAction()
     {
-        return $this->render('CarBundle:Default:home.html.twig');
+        return $this->render('CarBundle:Ramble:index.html.twig');
     }
 
     public function addCarAction(Request $request)
@@ -38,6 +38,17 @@ class DefaultController extends Controller
 		return $this->render('CarBundle:Default:addCar.html.twig', array('form' => $form->createView()));
     }
 
+    public function listUserCarsAction(Request $request)
+    {
+        $user = $this->get('security.context')->getToken()->getUser();
+        $carList = $this->getDoctrine()
+            ->getRepository('CarBundle:Car')
+            ->findByUser($user)
+        ;
+        return $this->render('CarBundle:Ramble:listUserCars.html.twig', ['carList' => $carList]);
+    }
+
+    /*
     public function listAllCarsAction(Request $request)
     {
          $carList = $this->getDoctrine()
@@ -46,7 +57,8 @@ class DefaultController extends Controller
         ;
         return $this->render('CarBundle:Default:list.html.twig', ['carList' => $carList]);
     }
-
+    */
+    
     public function addCostAction(Request $request, $carId)
     {
         $car = $this->loadCarById($carId);
@@ -127,6 +139,7 @@ class DefaultController extends Controller
     public function showCarAction($carId)
     {
 		$car = $this->loadCarById($carId);
+        return $this->render('CarBundle:Ramble:car.html.twig', array('car' => $car));
         return $this->render('CarBundle:Default:car.html.twig', array('car' => $car));
     }
 

@@ -1,0 +1,204 @@
+{% extends 'CarBundle:Ramble:main.html.twig' %}
+{% block content %}
+
+{% if app.user %}
+	<div class="services" id="services">
+		<div class="container">
+			<div class="row work-row">
+				<div class="col-sm-6 col-md-3 work-row-grids wow bounceIn animated" data-wow-delay=".5s" style="visibility: visible; -webkit-animation-delay: .5s;">
+					<a href="{{ path('car_add_fuelling', {'carId': car.id}) }}">
+                        <div class="work-grids-img">
+                            <span class="glyphicon glyphicon-tint" aria-hidden="true"></span>
+                        </div>
+                    </a>
+					<div class="caption work-captn">
+						<h4>{% trans %}Add fueling{% endtrans %}</h4>
+					 </div>
+				</div>
+				<div class="col-sm-6 col-md-3 work-row-grids wow bounceIn animated" data-wow-delay=".5s" style="visibility: visible; -webkit-animation-delay: .5s;">
+					<a href="{{ path('car_add_cost', {'carId': car.id}) }}">
+                        <div class="work-grids-img">
+                            <span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>
+                        </div>
+                    </a>
+					<div class="caption work-captn">
+						<h4>{% trans %}Add cost{% endtrans %}</h4>
+					 </div>
+				</div>
+				<div class="col-sm-6 col-md-3 work-row-grids wow bounceIn animated" data-wow-delay=".5s" style="visibility: visible; -webkit-animation-delay: .5s;">
+					<a href="{{ path('car_edit_car', {'carId': car.id}) }}"><div class="work-grids-img">
+						<span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+					</div></a>
+					<div class="caption work-captn">
+						<h4>{% trans %}Edit vehicle{% endtrans %}</h4>
+					 </div>
+				</div>
+				<div class="col-sm-6 col-md-3 work-row-grids wow bounceIn animated" data-wow-delay=".5s" style="visibility: visible; -webkit-animation-delay: .5s;">
+					<a href="{{ path('car_export_data', {'carId': car.id}) }}"><div class="work-grids-img">
+						<span class="glyphicon glyphicon-export" aria-hidden="true"></span>
+					</div></a>
+					<div class="caption work-captn">
+						<h4>{% trans %}Export data{% endtrans %}</h4>
+					 </div>
+				</div>
+
+				<div class="clearfix"> </div>
+			</div>
+		</div>
+	</div>
+	<!--//services-->
+{% endif %}
+<div class="about" id="about">
+    <div class="container">
+        <h3 class="title">{% trans %}Car{% endtrans %}: {{car.make.name}} {{car.model.name}}</h3>
+        <div class="col-md-4 about-left wow fadeInLeft animated" data-wow-delay=".5s" style="visibility: visible; -webkit-animation-delay: .5s;">
+            <img src="{{ asset('images/img2.jpg') }}" alt="">
+        </div>
+        <div class="col-md-8 about-right wow fadeInRight animated" data-wow-delay=".5s" style="visibility: visible; -webkit-animation-delay: .5s;">
+            <h4>
+                {% trans %}Average fuel consumption{% endtrans %}: {{car.averageFuelConsumption}} l/100km<br>
+                {% trans %}Mileage{% endtrans %}: {{car.mileage}} km <br/>
+                {% trans %}Days from last fueling{% endtrans %}: {{ car.getTimeIntervalSincelastFueling().d }}<br>
+            </h4>
+            <p>
+                {% trans %}Tanked litres volume{% endtrans %}: {{car.totalTankedLitres}} l<br/>
+                {% trans %}Total fuel cost{% endtrans %}: {{car.totalFuelCosts|number_format(2,'.', '')}} {{car.defaultCurrency}}<br/>
+                {% trans %}Total tax costs{% endtrans %}: {{car.costSummary.tax|number_format(2,'.', '')}}  {{car.defaultCurrency}}<br/>
+                {% trans %}Total reperair costs{% endtrans %}: {{car.costSummary.reperair|number_format(2,'.', '')}}  {{car.defaultCurrency}}<br/>
+                {% trans %}Total service costs{% endtrans %}: {{car.costSummary.periodService|number_format(2,'.', '')}} {{car.defaultCurrency}}<br/>
+                {% trans %}Total accesory costs{% endtrans %}: {{car.costSummary.accesory|number_format(2,'.', '')}} {{car.defaultCurrency}}<br/>
+                {% trans %}Total parts costs{% endtrans %}: {{car.costSummary.parts|number_format(2,'.', '')}}  {{car.defaultCurrency}}<br/>
+                {% trans %}Total insurance costs{% endtrans %}: {{car.costSummary.insurance|number_format(2,'.', '')}} {{car.defaultCurrency}}<br/>
+                {% trans %}Total other costs{% endtrans %}: {{car.costSummary.other|number_format(2,'.', '')}} {{car.defaultCurrency}}<br/>
+                {% trans %}Total camper costs{% endtrans %}: {{car.costSummary.camperConversion|number_format(2,'.', '')}} {{car.defaultCurrency}} <br/>
+                {% trans %}All cost total{% endtrans %}: {{car.allCostAmount|number_format(2,'.', '')}} {{car.defaultCurrency}}<br/>
+            </p>
+        </div>
+        <div class="clearfix"> </div>
+    </div>
+
+
+	<div class="services" id="services">
+		<div class="container">
+			<h3 class="title">{% trans %}Fuelings{% endtrans %}</h3>
+            <table class="darkBgTable">
+                <tr>
+                    <th class="tg-yw4l">.</th>
+                    <th class="tg-yw4l">{% trans %}Date{% endtrans %}</th>
+                    <th class="tg-yw4l">{% trans %}Odometer{% endtrans %}</th>
+                    <th class="tg-yw4l">{% trans %}Litres{% endtrans %}</th>
+                    <th class="tg-yw4l">{% trans %}Price/liter{% endtrans %}</th>
+                    <th class="tg-yw4l">{% trans %}Paid amount{% endtrans %}</th>
+                    <th class="tg-yw4l">{% trans %}Currency{% endtrans %}</th>
+                    <th class="tg-yw4l">{% trans %}Trip odometer{% endtrans %}</th>
+                    <th class="tg-yw4l">{% trans %}Calculated trip odometer{% endtrans %}</th>
+                    <th class="tg-yw4l">{% trans %}Fuel consumption{% endtrans %}</th>
+                    <th class="tg-yw4l">{% trans %}Average consumption by computer{% endtrans %}</th>
+                    <th class="tg-yw4l">{% trans %}Average speed{% endtrans %}</th>
+                    <th class="tg-yw4l">{% trans %}Driving time{% endtrans %}</th>
+                    <th class="tg-yw4l"></th>
+                </tr>
+            {% for fueling in car.fuelings %}
+                {% if fueling.partialFuelings.count() > 0 %}
+                    <tr>
+                        <td class="tg-yw4l">{% if app.user and app.user == car.user %}<a href="{{ path('car_edit_fueling', {'fuelingId': fueling.id}) }}"><img src="{{ asset('pencil-icon.png') }}" width="16" alt="{% trans %}Edit{% endtrans %}"/></a>{% endif %}</td>
+                        <td class="tg-yw4l" style="width:75px;">
+                            {{ fueling.dateTime.format('Y-m-d') }}
+                            {% for partialFueling in fueling.partialFuelings %}
+                                <span class="pFu"><br/> &#8618;&nbsp;{{ partialFueling.dateTime.format('Y-m-d') }}</span>
+                            {% endfor %}
+                        </td>
+                        <td class="tg-yw4l">{{ fueling.Mileage }}  </td>
+                        <td class="tg-yw4l">
+                            {{ fueling.litresTanked }}
+                            {% for partialFueling in fueling.partialFuelings %}
+                                <span class="pFu"><br/> &#8618;&nbsp;{{ partialFueling.litresTanked }}</span>
+                            {% endfor %}
+                        </td>
+                        <td class="tg-yw4l"> -
+                            {% for partialFueling in fueling.partialFuelings %}
+                                <span class="pFu"><br/> &#8618;&nbsp;{{ partialFueling.pricePerLiter|number_format(2,'.', '') }}</span>
+                            {% endfor %}
+                        </td>
+                        <td class="tg-yw4l">
+                            {{ fueling.amount|number_format(2,'.', '') }}
+                            {% for partialFueling in fueling.partialFuelings %}
+                                <span class="pFu"><br/> &#8618;&nbsp;{{ partialFueling.amount|number_format(2,'.', '')  }}</span>
+                            {% endfor %}
+                        </td>
+                        <td class="tg-yw4l">
+                            {{ fueling.currency }}
+                            {% for partialFueling in fueling.partialFuelings %}
+                                <span class="pFu"><br/> &#8618;&nbsp;{{ partialFueling.currency }}</span>
+                            {% endfor %}
+                        </td>
+                        <td class="tg-yw4l">{{ fueling.tripDistance }}</td>
+                        <td class="tg-yw4l">{{ fueling.getDistanceFromPrievous() }}</td>
+                        <td class="tg-yw4l">{{ fueling.getFuelConsumptionFromPrievous()|number_format(2,'.', '') }}</td>
+                        <td class="tg-yw4l">{{ fueling.averageConsumptionByComputer }}</td>
+                        <td class="tg-yw4l">{{ fueling.averageSpeed }}</td>
+                        <td class="tg-yw4l">{{ fueling.driveTime }}</td>
+                        <td class="tg-yw4l">{% if app.user and app.user == car.user %}<a href="{{ path('car_add_fuelling', {'carId':car.id, 'masterFuelingId': fueling.id}) }}"><img src="{{ asset('plus-icon-16px.png') }}" width="16" alt="{% trans %}Add partial fueling{% endtrans %}"/></a>{% endif %}</td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td class="tg-yw4l">{% if app.user and app.user == car.user %}<a href="{{ path('car_edit_fueling', {'fuelingId': fueling.id}) }}"><img src="{{ asset('pencil-icon.png') }}" width="16" alt="{% trans %}Edit{% endtrans %}"/></a>{% endif %}</td>
+                        <td class="tg-yw4l" style="width:75px;">{{ fueling.dateTime.format('Y-m-d') }}</td>
+                        <td class="tg-yw4l">{{ fueling.Mileage }}</td>
+                        <td class="tg-yw4l">{{ fueling.litresTanked }}</td>
+                        <td class="tg-yw4l">{{ fueling.pricePerLiter|number_format(2,'.', '') }}</td>
+                        <td class="tg-yw4l">{{ fueling.amount|number_format(2,'.', '') }}</td>
+                        <td class="tg-yw4l">{{ fueling.currency }}</td>
+                        <td class="tg-yw4l">{{ fueling.tripDistance }}</td>
+                        <td class="tg-yw4l">{{ fueling.getDistanceFromPrievous() }}</td>
+                        <td class="tg-yw4l">{{ fueling.getFuelConsumptionFromPrievous()|number_format(2,'.', '') }}</td>
+                        <td class="tg-yw4l">{{ fueling.averageConsumptionByComputer }}</td>
+                        <td class="tg-yw4l">{{ fueling.averageSpeed }}</td>
+                        <td class="tg-yw4l">{{ fueling.driveTime }}</td>
+                        <td class="tg-yw4l">{% if app.user and app.user == car.user %}<a href="{{ path('car_add_fuelling', {'carId':car.id, 'masterFuelingId': fueling.id}) }}"><img src="{{ asset('plus-icon-16px.png') }}" width="16" alt="{% trans %}Add partial fueling{% endtrans %}"/></a>{% endif %}</td>
+                    </tr>
+                {% endif %}
+            {% endfor %}
+            </table>
+
+
+				<div class="clearfix"> </div>
+			</div>
+		</div>
+	</div>
+	<!--//services-->
+
+
+
+    <div class="container wow bounceIn animated" data-wow-delay=".5s" style="visibility: visible; -webkit-animation-delay: .5s;">
+
+        <h3 class="title">{% trans %}Costs{% endtrans %}</h3>
+
+
+        <table class="tg">
+            <tr>
+                <th class="tg-yw4l">.</th>
+                <th class="tg-yw4l">{% trans %}Date{% endtrans %}</th>
+                <th class="tg-yw4l">{% trans %}Odometer{% endtrans %}</th>
+                <th class="tg-yw4l">{% trans %}Type{% endtrans %}</th>
+                <th class="tg-yw4l">{% trans %}Amount{% endtrans %}</th>
+                <th class="tg-yw4l">{% trans %}Currency{% endtrans %}</th>
+                <th class="tg-yw4l">{% trans %}Description{% endtrans %}</th>
+            </tr>
+        {% for cost in car.costs %}
+            <tr>
+                <td class="tg-yw4l" align="center"> {% if app.user and app.user == car.user %} <a href="{{ path('car_edit_cost', {'costId': cost.id}) }}"><img src="{{ asset('pencil-icon.png') }}" width="16" alt="{% trans %}Edit{% endtrans %}"/></a>{% endif %}</td>
+                <td class="tg-yw4l">{{ cost.dateTime.format('Y-m-d') }}</td>
+                <td class="tg-yw4l">{{ cost.Mileage }}</td>
+                <td class="tg-yw4l">{{ cost.getTypeName() }}</td>
+                <td class="tg-yw4l">{{ cost.amount|number_format(2,'.', '') }}</td>
+                <td class="tg-yw4l">{{ cost.currency }}</td>
+                <td class="tg-yw4l">{{ cost.description }}</td>
+            </tr>
+        {% endfor %}
+        </table>
+    </div>
+
+</div>
+
+{% endblock %}

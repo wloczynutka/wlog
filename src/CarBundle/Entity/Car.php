@@ -35,6 +35,7 @@ class Car
      * @ORM\JoinColumn(name="model", referencedColumnName="id")
      */
     private $model;
+    
     /**
      * @var integer
      *
