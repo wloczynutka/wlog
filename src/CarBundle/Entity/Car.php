@@ -104,6 +104,11 @@ class Car
     private $costSummary;
 
     /**
+     * @var \DateTime
+     */
+    private $lastFuelingDate;
+
+    /**
      * @var string
      * @ORM\Column(name="defaultCurrency", type="string", length=3)
      */
@@ -120,6 +125,7 @@ class Car
     {
         $this->costSummary = new CostSummary();
         $this->costSummary->setCostCollection($this->costs);
+        $this->lastFuelingDate = new \DateTime('0001-01-01');
     }
 
     /**
@@ -345,6 +351,7 @@ class Car
          /* @var $carFueling  \CarBundle\Entity\CarFueling */
          /* @var $masterFueling  \CarBundle\Entity\CarFueling */
         foreach ($this->fuelings as $carFueling){
+            $this->checkAndSetLastFuelingDate($carFueling);
             if($carFueling->getMasterFuelingId() !== 0){
                 $masterFueling = $this->findFuelingById($carFueling->getMasterFuelingId());
                 $masterFueling->addPartialFueling($carFueling);
@@ -361,6 +368,13 @@ class Car
             ;
         }
         $this->recalculatePartialFuelings();
+    }
+
+    private function checkAndSetLastFuelingDate(\CarBundle\Entity\CarFueling $carFueling)
+    {
+        if($carFueling->getDateTime() > $this->lastFuelingDate){
+            $this->lastFuelingDate = $carFueling->getDateTime();
+        }
     }
 
     private function addMasterFuelingToCollectionIfNotExistYet(ArrayCollection $masterFuelings, \CarBundle\Entity\CarFueling $masterFueling)
@@ -531,5 +545,9 @@ class Car
         return $this;
     }
 
+    public function getTimeIntervalSincelastFueling()
+    {
+        return $this->lastFuelingDate->diff(new \DateTime);
+    }
 }
 

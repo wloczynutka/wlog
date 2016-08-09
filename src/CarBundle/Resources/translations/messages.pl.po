@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: wlog\n"
-"POT-Creation-Date: 2016-07-18 16:32+0200\n"
-"PO-Revision-Date: 2016-07-28 13:24+0200\n"
+"POT-Creation-Date: 2016-07-28 15:09+0200\n"
+"PO-Revision-Date: 2016-07-28 15:09+0200\n"
 "Last-Translator: Andrzej  Lza Wozniak <lza@tlen.pl>\n"
 "Language-Team: \n"
 "Language: pl_PL\n"
@@ -18,45 +18,45 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 
 #: Controller/DataController.php:60 Controller/DataController.php:74
-#: /tmp/cache/578ce84438251/1f/1f6ac3d20df9fc27478cbb19e7ecfa6c88413fd80c5d370208b81999687eff72.php:191
-#: /tmp/cache/578ce84438251/1f/1f6ac3d20df9fc27478cbb19e7ecfa6c88413fd80c5d370208b81999687eff72.php:496
+#: /tmp/cache/579a040f8825f/1f/1f6ac3d20df9fc27478cbb19e7ecfa6c88413fd80c5d370208b81999687eff72.php:206
+#: /tmp/cache/579a040f8825f/1f/1f6ac3d20df9fc27478cbb19e7ecfa6c88413fd80c5d370208b81999687eff72.php:511
 msgid "Date"
 msgstr "Data"
 
 #: Controller/DataController.php:61 Controller/DataController.php:75
-#: /tmp/cache/578ce84438251/1f/1f6ac3d20df9fc27478cbb19e7ecfa6c88413fd80c5d370208b81999687eff72.php:195
-#: /tmp/cache/578ce84438251/1f/1f6ac3d20df9fc27478cbb19e7ecfa6c88413fd80c5d370208b81999687eff72.php:500
+#: /tmp/cache/579a040f8825f/1f/1f6ac3d20df9fc27478cbb19e7ecfa6c88413fd80c5d370208b81999687eff72.php:210
+#: /tmp/cache/579a040f8825f/1f/1f6ac3d20df9fc27478cbb19e7ecfa6c88413fd80c5d370208b81999687eff72.php:515
 msgid "Odometer"
 msgstr "Licznik"
 
 #: Controller/DataController.php:62
-#: /tmp/cache/578ce84438251/1f/1f6ac3d20df9fc27478cbb19e7ecfa6c88413fd80c5d370208b81999687eff72.php:504
+#: /tmp/cache/579a040f8825f/1f/1f6ac3d20df9fc27478cbb19e7ecfa6c88413fd80c5d370208b81999687eff72.php:519
 msgid "Type"
 msgstr "Typ"
 
 #: Controller/DataController.php:64 Controller/DataController.php:78
-#: /tmp/cache/578ce84438251/1f/1f6ac3d20df9fc27478cbb19e7ecfa6c88413fd80c5d370208b81999687eff72.php:207
+#: /tmp/cache/579a040f8825f/1f/1f6ac3d20df9fc27478cbb19e7ecfa6c88413fd80c5d370208b81999687eff72.php:222
 msgid "Paid amount"
 msgstr "Kwota"
 
 #: Controller/DataController.php:65 Controller/DataController.php:79
-#: /tmp/cache/578ce84438251/1f/1f6ac3d20df9fc27478cbb19e7ecfa6c88413fd80c5d370208b81999687eff72.php:211
-#: /tmp/cache/578ce84438251/1f/1f6ac3d20df9fc27478cbb19e7ecfa6c88413fd80c5d370208b81999687eff72.php:512
+#: /tmp/cache/579a040f8825f/1f/1f6ac3d20df9fc27478cbb19e7ecfa6c88413fd80c5d370208b81999687eff72.php:226
+#: /tmp/cache/579a040f8825f/1f/1f6ac3d20df9fc27478cbb19e7ecfa6c88413fd80c5d370208b81999687eff72.php:527
 msgid "Currency"
 msgstr "Waluta"
 
 #: Controller/DataController.php:66
-#: /tmp/cache/578ce84438251/1f/1f6ac3d20df9fc27478cbb19e7ecfa6c88413fd80c5d370208b81999687eff72.php:516
+#: /tmp/cache/579a040f8825f/1f/1f6ac3d20df9fc27478cbb19e7ecfa6c88413fd80c5d370208b81999687eff72.php:531
 msgid "Description"
 msgstr "Opis"
 
 #: Controller/DataController.php:76
-#: /tmp/cache/578ce84438251/1f/1f6ac3d20df9fc27478cbb19e7ecfa6c88413fd80c5d370208b81999687eff72.php:199
+#: /tmp/cache/579a040f8825f/1f/1f6ac3d20df9fc27478cbb19e7ecfa6c88413fd80c5d370208b81999687eff72.php:214
 msgid "Litres"
 msgstr "Litrów"
 
 #: Controller/DataController.php:77
-#: /tmp/cache/578ce84438251/1f/1f6ac3d20df9fc27478cbb19e7ecfa6c88413fd80c5d370208b81999687eff72.php:203
+#: /tmp/cache/579a040f8825f/1f/1f6ac3d20df9fc27478cbb19e7ecfa6c88413fd80c5d370208b81999687eff72.php:218
 msgid "Price/liter"
 msgstr "Cena/Litr"
 
@@ -69,17 +69,17 @@ msgid "Fuel Type"
 msgstr "Rodzaj paliwa"
 
 #: Controller/DataController.php:82
-#: /tmp/cache/578ce84438251/1f/1f6ac3d20df9fc27478cbb19e7ecfa6c88413fd80c5d370208b81999687eff72.php:227
+#: /tmp/cache/579a040f8825f/1f/1f6ac3d20df9fc27478cbb19e7ecfa6c88413fd80c5d370208b81999687eff72.php:242
 msgid "Average consumption by computer"
 msgstr "Zużycie paliwa w/g komputera"
 
 #: Controller/DataController.php:83
-#: /tmp/cache/578ce84438251/1f/1f6ac3d20df9fc27478cbb19e7ecfa6c88413fd80c5d370208b81999687eff72.php:231
+#: /tmp/cache/579a040f8825f/1f/1f6ac3d20df9fc27478cbb19e7ecfa6c88413fd80c5d370208b81999687eff72.php:246
 msgid "Average speed"
 msgstr "prędkość średnia"
 
 #: Controller/DataController.php:84
-#: /tmp/cache/578ce84438251/1f/1f6ac3d20df9fc27478cbb19e7ecfa6c88413fd80c5d370208b81999687eff72.php:235
+#: /tmp/cache/579a040f8825f/1f/1f6ac3d20df9fc27478cbb19e7ecfa6c88413fd80c5d370208b81999687eff72.php:250
 msgid "Driving time"
 msgstr "Czas jazdy"
 
@@ -155,123 +155,127 @@ msgstr "Olej napędowy"
 msgid "LPG"
 msgstr "LPG"
 
-#: /tmp/cache/578ce84438251/1f/1f6ac3d20df9fc27478cbb19e7ecfa6c88413fd80c5d370208b81999687eff72.php:47
+#: /tmp/cache/579a040f8825f/1f/1f6ac3d20df9fc27478cbb19e7ecfa6c88413fd80c5d370208b81999687eff72.php:47
 msgid "Add cost"
 msgstr "Dodaj koszt"
 
-#: /tmp/cache/578ce84438251/1f/1f6ac3d20df9fc27478cbb19e7ecfa6c88413fd80c5d370208b81999687eff72.php:41
+#: /tmp/cache/579a040f8825f/1f/1f6ac3d20df9fc27478cbb19e7ecfa6c88413fd80c5d370208b81999687eff72.php:41
 msgid "Add fueling"
 msgstr "Dodaj tankowanie"
 
-#: /tmp/cache/578ce84438251/5c/5c35a340da0508889e81d127990492497d4c0ae9cd8958b8c613355d594d5694.php:36
+#: /tmp/cache/579a040f8825f/5c/5c35a340da0508889e81d127990492497d4c0ae9cd8958b8c613355d594d5694.php:36
 msgid "Add new car"
 msgstr "Dodaj samochód"
 
-#: /tmp/cache/578ce84438251/1f/1f6ac3d20df9fc27478cbb19e7ecfa6c88413fd80c5d370208b81999687eff72.php:398
-#: /tmp/cache/578ce84438251/1f/1f6ac3d20df9fc27478cbb19e7ecfa6c88413fd80c5d370208b81999687eff72.php:475
+#: /tmp/cache/579a040f8825f/1f/1f6ac3d20df9fc27478cbb19e7ecfa6c88413fd80c5d370208b81999687eff72.php:413
+#: /tmp/cache/579a040f8825f/1f/1f6ac3d20df9fc27478cbb19e7ecfa6c88413fd80c5d370208b81999687eff72.php:490
 msgid "Add partial fueling"
 msgstr "Dodaj częściowe tankowanie (nie do pełna)"
 
-#: /tmp/cache/578ce84438251/1f/1f6ac3d20df9fc27478cbb19e7ecfa6c88413fd80c5d370208b81999687eff72.php:176
+#: /tmp/cache/579a040f8825f/1f/1f6ac3d20df9fc27478cbb19e7ecfa6c88413fd80c5d370208b81999687eff72.php:178
 msgid "All cost total"
 msgstr "Suma wszystkich kosztów"
 
-#: /tmp/cache/578ce84438251/1f/1f6ac3d20df9fc27478cbb19e7ecfa6c88413fd80c5d370208b81999687eff72.php:508
+#: /tmp/cache/579a040f8825f/1f/1f6ac3d20df9fc27478cbb19e7ecfa6c88413fd80c5d370208b81999687eff72.php:523
 msgid "Amount"
 msgstr "Kwota"
 
-#: /tmp/cache/578ce84438251/5c/5c35a340da0508889e81d127990492497d4c0ae9cd8958b8c613355d594d5694.php:20
+#: /tmp/cache/579a040f8825f/5c/5c35a340da0508889e81d127990492497d4c0ae9cd8958b8c613355d594d5694.php:20
 msgid "Auto budget"
 msgstr "Auto budżet"
 
-#: /tmp/cache/578ce84438251/1f/1f6ac3d20df9fc27478cbb19e7ecfa6c88413fd80c5d370208b81999687eff72.php:98
+#: /tmp/cache/579a040f8825f/1f/1f6ac3d20df9fc27478cbb19e7ecfa6c88413fd80c5d370208b81999687eff72.php:93
 msgid "Average fuel consumption"
 msgstr "Średnie rzeczywiste zużycie paliwa"
 
-#: /tmp/cache/578ce84438251/1f/1f6ac3d20df9fc27478cbb19e7ecfa6c88413fd80c5d370208b81999687eff72.php:219
+#: /tmp/cache/579a040f8825f/1f/1f6ac3d20df9fc27478cbb19e7ecfa6c88413fd80c5d370208b81999687eff72.php:234
 msgid "Calculated trip odometer"
 msgstr "dystans wyliczony"
 
-#: /tmp/cache/578ce84438251/1f/1f6ac3d20df9fc27478cbb19e7ecfa6c88413fd80c5d370208b81999687eff72.php:78
+#: /tmp/cache/579a040f8825f/1f/1f6ac3d20df9fc27478cbb19e7ecfa6c88413fd80c5d370208b81999687eff72.php:79
 msgid "Car"
 msgstr "Samochód"
 
-#: /tmp/cache/578ce84438251/1f/1f6ac3d20df9fc27478cbb19e7ecfa6c88413fd80c5d370208b81999687eff72.php:257
-#: /tmp/cache/578ce84438251/1f/1f6ac3d20df9fc27478cbb19e7ecfa6c88413fd80c5d370208b81999687eff72.php:415
-#: /tmp/cache/578ce84438251/1f/1f6ac3d20df9fc27478cbb19e7ecfa6c88413fd80c5d370208b81999687eff72.php:534
+#: /tmp/cache/579a040f8825f/1f/1f6ac3d20df9fc27478cbb19e7ecfa6c88413fd80c5d370208b81999687eff72.php:194
+msgid "Days from last fueling"
+msgstr "Ilość dni od ostatniego tankowania"
+
+#: /tmp/cache/579a040f8825f/1f/1f6ac3d20df9fc27478cbb19e7ecfa6c88413fd80c5d370208b81999687eff72.php:272
+#: /tmp/cache/579a040f8825f/1f/1f6ac3d20df9fc27478cbb19e7ecfa6c88413fd80c5d370208b81999687eff72.php:430
+#: /tmp/cache/579a040f8825f/1f/1f6ac3d20df9fc27478cbb19e7ecfa6c88413fd80c5d370208b81999687eff72.php:549
 msgid "Edit"
 msgstr "Edytuj"
 
-#: /tmp/cache/578ce84438251/1f/1f6ac3d20df9fc27478cbb19e7ecfa6c88413fd80c5d370208b81999687eff72.php:53
+#: /tmp/cache/579a040f8825f/1f/1f6ac3d20df9fc27478cbb19e7ecfa6c88413fd80c5d370208b81999687eff72.php:53
 msgid "Edit vehicle"
 msgstr "Edytuj auto"
 
-#: /tmp/cache/578ce84438251/1f/1f6ac3d20df9fc27478cbb19e7ecfa6c88413fd80c5d370208b81999687eff72.php:59
+#: /tmp/cache/579a040f8825f/1f/1f6ac3d20df9fc27478cbb19e7ecfa6c88413fd80c5d370208b81999687eff72.php:59
 msgid "Export data"
 msgstr "Eksport danych"
 
-#: /tmp/cache/578ce84438251/1f/1f6ac3d20df9fc27478cbb19e7ecfa6c88413fd80c5d370208b81999687eff72.php:223
+#: /tmp/cache/579a040f8825f/1f/1f6ac3d20df9fc27478cbb19e7ecfa6c88413fd80c5d370208b81999687eff72.php:238
 msgid "Fuel consumption"
 msgstr "Zużycie paliwa"
 
-#: /tmp/cache/578ce84438251/5c/5c35a340da0508889e81d127990492497d4c0ae9cd8958b8c613355d594d5694.php:27
-#: /tmp/cache/578ce84438251/8c/8cec08ca0171e5eff46327df715cc7408d4ce0d4cda6ad41d8b5f50a35448804.php:32
+#: /tmp/cache/579a040f8825f/5c/5c35a340da0508889e81d127990492497d4c0ae9cd8958b8c613355d594d5694.php:27
+#: /tmp/cache/579a040f8825f/8c/8cec08ca0171e5eff46327df715cc7408d4ce0d4cda6ad41d8b5f50a35448804.php:32
 msgid "List of cars"
 msgstr "Lista samochodów"
 
-#: /tmp/cache/578ce84438251/1f/1f6ac3d20df9fc27478cbb19e7ecfa6c88413fd80c5d370208b81999687eff72.php:86
+#: /tmp/cache/579a040f8825f/1f/1f6ac3d20df9fc27478cbb19e7ecfa6c88413fd80c5d370208b81999687eff72.php:87
 msgid "Mileage"
 msgstr "przebieg"
 
-#: /tmp/cache/578ce84438251/1f/1f6ac3d20df9fc27478cbb19e7ecfa6c88413fd80c5d370208b81999687eff72.php:69
+#: /tmp/cache/579a040f8825f/1f/1f6ac3d20df9fc27478cbb19e7ecfa6c88413fd80c5d370208b81999687eff72.php:69
 msgid "Please log-in"
 msgstr "Proszę się zalogować"
 
-#: /tmp/cache/578ce84438251/1f/1f6ac3d20df9fc27478cbb19e7ecfa6c88413fd80c5d370208b81999687eff72.php:92
+#: /tmp/cache/579a040f8825f/1f/1f6ac3d20df9fc27478cbb19e7ecfa6c88413fd80c5d370208b81999687eff72.php:100
 msgid "Tanked litres volume"
 msgstr "Ilość zatankownych litrów"
 
-#: /tmp/cache/578ce84438251/1f/1f6ac3d20df9fc27478cbb19e7ecfa6c88413fd80c5d370208b81999687eff72.php:136
+#: /tmp/cache/579a040f8825f/1f/1f6ac3d20df9fc27478cbb19e7ecfa6c88413fd80c5d370208b81999687eff72.php:138
 msgid "Total accesory costs"
 msgstr "Całkowity koszt akcesoriów"
 
-#: /tmp/cache/578ce84438251/1f/1f6ac3d20df9fc27478cbb19e7ecfa6c88413fd80c5d370208b81999687eff72.php:168
+#: /tmp/cache/579a040f8825f/1f/1f6ac3d20df9fc27478cbb19e7ecfa6c88413fd80c5d370208b81999687eff72.php:170
 msgid "Total camper costs"
 msgstr "Całkowity koszt ukamperowienia"
 
-#: /tmp/cache/578ce84438251/1f/1f6ac3d20df9fc27478cbb19e7ecfa6c88413fd80c5d370208b81999687eff72.php:104
+#: /tmp/cache/579a040f8825f/1f/1f6ac3d20df9fc27478cbb19e7ecfa6c88413fd80c5d370208b81999687eff72.php:106
 msgid "Total fuel cost"
 msgstr "Całkowity koszt paliwa"
 
-#: /tmp/cache/578ce84438251/1f/1f6ac3d20df9fc27478cbb19e7ecfa6c88413fd80c5d370208b81999687eff72.php:152
+#: /tmp/cache/579a040f8825f/1f/1f6ac3d20df9fc27478cbb19e7ecfa6c88413fd80c5d370208b81999687eff72.php:154
 msgid "Total insurance costs"
 msgstr "Całkowity koszt ubezpieczeń"
 
-#: /tmp/cache/578ce84438251/1f/1f6ac3d20df9fc27478cbb19e7ecfa6c88413fd80c5d370208b81999687eff72.php:160
+#: /tmp/cache/579a040f8825f/1f/1f6ac3d20df9fc27478cbb19e7ecfa6c88413fd80c5d370208b81999687eff72.php:162
 msgid "Total other costs"
 msgstr "Całkowite koszty inne"
 
-#: /tmp/cache/578ce84438251/1f/1f6ac3d20df9fc27478cbb19e7ecfa6c88413fd80c5d370208b81999687eff72.php:144
+#: /tmp/cache/579a040f8825f/1f/1f6ac3d20df9fc27478cbb19e7ecfa6c88413fd80c5d370208b81999687eff72.php:146
 msgid "Total parts costs"
 msgstr "Całkowity koszt części"
 
-#: /tmp/cache/578ce84438251/1f/1f6ac3d20df9fc27478cbb19e7ecfa6c88413fd80c5d370208b81999687eff72.php:120
+#: /tmp/cache/579a040f8825f/1f/1f6ac3d20df9fc27478cbb19e7ecfa6c88413fd80c5d370208b81999687eff72.php:122
 msgid "Total reperair costs"
 msgstr "Całkowity koszt napraw"
 
-#: /tmp/cache/578ce84438251/1f/1f6ac3d20df9fc27478cbb19e7ecfa6c88413fd80c5d370208b81999687eff72.php:128
+#: /tmp/cache/579a040f8825f/1f/1f6ac3d20df9fc27478cbb19e7ecfa6c88413fd80c5d370208b81999687eff72.php:130
 msgid "Total service costs"
 msgstr "Całkowity koszt przeglądów"
 
-#: /tmp/cache/578ce84438251/1f/1f6ac3d20df9fc27478cbb19e7ecfa6c88413fd80c5d370208b81999687eff72.php:112
+#: /tmp/cache/579a040f8825f/1f/1f6ac3d20df9fc27478cbb19e7ecfa6c88413fd80c5d370208b81999687eff72.php:114
 msgid "Total tax costs"
 msgstr "Całkowity koszt opłat i podatków"
 
-#: /tmp/cache/578ce84438251/1f/1f6ac3d20df9fc27478cbb19e7ecfa6c88413fd80c5d370208b81999687eff72.php:215
+#: /tmp/cache/579a040f8825f/1f/1f6ac3d20df9fc27478cbb19e7ecfa6c88413fd80c5d370208b81999687eff72.php:230
 msgid "Trip odometer"
 msgstr "Pokonany dystans"
 
-#: /tmp/cache/578ce84438251/1f/1f6ac3d20df9fc27478cbb19e7ecfa6c88413fd80c5d370208b81999687eff72.php:65
+#: /tmp/cache/579a040f8825f/1f/1f6ac3d20df9fc27478cbb19e7ecfa6c88413fd80c5d370208b81999687eff72.php:65
 msgid "User is not logged in. Some features are disabled"
 msgstr "Użytkownik nie jest zalogowany. niektóre funkcje nie będą wyświetlane."
 
