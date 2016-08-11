@@ -36,7 +36,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 	<div class="header">
 		<div class="container">
 			<div class="header-info navbar-left wow fadeInLeft animated" data-wow-delay=".5s" style="visibility: visible; -webkit-animation-delay: .5s;">
-				<p>Information Service : 000-1234-1234</p>
+				<p>{% trans %}Auto budget{% endtrans %}</p>
 			</div>
 			<div class="navbar-form navbar-right wow fadeInRight animated" data-wow-delay=".5s" style="visibility: visible; -webkit-animation-delay: .5s;">
 				<div class="form-group">
@@ -45,7 +45,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                             {{ app.user.username }}
                         {% else %}
                            {% trans %}User is not logged in. Some features are disabled{% endtrans %}.
-                           <a href="{{ url('fos_user_security_login') }}" class="scroll">{% trans %}Please log-in{% endtrans %}</a>
+                           <a href="{{ url('fos_user_security_login') }}">{% trans %}Please log-in{% endtrans %}</a>
                         {% endif %}
                     </div>
 				</div>
