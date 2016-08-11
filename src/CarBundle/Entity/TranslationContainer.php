@@ -17,6 +17,7 @@ final class TranslationContainer
 {
     public $carCostTypes;
     public $fuelTypes;
+    public $errorMessages;
 
     private $translator;
 
@@ -43,6 +44,7 @@ final class TranslationContainer
         $this->loadTranslatorService();
         $this->prepareCostTypeTranslations();
         $this->prepareFuelTypeTranslations();
+        $this->prepareErrorTranslations();
     }
 
     private function loadTranslatorService()
@@ -52,6 +54,13 @@ final class TranslationContainer
             $kernel = $kernel->getKernel();
         }
         $this->translator = $kernel->getContainer()->get('translator');
+    }
+
+    private function prepareErrorTranslations()
+    {
+        $this->errorMessages = [
+            1 => $this->translator->trans('Sory, You have no privileages to add/edit this item. Please check if you are logged in.')
+        ];
     }
 
     private function prepareCostTypeTranslations()

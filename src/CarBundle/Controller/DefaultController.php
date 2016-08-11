@@ -12,6 +12,7 @@ use \CarBundle\Form\CarType;
 use Symfony\Component\HttpFoundation\Request;
 use CarBundle\Entity\TranslationContainer;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
+use \AppBundle\Entity\User;
 
 class DefaultController extends Controller
 {
@@ -61,12 +62,18 @@ class DefaultController extends Controller
     
     public function addCostAction(Request $request, $carId)
     {
+        $user = $this->get('security.context')->getToken()->getUser();
         $car = $this->loadCarById($carId);
+        if(!$user instanceof User || $user !== $car->getUser()){ // no privileages to add cost for this car
+            return $this->render('CarBundle:Ramble:error.html.twig', ['error' => TranslationContainer::Instance()->errorMessages[1]]);
+        }
         $carCost = new CarCost();
         $carCost
                 ->setDateTime(new \DateTime)
                 ->setCar($car)
-                ->setCurrency($car->getDefaultCurrency());
+                ->setCurrency($car->getDefaultCurrency())
+                ->setType(10) //default cost type (tool road)
+        ;
 		$form = $this->createForm(new CarCostType(), $carCost);
 		$form->handleRequest($request);
 		if ($form->isValid()) {
@@ -77,12 +84,16 @@ class DefaultController extends Controller
 			return $this->redirectToRoute('car_show_car', ['carId' => $carId]);
 		}
 
-		return $this->render('CarBundle:Default:fueling.html.twig', array('form' => $form->createView()));
+		return $this->render('CarBundle:Ramble:cost.html.twig', ['form' => $form->createView(), 'car' => $car, 'action' => $this->get('translator')->trans('Add cost')]);
     }
 
     public function addFuelingAction(Request $request, $carId, $masterFuelingId)
 	{
         $car = $this->loadCarById($carId);
+        $user = $this->get('security.context')->getToken()->getUser();
+        if(!$user instanceof User || $user !== $car->getUser()){ // no privileages to add cost for this car
+            return $this->render('CarBundle:Ramble:error.html.twig', ['error' => TranslationContainer::Instance()->errorMessages[1]]);
+        }
 		$carFueling = new CarFueling();
 		$carFueling
                 ->setMasterFuelingId((int) $masterFuelingId)
@@ -107,7 +118,7 @@ class DefaultController extends Controller
 			return $this->redirectToRoute('car_show_car', ['carId' => $carId]);
 		}
 
-		return $this->render('CarBundle:Default:fueling.html.twig', array('form' => $form->createView()));
+		return $this->render('CarBundle:Ramble:fueling.html.twig', ['form' => $form->createView(), 'car' => $car, 'action' => $this->get('translator')->trans('Add fueling')]);
 	}
 
 

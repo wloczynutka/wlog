@@ -32,7 +32,7 @@ p{
 }
 ul,label{
 	margin:0;
-	padding:0;
+	padding:5px;
 }
 body a:hover{
 	text-decoration:none;
@@ -1603,4 +1603,24 @@ h3.title {
 }
 /*--//responsive-design---*/
 
+.cost input[type="text"], input[type="number"] {
+  border: 1px solid rgba(189, 189, 189, 0.5);
+  width: 32.4%;
+  outline: none;
+  font-size: 13px;
+  color: #5b5b5b;
+  -webkit-appearance: none;
+}
+.cost input[type="date"] {
+  border: 1px solid rgba(189, 189, 189, 0.5);
+  line-height:10px;
+  outline: none;
+  font-size: 13px;
+  color: #5b5b5b;
+  -webkit-appearance: none;
+}
+
+#carbundle_carcost_mileage{
+    size: 7em;
+}
 
