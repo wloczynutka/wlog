@@ -13,3 +13,6 @@
 /src/CarBundle/Resources/public/images/carstats/*.jpg
 /nbproject
 
+.idea
+/.idea/vcs.xml
+/.idea/misc.xml

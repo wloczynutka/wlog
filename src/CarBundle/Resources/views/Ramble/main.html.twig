@@ -7,7 +7,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <!DOCTYPE html>
 <html>
 <head>
-    <title>{% trans %}Auto budget{% endtrans %}</title>
+    <title>{% trans %}Auto budget{% endtrans %} {% block titleExt %}{% endblock %}</title>
     <link href="{{ asset('css/bootstrap.css') }}" type="text/css" rel="stylesheet" media="all">
     <link href="{{ asset('css/style.css') }}" type="text/css" rel="stylesheet" media="all">
     <link rel="stylesheet" href="{{ asset('css/lightbox.css') }}">
@@ -28,6 +28,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
         <script>
              new WOW().init();
         </script>
+	{% block javascripts %}{% endblock %}
     <!--//end-animate-->
 </head>
 

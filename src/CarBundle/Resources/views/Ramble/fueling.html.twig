@@ -1,4 +1,9 @@
 {% extends 'CarBundle:Ramble:main.html.twig' %}
+{% block titleExt %}{{action}}{% endblock %}
+{% block javascripts %}
+    <script src="{{ asset('js/fueling.js') }}" ></script>
+{% endblock %}
+
 {% block content %}
 
     <div class="container">
