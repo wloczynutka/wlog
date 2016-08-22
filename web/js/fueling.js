@@ -11,5 +11,7 @@ function autoCalculateAmount(){
     var pricePerLiter = parseFloat($('#carbundle_carfueling_pricePerLiter').val().replace(',', '.'));
     var litresTanked = parseFloat($('#carbundle_carfueling_litresTanked').val().replace(',', '.'));
     var amount =  pricePerLiter  * litresTanked;
-    $('#carbundle_carfueling_amount').val(amount.toFixed(2));
+    if(isNaN(amount) === false){
+        $('#carbundle_carfueling_amount').val(amount.toFixed(2));
+    }
 }
