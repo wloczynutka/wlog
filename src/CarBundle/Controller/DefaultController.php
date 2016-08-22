@@ -12,13 +12,14 @@ use \CarBundle\Form\CarType;
 use Symfony\Component\HttpFoundation\Request;
 use CarBundle\Entity\TranslationContainer;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
+use \AppBundle\Entity\User;
 
 class DefaultController extends Controller
 {
 
     public function homeAction()
     {
-        return $this->render('CarBundle:Default:home.html.twig');
+        return $this->render('CarBundle:Ramble:index.html.twig');
     }
 
     public function addCarAction(Request $request)
@@ -38,6 +39,17 @@ class DefaultController extends Controller
 		return $this->render('CarBundle:Default:addCar.html.twig', array('form' => $form->createView()));
     }
 
+    public function listUserCarsAction(Request $request)
+    {
+        $user = $this->get('security.context')->getToken()->getUser();
+        $carList = $this->getDoctrine()
+            ->getRepository('CarBundle:Car')
+            ->findByUser($user)
+        ;
+        return $this->render('CarBundle:Ramble:listUserCars.html.twig', ['carList' => $carList]);
+    }
+
+    /*
     public function listAllCarsAction(Request $request)
     {
          $carList = $this->getDoctrine()
@@ -46,15 +58,22 @@ class DefaultController extends Controller
         ;
         return $this->render('CarBundle:Default:list.html.twig', ['carList' => $carList]);
     }
-
+    */
+    
     public function addCostAction(Request $request, $carId)
     {
+        $user = $this->get('security.context')->getToken()->getUser();
         $car = $this->loadCarById($carId);
+        if(!$user instanceof User || $user !== $car->getUser()){ // no privileages to add cost for this car
+            return $this->render('CarBundle:Ramble:error.html.twig', ['error' => TranslationContainer::Instance()->errorMessages[1]]);
+        }
         $carCost = new CarCost();
         $carCost
                 ->setDateTime(new \DateTime)
                 ->setCar($car)
-                ->setCurrency($car->getDefaultCurrency());
+                ->setCurrency($car->getDefaultCurrency())
+                ->setType(10) //default cost type (tool road)
+        ;
 		$form = $this->createForm(new CarCostType(), $carCost);
 		$form->handleRequest($request);
 		if ($form->isValid()) {
@@ -65,12 +84,16 @@ class DefaultController extends Controller
 			return $this->redirectToRoute('car_show_car', ['carId' => $carId]);
 		}
 
-		return $this->render('CarBundle:Default:fueling.html.twig', array('form' => $form->createView()));
+		return $this->render('CarBundle:Ramble:cost.html.twig', ['form' => $form->createView(), 'car' => $car, 'action' => $this->get('translator')->trans('Add cost')]);
     }
 
     public function addFuelingAction(Request $request, $carId, $masterFuelingId)
 	{
         $car = $this->loadCarById($carId);
+        $user = $this->get('security.context')->getToken()->getUser();
+        if(!$user instanceof User || $user !== $car->getUser()){ // no privileages to add cost for this car
+            return $this->render('CarBundle:Ramble:error.html.twig', ['error' => TranslationContainer::Instance()->errorMessages[1]]);
+        }
 		$carFueling = new CarFueling();
 		$carFueling
                 ->setMasterFuelingId((int) $masterFuelingId)
@@ -95,7 +118,7 @@ class DefaultController extends Controller
 			return $this->redirectToRoute('car_show_car', ['carId' => $carId]);
 		}
 
-		return $this->render('CarBundle:Default:fueling.html.twig', array('form' => $form->createView()));
+		return $this->render('CarBundle:Ramble:fueling.html.twig', ['form' => $form->createView(), 'car' => $car, 'action' => $this->get('translator')->trans('Add fueling')]);
 	}
 
 
@@ -127,6 +150,7 @@ class DefaultController extends Controller
     public function showCarAction($carId)
     {
 		$car = $this->loadCarById($carId);
+        return $this->render('CarBundle:Ramble:car.html.twig', array('car' => $car));
         return $this->render('CarBundle:Default:car.html.twig', array('car' => $car));
     }
 

@@ -1,0 +1,31 @@
+{% extends 'CarBundle:Ramble:main.html.twig' %}
+{% block content %}
+
+<div class="team" id="team">
+    <div class="container">
+        <h3 class="title">Your cars:</h3>
+        <div class="team-info">
+
+
+        {% for car in carList %}
+            <div class="col-md-3 team-grids wow bounceIn animated" data-wow-delay=".5s" style="visibility: visible; -webkit-animation-delay: .5s;">
+                <a href="show/{{ car.id }}">
+                    <img class="img-responsive" src="{{ asset('images/img2.jpg') }}" alt="">
+                    <div class="captn">
+                        <h4>{{ car.make.name }} {{ car.model.name }}</h4>
+                        <p>{{ car.make.name }} {{ car.model.name }}</p>
+                    </div>
+                </a>
+            </div>
+
+
+
+        {% endfor %}
+
+
+            
+            <div class="clearfix"> </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
