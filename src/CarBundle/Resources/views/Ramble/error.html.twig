@@ -1,0 +1,16 @@
+{% extends 'CarBundle:Ramble:main.html.twig' %}
+{% block content %}
+    <div class="about" id="about">
+        <div class="container">
+            <h3 class="title">{% trans %}Error!!! {% endtrans %} </h3>
+            <div class="col-md-4 about-left wow fadeInLeft animated" data-wow-delay=".5s" style="visibility: visible; -webkit-animation-delay: .5s;">
+                <img src="{{ asset('images/stop-sign-angled.png') }}" alt="">
+            </div>
+            <div class="col-md-8 about-right wow fadeInRight animated" data-wow-delay=".5s" style="visibility: visible; -webkit-animation-delay: .5s;">
+                <h4>
+                    {{error}}
+                </h4>
+                <div class="clearfix"> </div>
+            </div>
+        </div>
+{% endblock %}
