@@ -38,3 +38,6 @@ car_get_stat_image:
 car_export_data:
     path:     /{_locale}/car/export/{carId}
     defaults: { _controller: CarBundle:Data:export }
+car_login:
+    path:     /{_locale}/car/login
+    defaults: { _controller: CarBundle:User:login }

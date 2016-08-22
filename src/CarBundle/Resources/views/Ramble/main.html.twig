@@ -46,7 +46,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                             {{ app.user.username }}
                         {% else %}
                            {% trans %}User is not logged in. Some features are disabled{% endtrans %}.
-                           <a href="{{ url('fos_user_security_login') }}">{% trans %}Please log-in{% endtrans %}</a>
+                           <a href="{{ url('car_login') }}">{% trans %}Please log-in{% endtrans %}</a>
                         {% endif %}
                     </div>
 				</div>
