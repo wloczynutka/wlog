@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use CarBundle\Entity\CarDictionaryMake;
 use AppBundle\Entity\User;
+use CarBundle\Entity\CarImage;
 
 /**
  * Car
@@ -92,7 +93,6 @@ class Car
 
     /**
      * @ORM\OneToMany(targetEntity="CarImage", mappedBy="car")
-     * @ORM\OrderBy({"dateTime" = "ASC"})
      */
     private $images;
 
@@ -491,6 +491,19 @@ class Car
             $this->averageFuelConsumptionByObd = $fuelConsumptionObdSum / $fuelConsumptionObdSumCount;
         }
 	}
+
+    /**
+     * @return \CarBundle\Entity\CarImage
+     */
+    public function getAvatar()
+    {
+        /* @var $image  \CarBundle\Entity\CarImage */
+        foreach ($this->images as $image) {
+            if($image->isIsAvatar()){
+                return $image;
+            }
+        }
+    }
 
     private function checkAndSetMileage($newMileage)
     {

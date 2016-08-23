@@ -10,7 +10,7 @@
         {% for car in carList %}
             <div class="col-md-3 team-grids wow bounceIn animated" data-wow-delay=".5s" style="visibility: visible; -webkit-animation-delay: .5s;">
                 <a href="show/{{ car.id }}">
-                    <img class="img-responsive" src="{{ asset('images/img2.jpg') }}" alt="">
+                    <img class="img-responsive"  src="{{ asset('uploaded_images/' ~ car.getAvatar().getFile() ) }}" alt="{{ car.make.name }} {{ car.model.name }}">
                     <div class="captn">
                         <h4>{{ car.make.name }} {{ car.model.name }}</h4>
                         <p>{{ car.make.name }} {{ car.model.name }}</p>

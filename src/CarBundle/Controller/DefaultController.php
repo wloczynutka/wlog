@@ -186,7 +186,6 @@ class DefaultController extends Controller
     {
 		$car = $this->loadCarById($carId);
         return $this->render('CarBundle:Ramble:car.html.twig', array('car' => $car));
-        return $this->render('CarBundle:Default:car.html.twig', array('car' => $car));
     }
 
     public function getStatImageAction($carId)

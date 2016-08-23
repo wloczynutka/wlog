@@ -22,8 +22,9 @@ class CarImage
     private $id;
 
 
-    /**
-     * @ORM\ManyToOne(targetEntity="Car", inversedBy="images")
+     /**
+     * @var \CarBundle\Entity\Car
+     * @ORM\ManyToOne(targetEntity="Car", inversedBy="image")
      * @ORM\JoinColumn(name="car_id", referencedColumnName="id")
      */
     private $car;
