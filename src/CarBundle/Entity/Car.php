@@ -503,6 +503,10 @@ class Car
                 return $image;
             }
         }
+        /* avatar not found, use generic image instead*/
+        $genericAvatar = new CarImage();
+        $genericAvatar->setFile('modelt1906car.png');
+        return $genericAvatar;
     }
 
     private function checkAndSetMileage($newMileage)
