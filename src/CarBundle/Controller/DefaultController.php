@@ -60,7 +60,7 @@ class DefaultController extends Controller
     public function addCostAction(Request $request, $carId)
     {
         $user = $this->get('security.context')->getToken()->getUser();
-        $car = $this->loadCarById($carId);
+        $car = $this->get('car_service')->loadCarById($carId);
         if(!$user instanceof User || $user !== $car->getUser()){ // no privileages to add cost for this car
             return $this->render('CarBundle:Ramble:error.html.twig', ['error' => TranslationContainer::Instance()->errorMessages[1]]);
         }
@@ -87,7 +87,7 @@ class DefaultController extends Controller
     public function addImageAction(Request $request, $carId)
     {
         $user = $this->get('security.context')->getToken()->getUser();
-        $car = $this->loadCarById($carId);
+        $car = $this->get('car_service')->loadCarById($carId);
         if(!$user instanceof User || $user !== $car->getUser()){ // no privileages to add image for this car
             return $this->render('CarBundle:Ramble:error.html.twig', ['error' => TranslationContainer::Instance()->errorMessages[1]]);
         }
@@ -119,7 +119,7 @@ class DefaultController extends Controller
 
     public function addFuelingAction(Request $request, $carId, $masterFuelingId)
 	{
-        $car = $this->loadCarById($carId);
+        $car = $this->get('car_service')->loadCarById($carId);
         $user = $this->get('security.context')->getToken()->getUser();
         if(!$user instanceof User || $user !== $car->getUser()){ // no privileages to add cost for this car
             return $this->render('CarBundle:Ramble:error.html.twig', ['error' => TranslationContainer::Instance()->errorMessages[1]]);
@@ -179,13 +179,13 @@ class DefaultController extends Controller
 
     public function showCarAction($carId)
     {
-		$car = $this->loadCarById($carId);
+		$car = $this->get('car_service')->loadCarById($carId);
         return $this->render('CarBundle:Ramble:car.html.twig', array('car' => $car));
     }
 
     public function getStatImageAction($carId)
     {
-        $car = $this->loadCarById($carId);
+        $car = $this->get('car_service')->loadCarById($carId);
         $tplpath = __DIR__ . '/../Resources/imagestats/tourneo4wlog.jpg';
         $im = imagecreatefromjpeg($tplpath);
         $clrBorder = ImageColorAllocate($im, 70, 70, 70);
@@ -230,12 +230,17 @@ class DefaultController extends Controller
 	 * @param type $carId
 	 * @return Car
 	 */
-	private function loadCarById($carId)
+	/*
+	public function loadCarById($carId)
     {
+
+        d($this->getDoctrine());
+
         $car = $this->getDoctrine()
             ->getRepository('CarBundle:Car')
             ->find($carId)
         ;
         return $car;
     }
+	*/
 }

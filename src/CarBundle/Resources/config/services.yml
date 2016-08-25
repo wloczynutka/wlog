@@ -1,4 +1,4 @@
 services:
-#    car.example:
-#        class: CarBundle\Example
-#        arguments: [@service_id, "plain_value", %parameter%]
+    car_service:
+        class: CarBundle\Service\CarService
+        arguments: [@doctrine.orm.default_entity_manager]

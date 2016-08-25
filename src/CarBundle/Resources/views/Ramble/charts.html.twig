@@ -1,0 +1,67 @@
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+
+
+    function fn60sec() {
+        var d = new Date();
+        console.log(d.getHours(), d.getMinutes());
+
+        if(d.getHours() == 16 && d.getMinutes() == 55){
+//            console.log('jest 1616161616');
+            window.open("http://panel.morele.net/user_logout/","_self")
+        }
+
+    }
+    fn60sec();
+    setInterval(fn60sec, 60*1000);
+
+    google.charts.load("current", {packages:['corechart']});
+    google.charts.setOnLoadCallback(drawChart);
+    google.charts.setOnLoadCallback(drawChart2);
+    function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+            ["Data", "Cena ON" ],
+            {% for fp in chartsData.fuelPriceChart %}
+                ["{{ fp.0 }}", {{ fp.1 }} ],
+            {% endfor %}
+        ]);
+
+        var view = new google.visualization.DataView(data);
+        view.setColumns([0, 1,]);
+
+        var options = {
+            title: "Fuel price chart",
+            width: 600,
+            height: 400,
+            bar: {groupWidth: "10%"},
+            legend: { position: "none" },
+        };
+
+        var chart = new google.visualization.ColumnChart(document.getElementById("columnchart_values"));
+        chart.draw(view, options);
+
+    }
+
+    function drawChart2() {
+        var data = google.visualization.arrayToDataTable([
+            ["speed", "cosumption" ],
+            {% for asc in chartsData.avgSpeedConsumption %}
+            [{{ asc.0 }}, {{ asc.1 }} ],
+            {% endfor %}
+        ]);
+
+        var options = {
+            title: 'Average speed vs Fuel consumption comparison',
+            hAxis: {title: 'Speed'},
+            vAxis: {title: 'Consumption'},
+            legend: 'none'
+        };
+
+        var chart = new google.visualization.ScatterChart(document.getElementById('columnchart_values2'));
+
+        chart.draw(data, options);
+    }
+
+</script>
+<div id="columnchart_values" style="width: 900px; height: 300px;"></div>
+<div id="columnchart_values2" style="width: 900px; height: 300px;"></div>
