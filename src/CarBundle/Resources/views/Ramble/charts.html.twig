@@ -59,7 +59,7 @@
         var data = google.visualization.arrayToDataTable([
             ["speed", "cosumption" ],
             {% for asc in chartsData.avgSpeedConsumption %}
-            [{{ asc.0 }}, {{ asc.1 }} ],
+                [{{ asc.0 }}, {{ asc.1 }} ],
             {% endfor %}
         ]);
 
