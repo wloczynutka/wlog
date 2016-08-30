@@ -19,7 +19,6 @@
         "incenteev/composer-parameter-handler": "~2.0",
         "raveren/kint": "^1.0",
         "friendsofsymfony/user-bundle": "~2.0@dev",
-        "eventviva/php-image-resize": "1.*",
         "umpirsky/twig-gettext-extractor": "^1.2"
     },
     "require-dev": {

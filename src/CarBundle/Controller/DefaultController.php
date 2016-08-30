@@ -6,6 +6,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use \CarBundle\Entity\Car;
 use \CarBundle\Entity\CarFueling;
 use \CarBundle\Entity\CarCost;
+use \CarBundle\Entity\CarImage;
+use \CarBundle\Form\CarImageType;
 use \CarBundle\Form\CarFuelingType;
 use \CarBundle\Form\CarCostType;
 use \CarBundle\Form\CarType;
@@ -87,6 +89,39 @@ class DefaultController extends Controller
 		return $this->render('CarBundle:Ramble:cost.html.twig', ['form' => $form->createView(), 'car' => $car, 'action' => $this->get('translator')->trans('Add cost')]);
     }
 
+    public function addImageAction(Request $request, $carId)
+    {
+        $user = $this->get('security.context')->getToken()->getUser();
+        $car = $this->loadCarById($carId);
+        if(!$user instanceof User || $user !== $car->getUser()){ // no privileages to add image for this car
+            return $this->render('CarBundle:Ramble:error.html.twig', ['error' => TranslationContainer::Instance()->errorMessages[1]]);
+        }
+        $carImage = new CarImage();
+        $carImage
+            ->setDateTime(new \DateTime())
+            ->setCar($car)
+        ;
+
+        $form = $this->createForm(new CarImageType(), $carImage);
+        $form->handleRequest($request);
+        if ($form->isValid()) {
+
+            /** @var Symfony\Component\HttpFoundation\File\UploadedFile $file */
+            $file = $carImage->getFile();
+            $fileName = md5(uniqid()).'.'.$file->guessExtension();
+            $file->move($this->getParameter('image_directory'), $fileName);
+            $carImage->setFile($fileName);
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($carImage);
+            $em->flush();
+            return $this->redirectToRoute('car_show_car', ['carId' => $carId]);
+        }
+
+        return $this->render('CarBundle:Ramble:image.html.twig', ['form' => $form->createView(), 'car' => $car, 'action' => $this->get('translator')->trans('Add image')]);
+    }
+
+
     public function addFuelingAction(Request $request, $carId, $masterFuelingId)
 	{
         $car = $this->loadCarById($carId);
@@ -151,7 +186,6 @@ class DefaultController extends Controller
     {
 		$car = $this->loadCarById($carId);
         return $this->render('CarBundle:Ramble:car.html.twig', array('car' => $car));
-        return $this->render('CarBundle:Default:car.html.twig', array('car' => $car));
     }
 
     public function getStatImageAction($carId)

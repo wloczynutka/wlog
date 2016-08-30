@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use CarBundle\Entity\CarDictionaryMake;
 use AppBundle\Entity\User;
+use CarBundle\Entity\CarImage;
 
 /**
  * Car
@@ -90,6 +91,11 @@ class Car
      */
     private $ownName;
 
+    /**
+     * @ORM\OneToMany(targetEntity="CarImage", mappedBy="car")
+     */
+    private $images;
+
     private $allCostAmount = 0;
 
     private $totalFuelCosts = 0;
@@ -119,6 +125,7 @@ class Car
     {
         $this->costs = new ArrayCollection();
         $this->fuelings = new ArrayCollection();
+        $this->images = new ArrayCollection();
         $this->initiateCostSummary();
     }
 
@@ -346,6 +353,39 @@ class Car
         return $this->fuelings;
     }
 
+
+    /**
+     * Add CarImage
+     *
+     * @param CarImage $image
+     * @return Car
+     */
+    public function addImage(CarImage $image)
+    {
+        $this->images[] = $image;
+        return $this;
+    }
+
+    /**
+     * Remove CarImage
+     * @param CarImage $image
+     */
+    public function removeImage(CarImage $image)
+    {
+        $this->images->removeElement($image);
+    }
+
+    /**
+     * Get CarImage
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getImages()
+    {
+        return $this->images;
+    }
+
+
     private function processPartialFuelings()
     {
         $masterFuelings = new ArrayCollection();
@@ -420,7 +460,7 @@ class Car
         $this->totalFuelCosts = 0;
         $this->totalTankedLitres = 0;
         
-		/* @var $carCost CarBundle\Entity\CarCost */
+		/* @var $carCost \CarBundle\Entity\CarCost */
 		foreach ($this->costs as $carCost) {
             $this->checkAndSetMileage($carCost->getMileage());
 		}
@@ -451,6 +491,23 @@ class Car
             $this->averageFuelConsumptionByObd = $fuelConsumptionObdSum / $fuelConsumptionObdSumCount;
         }
 	}
+
+    /**
+     * @return \CarBundle\Entity\CarImage
+     */
+    public function getAvatar()
+    {
+        /* @var $image  \CarBundle\Entity\CarImage */
+        foreach ($this->images as $image) {
+            if($image->isIsAvatar()){
+                return $image;
+            }
+        }
+        /* avatar not found, use generic image instead*/
+        $genericAvatar = new CarImage();
+        $genericAvatar->setFile('modelt1906car.png');
+        return $genericAvatar;
+    }
 
     private function checkAndSetMileage($newMileage)
     {

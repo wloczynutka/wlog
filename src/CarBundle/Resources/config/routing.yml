@@ -18,6 +18,10 @@ car_edit_fueling:
 car_add_cost:
     path:     /{_locale}/car/addcost/{carId}
     defaults: { _controller: CarBundle:Default:addCost }
+
+car_add_image:
+    path:     /{_locale}/car/addimage/{carId}
+    defaults: { _controller: CarBundle:Default:addImage }
 car_edit_cost:
     path:     /{_locale}/car/edit/cost/{costId}
     defaults: { _controller: CarBundle:Edit:editCost }
@@ -27,7 +31,7 @@ car_list_of_cars:
     requirements: 
         _locale: '%app.locales%'
 car_add_car:
-    path:     /car/add
+    path:     /{_locale}/car/add
     defaults: { _controller: CarBundle:Default:addCar }
 car_edit_car:
     path:     /{_locale}/car/edit/car/{carId}

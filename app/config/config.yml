@@ -8,6 +8,8 @@ imports:
 parameters:
     locale: pl
     app.locales: en|pl
+    image_directory: '%kernel.root_dir%/../web/uploaded_images'
+
 framework:
     translator: { fallbacks: [en] }
     secret:          "%secret%"
