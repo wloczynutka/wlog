@@ -44,24 +44,19 @@ class DefaultController extends Controller
     public function listUserCarsAction(Request $request)
     {
         $user = $this->get('security.context')->getToken()->getUser();
-        $carList = $this->getDoctrine()
-            ->getRepository('CarBundle:Car')
-            ->findByUser($user)
-        ;
+        if ($this->container->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+            $carList = $this->getDoctrine()
+                ->getRepository('CarBundle:Car')
+                ->findByUser($user)
+            ;
+        } else {
+            $carList = $this->getDoctrine()
+                ->getRepository('CarBundle:Car')
+                ->findAll();
+        }
         return $this->render('CarBundle:Ramble:listUserCars.html.twig', ['carList' => $carList]);
     }
 
-    /*
-    public function listAllCarsAction(Request $request)
-    {
-         $carList = $this->getDoctrine()
-            ->getRepository('CarBundle:Car')
-            ->findAll()
-        ;
-        return $this->render('CarBundle:Default:list.html.twig', ['carList' => $carList]);
-    }
-    */
-    
     public function addCostAction(Request $request, $carId)
     {
         $user = $this->get('security.context')->getToken()->getUser();
