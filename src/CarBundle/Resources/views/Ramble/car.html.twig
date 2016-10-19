@@ -53,6 +53,11 @@
         <h3 class="title">{% trans %}Car{% endtrans %}: {{car.make.name}} {{car.model.name}}</h3>
         <div class="col-md-4 about-left wow fadeInLeft animated" data-wow-delay=".5s" style="visibility: visible; -webkit-animation-delay: .5s;">
             <img src="{{ asset('uploaded_images/' ~ car.getAvatar().getFile() ) }}" alt="{{ car.make.name }} {{ car.model.name }}">
+            <center>
+                {% if app.user and app.user == car.user %}
+                    <a href="{{ path('car_add_image', {'carId': car.id}) }}">change</a>
+                {% endif %}
+            </center>
         </div>
         <div class="col-md-8 about-right wow fadeInRight animated" data-wow-delay=".5s" style="visibility: visible; -webkit-animation-delay: .5s;">
             <h4>
