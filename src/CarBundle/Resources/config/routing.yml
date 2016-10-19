@@ -44,7 +44,7 @@ car_export_data:
     defaults: { _controller: CarBundle:Data:export }
 car_get_charts:
     path:     /{_locale}/car/charts/{carId}
-    defaults: { _controller: CarBundle:Statistics:drawCharts }    defaults: { _controller: CarBundle:Data:export }
+    defaults: { _controller: CarBundle:Statistics:drawCharts }
 car_login:
     path:     /{_locale}/car/login
     defaults: { _controller: CarBundle:User:login }
